@@ -5,6 +5,8 @@ function [ data ] = initialise_data(varargin)
 %
 % This function is to initialise a data object.
 %
+% A data object stores data in the form of column-wise time series.
+%
 % It can be initialised empty with:
 % 
 %   my_data = initialise_data()
@@ -27,17 +29,21 @@ function [ data ] = initialise_data(varargin)
 
 %% Define all the fields as empty
 
-data.class                            = 'data';
+data.class                  = 'data';
 
-data.type                             = [];
-data.k								  = [];			% integer, number of variables
+data.type                   = [];
 
-data.x_parameters.delta_t             = [];         % integer, sampling time [seconds]
-data.x_parameters.N              	  = [];         % integer, length of the data
+data.k						= [];   % number of variables
 
-data.x_values                         = [];         % column vector (N)x(1), time vector
+data.x_parameters.delta_t   = [];   % sampling time [seconds]
 
-data.y_values                         = [];         % matrix (N)x(k), data (column-wise)
+data.x_parameters.N         = [];   % length of the data
+
+data.x_values               = [];   % column vector (N)x(1)
+                                    % time vector
+
+data.y_values               = [];   % matrix (N)x(k)
+                                    % data (column-wise)
 
 
 
