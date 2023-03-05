@@ -1,5 +1,6 @@
 function [ S ] = initialise_S(varargin)
 
+
 %% Description of the function
 %
 % This function is to initialise an S object.
@@ -31,27 +32,28 @@ function [ S ] = initialise_S(varargin)
 
 S.class                     = 'S';
 
-
 S.type                      = [];   % string ('data', 'AR', ...).
                                     % Defines the original object employed to get S
 
 S.ind_var                   = [];   % string ('f','w','k','fnode', ...)
-                                    % Defines the independen variable of S
-
+                                    % 'f': frequency [Hz]
+                                    % 'k': wave number
+                                    % Defines the independent variable of S
+    
 S.sides                     = [];   % string: '1S' or '2S'
                                     % '1S': one-sided spectrum
                                     % '2S': two-sided spectrum
 
-S.x_parameters.x_min        = [];   % Minimum frequency, the inverse of the time span
+S.x_parameters.x_min        = [];   % Minimum frequency, the inverse of the series span
 
-S.x_parameters.x_max        = [];   % Maximum frequency, related to the sampling time series
+S.x_parameters.x_max        = [];   % Maximum frequency, related to the sampling period
 
-S.x_parameters.N_x          = [];   % N_x: length of the PSD
+S.x_parameters.N            = [];   % N: length of the PSD
 
-S.x_values                  = [];   % column vector (N_x)x(1)
+S.x_values                  = [];   % column vector (N)x(1)
                                     % Frequency vector
 
-S.y_values                  = [];   % column vector (N_x)x(1)
+S.y_values                  = [];   % column vector (N)x(1)
                                     % PSD values
 
 S.y_parameters              = [];   % Additional parameters
@@ -90,6 +92,23 @@ for ii = 1:n_fields
 
 end
 
+
+
+%% Check if some fields can be completed from the input information
+
+if ~isempty(S.x_values)
+	% Check that independent variable is column-wise
+    if isrow(S.x_values); S.x_values = S.x_values'; end
+    % Complete N
+	S.x_parameters.N = size(S.x_values,1);    
+end
+
+if ~isempty(S.y_values)
+	% Check that univariate data is column-wise
+    if isrow(S.y_values); S.y_values = S.y_values'; end
+    % Complete N
+	S.x_parameters.N = size(S.y_values,1);    
+end
 
 
 

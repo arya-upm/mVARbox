@@ -15,11 +15,11 @@ function [ data ] = initialise_data(varargin)
 % 
 %   my_data = initialise_data ( 'y_values' , [1; 10; 8; 5])
 % 
-%   my_data = initialise_data ( 'y_values' , [1; 10; 8; 5], 'delta_t', 0.02)
+%   my_data = initialise_data ( 'y_values' , [1; 10; 8; 5], 'delta_x', 0.02)
 % 
 % A substructure can also be defined (make it sure all the fields inside the substructure are defined):
 % 
-%   my_x_parameters.delta_t = 0.02;
+%   my_x_parameters.delta_x = 0.02;
 %   my_x_parameters.N_data  = 1000;
 %   my_data = initialise_data ( 'x_parameters',  my_x_parameters)
 % 
@@ -31,11 +31,14 @@ function [ data ] = initialise_data(varargin)
 
 data.class                  = 'data';
 
-data.type                   = [];
+data.ind_var                = [];   % string ('t','s', ...)
+                                    % 't': time series
+                                    % 's': spatial series
+                                    % Defines the independent variable of data
 
 data.k						= [];   % number of variables
 
-data.x_parameters.delta_t   = [];   % sampling time [seconds]
+data.x_parameters.delta_x   = [];   % sampling x 
 
 data.x_parameters.N         = [];   % length of the data
 
@@ -84,17 +87,13 @@ end
 %% Check if some fields can be completed from the input information
 
 if ~isempty(data.y_values)
+    % Check that univariate data is column-wise
     if isrow(data.y_values); data.y_values = data.y_values'; end
+    % Complete N
 	data.x_parameters.N = size(data.y_values,1);
+    % Complete k
 	data.k 				= size(data.y_values,2);
+    % Complete x_values
+    data.x_values       = data.x_parameters.delta_x*(1:data.x_parameters.N)';	
 end
-
-
-if ~isempty(data.x_parameters.delta_t) && ~isempty(data.x_parameters.N)  
-	data.x_values = data.x_parameters.delta_t*(1:data.x_parameters.N)';	
-end
-
-
-
-
 
