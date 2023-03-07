@@ -11,7 +11,6 @@ function [ S ] = get_S_sample_spectrum(data, S, k_index)
 % of the data. 
 % 
 %
-%
 %% Inputs:
 %           data:       An object (structure) class 'data'
 %                       The following fields need to be defined:
@@ -26,11 +25,10 @@ function [ S ] = get_S_sample_spectrum(data, S, k_index)
 %           (k_index):  Optional parameter for multivariate input data. 
 %                       k represents the variable (column in data.y_values) for which
 %                       the sample spectrum is obtained. 
-%                       If k is a vector with two elements, [k1 k2], the output
-%                       is the CPSD between columns k1 and k2.
 %                       If k_index = 0, the sample spectrum is obtained for all the
-%                       variables stored in the data, providing a matrix of PSD's (CPSDs are 
-%                       not computed). 
+%                       variables (columns) stored in the data.
+%                       If k_index is a vector with two elements, [k1 k2], the output
+%                       is the CPSD between variables (columns) k1 and k2.
 %                       If k is not provided, the default value is k_index = 0.
 %
 %
@@ -45,6 +43,14 @@ function [ S ] = get_S_sample_spectrum(data, S, k_index)
 %                           S.x_parameters.N
 %                           S.y_values
 % 
+%
+%% Comments:
+% 
+% You can find examples of implementation of this function in the following
+% tutorials:
+%
+%   - tutorials/getting_S_from_data_through_sample_spectrum.mlx
+%
 %
 %% References:
 % 
@@ -70,6 +76,11 @@ if ~iscolumn(S.x_values)
     warning('The frequency vector S.x_values is row-wise, but it should be column-wise.\nTransposing..')    
 end
 
+% S.sides
+if strcmp(S.sides,'2S')    
+    warning('The input S was 2-sided, but this function provides 1-sided S.\nChanging from 2-sided to 1-sided')    
+end
+
 % k_index
 if ~exist('k_index','var')
     k_index = 0;
@@ -86,56 +97,70 @@ end
 % delta_x
 delta_x = data.x_parameters.delta_x;
 
+% N_data
+N_data = size(data.y_values,1);
+
 % x_values_S
 x_values_S = S.x_values;
 
-% N
-N = size(y_values_data,1);
+% N_S
+N_S = size(x_values_S,1);
 
 
 
 %% Code
 
-DTFT0 = initialise_DTFT('x_values',x_values_S);
+DTFT = initialise_DTFT('x_values',x_values_S);
 
-x_sim = N*delta_x;
+x_sim = N_data*delta_x;
 x_min = 1/x_sim;
 x_max = 1/(2*delta_x);
 
 
 % Compute auto/cross sample spectrum
 
-[ DTFT ] = get_DTFT_data(data, DTFT0, k_index);
+if length(k_index) == 1  % this case includes k=0 and any other single k value
 
-if length(k_index) == 1
+    % DTFT
+    [ DTFT ] = get_DTFT_data(data, DTFT, k_index);
 
     % PSD
-    S_2S_y_values = abs(DTFT.y_values).^2/(N*delta_x);
+    S_2S_y_values = abs(DTFT.y_values).^2/(N_data*delta_x);
+
+elseif k_index(1) == k_index(2)  
+
+    % DTFT
+    [ DTFT ] = get_DTFT_data(data, DTFT, k_index(1));
+
+    % PSD
+    S_2S_y_values = abs(DTFT.y_values).^2/(N_data*delta_x);
 
 else
 
+    % crop data.y_values
+    data.y_values = data.y_values(:,k_index);
+    % DTFT
+    [ DTFT ] = get_DTFT_data(data, DTFT, 0);
+
     % CPSD
-    S_2S_y_values = DTFT_data.y_values(:,1).*conj(DTFT_data.y_values(:,2))/(N*delta_t);
+    S_2S_y_values = DTFT.y_values(:,1).*conj(DTFT.y_values(:,2))/(N_data*delta_t);
 
 end
 
 
 
-%% Assign outputs
+%% Assign outputs: initialise S_2S and change to 1-sided
 
 S_2S = initialise_S('type','data', ...
                     'ind_var',ind_var_S, ...
                     'sides','2S', ...
                     'x_min',x_min, ...
                     'x_max',x_max, ...
-                    'N',N, ...
+                    'N',N_S, ...
+                    'x_values',x_values_S, ...
                     'y_values',S_2S_y_values);
 
 % Convert '2S'->'1S' 
 
-[ S ] = get_S_1S_from_S_2S ( S_2S );
-
-
-
-
+[ S ] = fun_get_S_1S_from_S_2S ( S_2S );
 

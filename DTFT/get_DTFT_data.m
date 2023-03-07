@@ -3,8 +3,7 @@ function [ DTFT ] = get_DTFT_data(data, DTFT, k_index)
 
 %% Description of the function
 % 
-% This function performs discrete-time Fourier transform (DTFT) for an
-% input object class 'data'. 
+% This function provides the discrete-time Fourier transform (DTFT) of a time series. 
 %
 %
 %% Inputs:
@@ -20,9 +19,9 @@ function [ DTFT ] = get_DTFT_data(data, DTFT, k_index)
 % 
 %           (k_index):  Optional parameter for multivariate input data. 
 %                       k represents the variable (column in data.y_values) for which
-%                       the DTFT is computed. 
-%                       If k_index = 0, the DTFT is obtained for all the variables
-%                       stored in the data, providing a matrix of DTFT's.
+%                       the DTFT is obtained. 
+%                       If k_index = 0, the DTFT is obtained for all the
+%                       variables (columns) stored in the data.
 %                       If k is not provided, the default value is k_index = 0.
 %
 %
@@ -37,8 +36,10 @@ function [ DTFT ] = get_DTFT_data(data, DTFT, k_index)
 %
 %% Comments:
 % 
-% e_m_H: matrix whose rows are the hermitian transpose of the complex
-% sinusoid vectors. Each row corresponds to a f_vector component.
+% You can find examples of implementation of this function in the following
+% tutorials:
+%
+%   - tutorials/getting_DTFT_from_data.mlx
 %
 %
 %% References:
@@ -70,7 +71,7 @@ if ~exist('k_index','var')
     k_index = 0;
 end
 
-if length(k_index)>2
+if length(k_index)>1
     error('Error: dim(k_vector)>1')
 end
 
@@ -102,7 +103,8 @@ N_DTFT = size(x_values_DTFT,1);
 %% Code
 
 % DTFT
-% Matrix of complex sinusoid vectors
+% e_m_H is a matrix whose rows are the hermitian transpose of the complex
+% sinusoid vectors. Each row corresponds to a f_vector component
 m = 0:(N_data-1);
 m_f = x_values_DTFT*m;
 e_m_H = exp(-1i*2*pi*m_f*delta_x);
