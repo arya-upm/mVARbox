@@ -16,6 +16,8 @@ mVARbox is free software and you can redistribute it and or modify it under the 
 
 ## Start-up
 
+To get a fresh copy of mVARbox, clone the git repository located [here](https://github.com/cristobal-GC/mVARbox). You can also [download](https://github.com/cristobal-GC/mVARbox/archive/refs/heads/main.zip) it directly.
+
 Add permanently the main folder of the toolbox to the matlab path.
 
 To start-up with mVARbox, type 'setmVARboxPath' to automatically add the whole toolbox to the matlab path. Once finished, type 'unsetmVARboxPath' to remove the toolbox from the path.
