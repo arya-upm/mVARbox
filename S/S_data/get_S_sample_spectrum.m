@@ -29,7 +29,7 @@ function [ S ] = get_S_sample_spectrum(data, S, k_index)
 %                       variables (columns) stored in the data.
 %                       If k_index is a vector with two elements, [k1 k2], the output
 %                       is the CPSD between variables (columns) k1 and k2.
-%                       If k is not provided, the default value is k_index = 0.
+%                       If k is not provided, the default value is k_index = 1.
 %
 %
 %% Outputs:
@@ -83,7 +83,7 @@ end
 
 % k_index
 if ~exist('k_index','var')
-    k_index = 0;
+    k_index = 1;
 end
 
 if length(k_index)>2
