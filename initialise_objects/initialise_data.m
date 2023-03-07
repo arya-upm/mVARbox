@@ -1,4 +1,4 @@
-function [ data ] = initialise_data(varargin)
+function [data] = initialise_data(varargin)
 
 
 %% Description of the function

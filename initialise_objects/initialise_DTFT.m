@@ -1,4 +1,4 @@
-function [ DTFT ] = initialise_DTFT(varargin)
+function [DTFT] = initialise_DTFT(varargin)
 
 
 %% Description of the function

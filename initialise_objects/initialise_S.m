@@ -1,4 +1,4 @@
-function [ S ] = initialise_S(varargin)
+function [S] = initialise_S(varargin)
 
 
 %% Description of the function

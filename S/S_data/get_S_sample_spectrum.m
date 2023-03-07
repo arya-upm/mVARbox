@@ -1,4 +1,4 @@
-function [ S ] = get_S_sample_spectrum(data, S, k_index)
+function [S] = get_S_sample_spectrum(data, S, k_index)
 
 
 %% Description of the function

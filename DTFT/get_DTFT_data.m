@@ -1,4 +1,4 @@
-function [ DTFT ] = get_DTFT_data(data, DTFT, k_index)
+function [DTFT] = get_DTFT_data(data, DTFT, k_index)
 
 
 %% Description of the function

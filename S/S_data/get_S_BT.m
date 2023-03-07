@@ -1,4 +1,6 @@
-function [ S ] = S_BT(data, S, M, k_index, VARoptions)
+function [S] = S_BT(data, S, M, k_index, VARoptions)
+
+stop('Function in development')
 
 % meter en opciones
 %   window_name

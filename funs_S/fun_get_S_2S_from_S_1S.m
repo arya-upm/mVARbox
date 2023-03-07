@@ -1,48 +1,58 @@
+function [S_2S] = fun_get_S_2S_from_S_1S (S_1S)
 
-function [ S_2S ] = fun_get_S_2S_from_S_1S ( S_1S )
-%
-%%% Description of the function
+
+%% Description of the function
 % 
 % This function converts a one-sided spectrum to two-sided
 %
 % Since for univariate the spectrum is real, the relation between
-% 1S and 2S is just a factor of 2x . However, the conjugate is implemented
-% so that this function can be employed for MV
+% 1S and 2S is just a factor of 2x . However, cross spectra may contain complex numbers.
+% For that reason, the conjugate is implemented in this function.
 %
 %
-%%% Inputs:
+%% Inputs:
 %           S_1S        An object (structure) class 'S'
 %                       The following fields need to be defined:
-%                       .sides = '1S'
-%                       .x_values
-%                       .y_values
+%                           .sides = '1S'
+%                           .x_values
+%                           .y_values  (< can be a vector or a matrix of sample spectra)
 %                       
 %
-%%% Outputs:
+%% Outputs:
 %           S_2S        An object (structure) class 'S'
 %                       The following fields are added to the object:
-%                       .sides = '2S'
-%                       .x_values
-%                       .y_values
+%                           .sides = '2S'
+%                           .x_values
+%                           .y_values  (< can be a vector or a matrix of sample spectra)
 % 
 %
 
 
-%% checks
+
+%% Checks
 
 if ~strcmp(S_1S.sides,'1S')
     error('The input spectrum does not have field "sides" = "1S"')
 end
 
+% S_1S.x_values is column
+if ~iscolumn(S_1S.x_values)
+    S_1S.x_values = transpose(S_1S.x_values);
+    warning('The frequency vector S_1S.x_values is row-wise, but it should be column-wise.\nTransposing..')    
+end
+
+% S_2S.y_values is not row (it may be a matrix)
+if isrow(S_1S.y_values)
+    S_1S.y_values = transpose(S_1S.y_values);
+    warning('The PSD S_1S.y_values is row-wise, but it should be column-wise.\nTransposing..')    
+end
 
 
-%% Unwrap relevant variables and put them into columns, in case they are row-wise
+
+%% Unwrap relevant variables
 
 x_values = S_1S.x_values;
 y_values = S_1S.y_values;
-
-if isrow(x_values); x_values = transpose(x_values); end
-if isrow(y_values); y_values = transpose(y_values); end
 
 
 
@@ -68,7 +78,7 @@ S_2S.x_values = x_values_2S;
 
 y_values_2S = [conj(flipud(y_values)) ; y_values];
 
-y_values_2S = y_values_2S(positions);
+y_values_2S = y_values_2S(positions,:);
 
 S_2S.y_values = y_values_2S/2;
 
