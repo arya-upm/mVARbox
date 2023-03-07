@@ -9,13 +9,13 @@ function [DTFT] = get_DTFT_data(data, DTFT, k_index)
 %% Inputs:
 %           data:       An object (structure) class 'data'
 %                       The following fields need to be defined:
-%                           data.ind_var
-%                           data.x_parameters.delta_x
-%                           data.y_values
+%                           .ind_var
+%                           .x_parameters.delta_x
+%                           .y_values
 %
 %           DTFT:       An object (structure) class 'DTFT'
 %                       The following fields need to be defined:
-%                           DTFT.x_values                            
+%                           .x_values                            
 % 
 %           (k_index):  Optional parameter for multivariate input data. 
 %                       k represents the variable (column in data.y_values) for which
@@ -28,10 +28,10 @@ function [DTFT] = get_DTFT_data(data, DTFT, k_index)
 %% Outputs:
 %           DTFT:       An object (structure) class 'DTFT'
 %                       The following fields are added to the object:
-%                           DTFT.type = 'data'
-%                           DTFT.ind_var
-%                           DTFT.x_parameters.N
-%                           DTFT.y_values
+%                           .type = 'data'
+%                           .ind_var
+%                           .x_parameters.N
+%                           .y_values
 % 
 %
 %% Comments:

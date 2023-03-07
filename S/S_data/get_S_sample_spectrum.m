@@ -14,13 +14,13 @@ function [S] = get_S_sample_spectrum(data, S, k_index)
 %% Inputs:
 %           data:       An object (structure) class 'data'
 %                       The following fields need to be defined:
-%                           data.ind_var
-%                           data.x_parameters.delta_x
-%                           data.y_values
+%                           .ind_var
+%                           .x_parameters.delta_x
+%                           .y_values
 %
 %           S:          An object (structure) class 'S'
 %                       The following fields need to be defined:
-%                           S.x_values
+%                           .x_values
 % 
 %           (k_index):  Optional parameter for multivariate input data. 
 %                       k represents the variable (column in data.y_values) for which
@@ -35,13 +35,13 @@ function [S] = get_S_sample_spectrum(data, S, k_index)
 %% Outputs:
 %           S:          An object (structure) class 'S'
 %                       The following fields are added to the object:
-%                           S.type = 'data'
-%                           S.ind_var
-%                           S.sides = '1S'
-%                           S.x_parameters.x_min
-%                           S.x_parameters.x_max
-%                           S.x_parameters.N
-%                           S.y_values
+%                           .type = 'data'
+%                           .ind_var
+%                           .sides = '1S'
+%                           .x_parameters.x_min
+%                           .x_parameters.x_max
+%                           .x_parameters.N
+%                           .y_values
 % 
 %
 %% Comments:
