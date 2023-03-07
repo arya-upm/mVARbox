@@ -20,9 +20,9 @@ To get a fresh copy of mVARbox, clone the git repository located [here](https://
 
 Add permanently the main folder of the toolbox to the matlab path.
 
-To start-up with mVARbox, type 'setmVARboxPath' to automatically add the whole toolbox to the matlab path. Once finished, type 'unsetmVARboxPath' to remove the toolbox from the path.
+To start-up with mVARbox, type 'setmVARboxPath' in the matlab command line to automatically add the whole toolbox to the matlab path. Once finished, type 'unsetmVARboxPath' to remove the toolbox from the path.
 
-Functions in mVARbox are implemented mainly to work with pseudo-objects (structures). Folder 'initialise_objects' contains functions to initialise different type of objects, describing the specific fields for each one.
+Functions in mVARbox are implemented to work mainly with pseudo-objects (matlab structures). Folder 'initialise_objects' contains functions to initialise different type of objects, describing the specific fields for each one.
 
 mVARbox includes a number of well-documented and illustrative examples in folder 'tutorials'.
 
