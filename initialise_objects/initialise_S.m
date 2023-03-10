@@ -48,7 +48,7 @@ S.x_parameters.x_min        = [];   % Minimum frequency, the inverse of the seri
 
 S.x_parameters.x_max        = [];   % Maximum frequency, related to the sampling period
 
-S.x_parameters.N            = [];   % N: length of the PSD
+S.x_parameters.N            = [];   % Integer, length of the PSD
 
 S.x_values                  = [];   % column vector (N)x(1)
                                     % Frequency vector
@@ -98,14 +98,14 @@ end
 
 if ~isempty(S.x_values)
 	% Check that independent variable is column-wise
-    if isrow(S.x_values); S.x_values = S.x_values'; end
+    if isrow(S.x_values); S.x_values = transpose(S.x_values); end
     % Complete N
 	S.x_parameters.N = size(S.x_values,1);    
 end
 
 if ~isempty(S.y_values)
 	% Check that univariate data is column-wise
-    if isrow(S.y_values); S.y_values = S.y_values'; end
+    if isrow(S.y_values); S.y_values = transpose(S.y_values); end
     % Complete N
 	S.x_parameters.N = size(S.y_values,1);    
 end

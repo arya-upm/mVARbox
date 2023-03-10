@@ -22,7 +22,7 @@ stop('Function in development')
 %                                   'unbiased'/'biased'
 %                                   'unbiased_matlab'/'biased_matlab'
 %                                   'unbiased_marple'/'biased_marple'
-%                                   See 'get_gamma_data' for more information.
+%                                   See function 'get_gamma_data' for more information.
 %
 
 %           (window_y_param):       optional input for object class 'window'

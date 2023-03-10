@@ -34,7 +34,7 @@ DTFT.ind_var                = [];   % string ('f','w','k','fnode', ...)
                                     % 'k': wave number
                                     % Defines the independent variable of DTFT
 
-DTFT.x_parameters.N         = [];   % N: length of the DTFT
+DTFT.x_parameters.N         = [];   % integer, length of the DTFT
 
 DTFT.x_values               = [];   % column vector (N)x(1)
                                     % Frequency vector
@@ -82,14 +82,14 @@ end
 
 if ~isempty(DTFT.x_values)
 	% Check that independent variable is column-wise
-    if isrow(DTFT.x_values); DTFT.x_values = DTFT.x_values'; end
+    if isrow(DTFT.x_values); DTFT.x_values = transpose(DTFT.x_values); end
     % Complete N
 	DTFT.x_parameters.N = size(DTFT.x_values,1);    
 end
 
 if ~isempty(DTFT.y_values)
 	% Check that univariate data is column-wise
-    if isrow(DTFT.y_values); DTFT.y_values = DTFT.y_values'; end
+    if isrow(DTFT.y_values); DTFT.y_values = transpose(DTFT.y_values); end
     % Complete N
 	DTFT.x_parameters.N = size(DTFT.x_values,1);    
 end

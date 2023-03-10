@@ -40,7 +40,7 @@ data.k						= [];   % number of variables
 
 data.x_parameters.delta_x   = [];   % sampling x 
 
-data.x_parameters.N         = [];   % length of the data
+data.x_parameters.N         = [];   % integer, length of the data
 
 data.x_values               = [];   % column vector (N)x(1)
                                     % time vector
@@ -88,7 +88,7 @@ end
 
 if ~isempty(data.y_values)
     % Check that univariate data is column-wise
-    if isrow(data.y_values); data.y_values = data.y_values'; end
+    if isrow(data.y_values); data.y_values = transpose(data.y_values); end
     % Complete N
 	data.x_parameters.N = size(data.y_values,1);
     % Complete k

@@ -12,7 +12,7 @@ function [S] = get_S_sample_spectrum(data, S, k_index)
 % 
 %
 %% Inputs:
-%           data:       An object (structure) class 'data'
+%           data:       An object (structure) class 'data'.
 %                       The following fields need to be defined:
 %                           .ind_var
 %                           .x_parameters.delta_x
@@ -33,7 +33,7 @@ function [S] = get_S_sample_spectrum(data, S, k_index)
 %
 %
 %% Outputs:
-%           S:          An object (structure) class 'S'
+%           S:          An object (structure) class 'S'.
 %                       The following fields are added to the object:
 %                           .type = 'data'
 %                           .ind_var

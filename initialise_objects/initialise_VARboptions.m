@@ -1,4 +1,4 @@
-function [ VARboptions ] = initialise_VARboptions(varargin)
+function [VARboptions] = initialise_VARboptions(varargin)
 
 
 %% Description of the function
@@ -23,29 +23,22 @@ VARboptions.class                            = 'VARboptions';
 
 
 %%% Fields related to time/lag windows for spectral estimation
-%   See function "get_window.m" for details.
+%   See function 'get_window' for details.
  
-% window_name: defines the type of window. Options:
-%               'rectangular'
-%               'triangular'
-%               'Hann'
-%               'Hamming'
-%               'Nuttall'
-%               'Truncated_Gaussian'
-%               'Chebyshev'
+% window_name: Default value for window name.
 VARboptions.window_name  =   'rectangular';
 
-% window_Nuttall_param: Specific parameters of Nuttall window
-VARboptions.window_Nuttall_param.a_r = [0.3635819 ; 
-                                       0.4891775 ; 
-                                       0.1365995 ; 
-                                       0.0106411];
+% window_y_parameters_Nuttall: Default values for Nuttall window parameters
+VARboptions.window_y_parameters_Nuttall.a_R = [0.3635819 ; 
+                                               0.4891775 ; 
+                                               0.1365995 ; 
+                                               0.0106411];
 
-% window_Truncated_Gaussian_param: Specific parameters of Truncated Gaussian window
-VARboptions.window_Truncated_Gaussian_param.alpha = 2.5; 
+% window_y_parameters_Truncated_Gaussian: Default values for Truncated Gaussian window parameters
+VARboptions.window_y_parameters_Truncated_Gaussian.alpha = 2.5; 
 
-% window_Chebyshev_param: Specific parameters of Chebyshev window
-VARboptions.window_Chebyshev_param.beta = 50;
+% window_y_parameters_Chebyshev: Default values for Chebyshev window parameters
+VARboptions.window_y_parameters_Chebyshev.beta = 50;
 
 
 
