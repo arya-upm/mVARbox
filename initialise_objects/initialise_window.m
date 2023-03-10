@@ -53,8 +53,7 @@ window.y_parameters   		  = []; 		% This is a substructure to be completed only 
                                             %   .a_R    < for Nuttall
                                             %   .alpha  < for Truncated Gaussian
                                             %   .beta   < for Chebyshev
-                                            % Default values are assessed through VARboptions
-                                            % (see function 'initialise_VARboptions' for details).
+                                            % See function 'get_window' for details.
 
 window.x_values               = [];         % Column vector (N)x(1)
                                             % for 'data' window is: [ 0; 1; ... N_window-1 ]

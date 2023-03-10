@@ -22,7 +22,8 @@ function [DTFT] = get_DTFT_data(data, DTFT, k_index)
 %                       the DTFT is obtained. 
 %                       If k_index = 0, the DTFT is obtained for all the
 %                       variables (columns) stored in the data.
-%                       If k is not provided, the default value is k_index = 0.
+%                       If k is not provided, the default value is employed (see function
+%                       'fun_default_value').
 %
 %
 %% Outputs:
@@ -68,11 +69,11 @@ end
 
 % k_index
 if ~exist('k_index','var')
-    k_index = 0;
+    k_index = fun_default_value('k_index');
 end
 
 if length(k_index)>1
-    error('Error: dim(k_vector)>1')
+    error('Error: dim(k_index)>1')
 end
 
 
@@ -81,6 +82,9 @@ end
 
 % delta_x
 delta_x = data.x_parameters.delta_x;
+
+% N_data
+N_data = size(y_values_data,1);
 
 % x_values_DTFT
 x_values_DTFT = DTFT.x_values;
@@ -92,8 +96,7 @@ else
     y_values_data = data.y_values(:,k_index);    
 end
 
-% N_data
-N_data = size(y_values_data,1);
+
 
 % N_DTFT
 N_DTFT = size(x_values_DTFT,1);
@@ -116,9 +119,9 @@ y_values_DTFT = delta_x*e_m_H*y_values_data;
 
 %% Assign outputs
 
-DTFT.type       = 'data';
-DTFT.ind_var    = ind_var_DTFT;
-DTFT.N          = N_DTFT;
-DTFT.y_values   = y_values_DTFT;
+DTFT.type           = 'data';
+DTFT.ind_var        = ind_var_DTFT;
+DTFT.x_parameters.N = N_DTFT;
+DTFT.y_values       = y_values_DTFT;
 
 

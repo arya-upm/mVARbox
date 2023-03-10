@@ -16,6 +16,7 @@ function [VARboptions] = initialise_VARboptions(varargin)
 % 
 
 
+
 %% Define all the fields with default values
 
 VARboptions.class                            = 'VARboptions';

@@ -12,12 +12,18 @@ function [ window ] = get_window(window)
 %% Inputs:
 %           window:         An object (structure) class 'window'.
 %                           The following fields need to be defined:
-%                               .type
-%                               .name
-%                               .x_parameters.N < for 'data' window must be even
-%                               (.y_parameters) < optional input required for some windows
-%                                                 that require additional parameters. 
-%                                                 See 'initialise_window' for details.
+%                               .type                               
+%                               .x_parameters.N
+%                               (.name)         < Optional input. If not provided, the 
+%                                                 default value is employed (see function
+%                                                 'fun_default_value').
+%                               (.y_parameters) < optional input required only for some windows.
+%                                                    .a_R    < for Nuttall
+%                                                    .alpha  < for Truncated Gaussian
+%                                                    .beta   < for Chebyshev
+%                                                 If required but not provided, the default 
+%                                                 value is employed (see function
+%                                                 'fun_default_value').
 % 
 %
 %% Outputs:
@@ -27,6 +33,14 @@ function [ window ] = get_window(window)
 %                               .y_values
 % 
 %
+%% Comments:
+% 
+% You can find examples of implementation of this function in the following
+% tutorials:
+%
+%   - tutorials/getting_window.mlx
+% 
+% 
 %% References:
 % 
 % S. Lawrence Marple Jr. Digital Spectral Analysis 2019, see chapter 5 and table 5.1.
@@ -37,12 +51,16 @@ function [ window ] = get_window(window)
 
 %% Checks
 
+% window.name
+if isempty(window.name)
+    window.name = fun_default_value('window.name');
+end
+
 % Check if y_parameters is required but not provided
 windows_with_y_parameters = {'Nuttall','Truncated_Gaussian','Chebyshev'};
 if any(strcmp(windows_with_y_parameters,window.name)) && isempty(window.y_parameters)
-    [VARboptions] = initialise_VARboptions();
-    eval(sprintf('field_y_parameters_name = "window_y_parameters_%s";',window.name));
-    window.y_parameters = VARboptions.(field_y_parameters_name);
+    eval(sprintf('field_name = "window.y_parameters_%s";',window.name));
+    window.y_parameters = fun_default_value(field_name);
     warning('Using default parameters for window %s',window.name)
 end
 

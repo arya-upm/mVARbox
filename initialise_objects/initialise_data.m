@@ -49,7 +49,6 @@ data.y_values               = [];   % matrix (N)x(k)
                                     % data (column-wise)
 
 
-
 %% Allocate inputs
 
 % check that the number of inputs is even

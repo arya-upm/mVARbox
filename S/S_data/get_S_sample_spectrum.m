@@ -29,7 +29,8 @@ function [S] = get_S_sample_spectrum(data, S, k_index)
 %                       variables (columns) stored in the data.
 %                       If k_index is a vector with two elements, [k1 k2], the output
 %                       is the CPSD between variables (columns) k1 and k2.
-%                       If k is not provided, the default value is k_index = 1.
+%                       If k is not provided, the default value is employed (see function
+%                       'fun_default_value').
 %
 %
 %% Outputs:
@@ -83,11 +84,11 @@ end
 
 % k_index
 if ~exist('k_index','var')
-    k_index = 1;
+    k_index = fun_default_value('k_index');
 end
 
 if length(k_index)>2
-    error('Error: dim(k_vector)>2')
+    error('Error: dim(k_index)>2')
 end
 
 
@@ -119,27 +120,20 @@ x_max = 1/(2*delta_x);
 
 % Compute auto/cross sample spectrum
 
-if length(k_index) == 1  % this case includes k=0 and any other single k value
+if length(k_index) == 1 || k_index(1) == k_index(2) 
 
     % DTFT
-    [ DTFT ] = get_DTFT_data(data, DTFT, k_index);
+    [DTFT] = get_DTFT_data(data, DTFT, k_index(1));
 
     % PSD
-    S_2S_y_values = abs(DTFT.y_values).^2/(N_data*delta_x);
-
-elseif k_index(1) == k_index(2)  
-
-    % DTFT
-    [ DTFT ] = get_DTFT_data(data, DTFT, k_index(1));
-
-    % PSD
-    S_2S_y_values = abs(DTFT.y_values).^2/(N_data*delta_x);
+    S_2S_y_values = (abs(DTFT.y_values)).^2/(N_data*delta_x);
 
 else
 
     % crop data.y_values
     data.y_values = data.y_values(:,k_index);
-    % DTFT
+
+    % DTFT for both time series, k_index(1) and k_index(2)
     [ DTFT ] = get_DTFT_data(data, DTFT, 0);
 
     % CPSD
@@ -162,5 +156,5 @@ S_2S = initialise_S('type','data', ...
 
 % Convert '2S'->'1S' 
 
-[ S ] = fun_get_S_1S_from_S_2S ( S_2S );
+[ S ] = fun_S_1S_from_S_2S ( S_2S );
 

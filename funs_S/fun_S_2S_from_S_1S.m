@@ -1,4 +1,4 @@
-function [S_2S] = fun_get_S_2S_from_S_1S (S_1S)
+function [S_2S] = fun_S_2S_from_S_1S (S_1S)
 
 
 %% Description of the function

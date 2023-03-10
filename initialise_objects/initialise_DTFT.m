@@ -21,6 +21,7 @@ function [DTFT] = initialise_DTFT(varargin)
 % 
 
 
+
 %% Define all the fields as empty
 
 DTFT.class                  = 'DTFT';
