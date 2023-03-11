@@ -41,7 +41,6 @@ function [S] = get_S_sample_spectrum(data, S, k_index)
 %                           .sides = '1S'
 %                           .x_parameters.x_min
 %                           .x_parameters.x_max
-%                           .x_parameters.N
 %                           .y_values
 % 
 %
@@ -104,9 +103,6 @@ N_data = size(data.y_values,1);
 % x_values_S
 x_values_S = S.x_values;
 
-% N_S
-N_S = size(x_values_S,1);
-
 
 
 %% Code
@@ -145,16 +141,14 @@ end
 
 %% Assign outputs: initialise S_2S and change to 1-sided
 
-S_2S = initialise_S('type','data', ...
+[S_2S] = initialise_S('type','data', ...
                     'ind_var',ind_var_S, ...
                     'sides','2S', ...
                     'x_min',x_min, ...
                     'x_max',x_max, ...
-                    'N',N_S, ...
                     'x_values',x_values_S, ...
                     'y_values',S_2S_y_values);
 
 % Convert '2S'->'1S' 
-
-[ S ] = fun_S_1S_from_S_2S ( S_2S );
+[S] = fun_S_1S_from_S_2S (S_2S);
 

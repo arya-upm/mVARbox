@@ -32,8 +32,8 @@ function [data] = initialise_data(varargin)
 data.class                  = 'data';
 
 data.ind_var                = [];   % string ('t','s', ...)
-                                    % 't': time series
-                                    % 's': spatial series
+                                    %   't': time series
+                                    %   's': spatial series
                                     % Defines the independent variable of data
 
 data.k						= [];   % number of variables
@@ -43,10 +43,12 @@ data.x_parameters.delta_x   = [];   % sampling x
 data.x_parameters.N         = [];   % integer, length of the data
 
 data.x_values               = [];   % column vector (N)x(1)
-                                    % time vector
+                                    % time/space vector
 
 data.y_values               = [];   % matrix (N)x(k)
-                                    % data (column-wise)
+                                    % data (column-wise). 
+									% Note that mVARbox supports only real data (not complex-valued data)
+
 
 
 %% Allocate inputs

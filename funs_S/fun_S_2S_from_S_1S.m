@@ -58,32 +58,24 @@ y_values = S_1S.y_values;
 
 %% code
 
-
 S_2S = S_1S;
 
-S_2S.sides = '2S';
-
-
 % replicate x_values, and remove repeated elements (f=0, if it is present)
-
 x_values_2S = [-flipud(x_values) ; x_values];
-
 [x_values_2S , positions] = unique(x_values_2S);
-
 S_2S.x_values = x_values_2S;
-
 
 % replicate y_values, and pick up only those given by 'positions' (i.e. to remove repeated
 % frequencies)
-
 y_values_2S = [conj(flipud(y_values)) ; y_values];
-
 y_values_2S = y_values_2S(positions,:);
-
-S_2S.y_values = y_values_2S/2;
-
+y_values_2S = y_values_2S/2;
 
 
 
+%% asses outputs
+
+S_2S.sides = '2S';
+S_2S.y_values = y_values_2S;
 
 

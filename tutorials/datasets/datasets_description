@@ -1,0 +1,25 @@
+
+
+
+##### case_02_VAR_2V
+
+Synthetic 2-variate time series generated with a restricted VAR(5) model.
+
+	N 		= 1000
+	delta_t	= 0.05
+
+Includes true Covariance Matrix Function and CPSDM of the VAR model.
+
+
+Contains:	
+
+	- VAR
+	- data_VAR
+	- GammaMV_VAR
+	- CPSDM_VAR
+
+
+
+
+
+

@@ -7,7 +7,7 @@ function [DTFT] = get_DTFT_data(data, DTFT, k_index)
 %
 %
 %% Inputs:
-%           data:       An object (structure) class 'data'
+%           data:       An object (structure) class 'data'.
 %                       The following fields need to be defined:
 %                           .ind_var
 %                           .x_parameters.delta_x
@@ -83,9 +83,6 @@ end
 % delta_x
 delta_x = data.x_parameters.delta_x;
 
-% N_data
-N_data = size(y_values_data,1);
-
 % x_values_DTFT
 x_values_DTFT = DTFT.x_values;
 
@@ -96,7 +93,8 @@ else
     y_values_data = data.y_values(:,k_index);    
 end
 
-
+% N_data
+N_data = size(y_values_data,1);
 
 % N_DTFT
 N_DTFT = size(x_values_DTFT,1);
@@ -119,9 +117,10 @@ y_values_DTFT = delta_x*e_m_H*y_values_data;
 
 %% Assign outputs
 
-DTFT.type           = 'data';
-DTFT.ind_var        = ind_var_DTFT;
-DTFT.x_parameters.N = N_DTFT;
-DTFT.y_values       = y_values_DTFT;
+[DTFT] = initialise_DTFT('type','data',...
+                         'ind_var',ind_var_DTFT,...
+                         'N',N_DTFT,...
+                         'x_values',x_values_DTFT,...
+                         'y_values',y_values_DTFT);
 
 

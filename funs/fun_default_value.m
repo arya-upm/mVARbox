@@ -19,6 +19,7 @@ switch name
 
 	case 'window.y_parameters_Chebyshev'; default_value.beta = 50;
 			
+	case 'gamma_fun.method'; default_value = 'biased_matlab';
 
     otherwise warning('Field or variable "%s" has no default value',name);
 
