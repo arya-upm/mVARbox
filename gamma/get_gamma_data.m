@@ -23,8 +23,8 @@ function [gamma_fun] = get_gamma_data(data, gamma_fun, k_index)
 %           gamma_fun:  An object (sctructure) class 'gamma'.
 %                       The following fields need to be defined:
 %                           .x_parameters.M
-%                           (.method) Optional field. If empty, the default value is 
-%                                     employed (see function 'fun_default_value')
+%                           (.method) < Optional field. If empty, the default value is 
+%                                       employed (see function 'fun_default_value')
 %
 %           (k_index):  Optional parameter for multivariate input data. 
 %                       k represents the variable (column in data.y_values) for which
@@ -41,7 +41,8 @@ function [gamma_fun] = get_gamma_data(data, gamma_fun, k_index)
 %                           .type = 'data'
 %                           .xlag_values 
 %                           .y_values 
-%                           (.x_parameters.delta_x) < inherited from data.x_parameters.delta_x 
+%                           (.ind_var)  < inherited from data.ind_var
+%                           (.x_parameters.delta_x)  < inherited from data.x_parameters.delta_x 
 % 
 % 
 %% Comments:
@@ -78,14 +79,18 @@ function [gamma_fun] = get_gamma_data(data, gamma_fun, k_index)
 
 %% Checks
 
-% method
+% gamma_fun.method
 if isempty(gamma_fun.method)
     gamma_fun.method = fun_default_value('gamma_fun.method');
 end
 
 % k_index
 if ~exist('k_index','var')
-    k_index = fun_default_value('k_index');
+    if size(data.y_values,2)>1
+        k_index = fun_default_value('k_index');
+    else
+        k_index = 1;
+    end
 end
 
 if length(k_index) == 1
@@ -172,6 +177,7 @@ end
 
 [gamma_fun] = initialise_gamma('type', 'data',...
                                'method', method,...
+							   'ind_var', data.ind_var,...
                                'delta_x', data.x_parameters.delta_x,...
                                'M', M,...
                                'xlag_values', lag_vector,...

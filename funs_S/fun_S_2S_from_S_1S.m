@@ -15,7 +15,7 @@ function [S_2S] = fun_S_2S_from_S_1S (S_1S)
 %                       The following fields need to be defined:
 %                           .sides = '1S'
 %                           .x_values
-%                           .y_values  (< can be a vector or a matrix of sample spectra)
+%                           .y_values  < can be a vector or a matrix of sample spectra
 %                       
 %
 %% Outputs:
@@ -23,7 +23,8 @@ function [S_2S] = fun_S_2S_from_S_1S (S_1S)
 %                       The following fields are added to the object:
 %                           .sides = '2S'
 %                           .x_values
-%                           .y_values  (< can be a vector or a matrix of sample spectra)
+%                           .y_values  < can be a vector or a matrix of sample spectra
+%                           .x_parameters.N  < updated, not necessarily the same as in S_1S
 % 
 %
 
@@ -58,12 +59,9 @@ y_values = S_1S.y_values;
 
 %% code
 
-S_2S = S_1S;
-
 % replicate x_values, and remove repeated elements (f=0, if it is present)
 x_values_2S = [-flipud(x_values) ; x_values];
 [x_values_2S , positions] = unique(x_values_2S);
-S_2S.x_values = x_values_2S;
 
 % replicate y_values, and pick up only those given by 'positions' (i.e. to remove repeated
 % frequencies)
@@ -73,9 +71,13 @@ y_values_2S = y_values_2S/2;
 
 
 
-%% asses outputs
+%% Assign outputs
+
+S_2S = S_1S;
 
 S_2S.sides = '2S';
+S_2S.x_values = x_values_2S;
 S_2S.y_values = y_values_2S;
+S_2S.x_parameters.N = length(x_values_2S);
 
 

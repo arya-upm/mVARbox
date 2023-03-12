@@ -1,4 +1,4 @@
-function [ window ] = get_window(window)
+function [window] = get_window(window)
 
 
 %% Description of the function
@@ -61,7 +61,6 @@ windows_with_y_parameters = {'Nuttall','Truncated_Gaussian','Chebyshev'};
 if any(strcmp(windows_with_y_parameters,window.name)) && isempty(window.y_parameters)
     eval(sprintf('field_name = "window.y_parameters_%s";',window.name));
     window.y_parameters = fun_default_value(field_name);
-    warning('Using default parameters for window %s',window.name)
 end
 
 

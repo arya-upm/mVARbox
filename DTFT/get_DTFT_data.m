@@ -31,7 +31,6 @@ function [DTFT] = get_DTFT_data(data, DTFT, k_index)
 %                       The following fields are added to the object:
 %                           .type = 'data'
 %                           .ind_var
-%                           .x_parameters.N
 %                           .y_values
 % 
 %
@@ -53,7 +52,7 @@ function [DTFT] = get_DTFT_data(data, DTFT, k_index)
 
 %% Checks
  
-% data.ind_var it time
+% data.ind_var is time
 switch data.ind_var
     case 't'
         ind_var_DTFT = ('f');
@@ -69,7 +68,11 @@ end
 
 % k_index
 if ~exist('k_index','var')
-    k_index = fun_default_value('k_index');
+    if size(data.y_values,2)>1
+        k_index = fun_default_value('k_index');
+    else
+        k_index = 1;
+    end
 end
 
 if length(k_index)>1
@@ -96,21 +99,17 @@ end
 % N_data
 N_data = size(y_values_data,1);
 
-% N_DTFT
-N_DTFT = size(x_values_DTFT,1);
-
 
 
 %% Code
 
-% DTFT
 % e_m_H is a matrix whose rows are the hermitian transpose of the complex
-% sinusoid vectors. Each row corresponds to a f_vector component
+% sinusoid vectors. Each row corresponds to a x_values_DTFT component
 m = 0:(N_data-1);
-m_f = x_values_DTFT*m;
-e_m_H = exp(-1i*2*pi*m_f*delta_x);
+f_m = x_values_DTFT*m;
+e_m_H = exp(-1i*2*pi*f_m*delta_x);
 
-% Discrete-time Fourier transform (DTFT) for N samples
+% Discrete-time Fourier transform (DTFT)
 y_values_DTFT = delta_x*e_m_H*y_values_data;
 
 
@@ -119,7 +118,6 @@ y_values_DTFT = delta_x*e_m_H*y_values_data;
 
 [DTFT] = initialise_DTFT('type','data',...
                          'ind_var',ind_var_DTFT,...
-                         'N',N_DTFT,...
                          'x_values',x_values_DTFT,...
                          'y_values',y_values_DTFT);
 

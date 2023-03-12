@@ -15,7 +15,7 @@ function [S_1S] = fun_S_1S_from_S_2S (S_2S)
 %                       The following fields need to be defined:
 %                           .sides = '2S'
 %                           .x_values
-%                           .y_values  (< can be a vector or a matrix of sample spectra)
+%                           .y_values  < can be a vector or a matrix of sample spectra
 %                       
 %
 %% Outputs:
@@ -23,7 +23,8 @@ function [S_1S] = fun_S_1S_from_S_2S (S_2S)
 %                       The following fields are added to the object:
 %                           .sides = '1S'
 %                           .x_values
-%                           .y_values  (< can be a vector or a matrix of sample spectra)
+%                           .y_values  < can be a vector or a matrix of sample spectra
+%                           .x_parameters.N  < updated, not necessarily the same as in S_2S
 %
 %
 
@@ -59,8 +60,6 @@ y_values(x_values<0,:) = conj(y_values(x_values<0,:));
 
 %% code
 
-S_1S = S_2S;
-
 % take negative, zero and positive frequency values, and put them x2 in the positive side
 [x_values_1S , positions] = sort((abs(x_values)));
 y_values_1S = y_values(positions,:)*2;
@@ -70,11 +69,14 @@ y_values_1S = y_values(positions,:)*2;
 y_values_1S = y_values_1S(positions,:);
 
 
-%% asses outputs
+%% Assign outputs
+
+S_1S = S_2S;
 
 S_1S.sides = '1S';
 S_1S.x_values = x_values_1S;
 S_1S.y_values = y_values_1S;
+S_1S.x_parameters.N = length(x_values_1S);
 
 
 

@@ -35,41 +35,46 @@ function [gamma_fun] = initialise_gamma(varargin)
 
 gamma_fun.class                 = 'gamma';
 
-gamma_fun.type                  = [];           % string, indicates the object to which the 
-                                                % gamma function is associated
-                                                %   'AR': From auto regressive model
-                                                %   'MA': From moving average model
-                                                %   'data': Estimated from data
-                                                %   ...
+gamma_fun.type                  = [];       % string, indicates the object to which the 
+                                            % gamma function is associated
+                                            %   'AR': From auto regressive model
+                                            %   'MA': From moving average model
+                                            %   'data': Estimated from data
+                                            %   ...
 
-gamma_fun.method                = [];           % string, indicates estimation method   
-                                                %   'theoretical' if type is different from 'data'
-                                                %   'unbiased' (estimated with mVARbox function) 
-                                                %   'biased' (estimated with mVARbox function)
-                                                %   'unbiased_matlab' (estimated with matlab native 
-												%					   function 'xcov')
-                                                %   'biased_matlab' (estimated with matlab native 
-												%					 function 'xcov')
-												% Matlab native function 'xcov' is computationally 
-												% efficient if input data length is a power of 2.
-                                                % Usually, 'biased' method is preferred to 'unbiased'
-                                                % because it guarantees a positive semi-definite
-                                                % covariance function. It also oscillates less
-                                                % for large lag values.
+gamma_fun.method                = [];       % string, indicates estimation method   
+                                            %   'theoretical' if type is different from 'data'
+                                            %   'unbiased' (estimated with mVARbox function) 
+                                            %   'biased' (estimated with mVARbox function)
+                                            %   'unbiased_matlab' (estimated with matlab native 
+											%					   function 'xcov')
+                                            %   'biased_matlab' (estimated with matlab native 
+											%					 function 'xcov')
+											% Matlab native function 'xcov' is computationally 
+											% efficient if input data length is a power of 2.
+                                            % Usually, 'biased' method is preferred to 'unbiased'
+                                            % because it guarantees a positive semi-definite
+                                            % covariance function. It also oscillates less
+                                            % for large lag values.
+
+gamma_fun.ind_var               = [];   	% string ('t','s', ...)
+                                   		 	%   't': time series
+                                    		%   's': spatial series
+                                   			% Defines the independent variable of data
 												
-gamma_fun.x_parameters.delta_x  = [];         	% sampling x 
+gamma_fun.x_parameters.delta_x  = [];       % sampling x 
 
-gamma_fun.x_parameters.M  		= [];          	% integer, maximum lag 
+gamma_fun.x_parameters.M  		= [];       % integer, maximum lag 
 
-gamma_fun.x_parameters.N 		= [];			% integer, number of elements, N = 2M + 1
+gamma_fun.x_parameters.N 		= [];		% integer, number of elements, N = 2M + 1
 
-gamma_fun.x_values              = [];           % column vector (2M+1)x(1) 
-                                                % values in independent variable domain
+gamma_fun.x_values              = [];       % column vector (2M+1)x(1) 
+                                            % values in independent variable domain
 
-gamma_fun.xlag_values           = [];           % column vector (2M+1)x(1) 
-                                                % lag index, [ -M ; ... ; M ]
+gamma_fun.xlag_values           = [];       % column vector (2M+1)x(1) 
+                                            % lag index, [ -M ; ... ; M ]
 
-gamma_fun.y_values              = [];           % column vector (2M+1)x(1)
+gamma_fun.y_values              = [];       % column vector (2M+1)x(1)
 
 
 

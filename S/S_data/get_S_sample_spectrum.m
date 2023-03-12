@@ -41,6 +41,7 @@ function [S] = get_S_sample_spectrum(data, S, k_index)
 %                           .sides = '1S'
 %                           .x_parameters.x_min
 %                           .x_parameters.x_max
+%                           .x_parameters.N
 %                           .y_values
 % 
 %
@@ -83,7 +84,11 @@ end
 
 % k_index
 if ~exist('k_index','var')
-    k_index = fun_default_value('k_index');
+    if size(data.y_values,2)>1
+        k_index = fun_default_value('k_index');
+    else
+        k_index = 1;
+    end
 end
 
 if length(k_index)>2
@@ -107,11 +112,11 @@ x_values_S = S.x_values;
 
 %% Code
 
-DTFT = initialise_DTFT('x_values',x_values_S);
-
 x_sim = N_data*delta_x;
 x_min = 1/x_sim;
 x_max = 1/(2*delta_x);
+
+DTFT = initialise_DTFT('x_values',x_values_S);
 
 
 % Compute auto/cross sample spectrum
@@ -142,13 +147,13 @@ end
 %% Assign outputs: initialise S_2S and change to 1-sided
 
 [S_2S] = initialise_S('type','data', ...
-                    'ind_var',ind_var_S, ...
-                    'sides','2S', ...
-                    'x_min',x_min, ...
-                    'x_max',x_max, ...
-                    'x_values',x_values_S, ...
-                    'y_values',S_2S_y_values);
+                      'ind_var',ind_var_S, ...
+                      'sides','2S', ...
+                      'x_min',x_min, ...
+                      'x_max',x_max, ...
+                      'x_values',x_values_S, ...
+                      'y_values',S_2S_y_values);
 
-% Convert '2S'->'1S' 
+% Convert '2S'->'1S', which updates S.x_parameters.N 
 [S] = fun_S_1S_from_S_2S (S_2S);
 

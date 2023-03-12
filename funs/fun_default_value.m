@@ -26,3 +26,5 @@ switch name
 end
 
 
+warning('\nUsing default value for variable/field %s.\nSee function "fun_default_values" for details.\n',name)
+

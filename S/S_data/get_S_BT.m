@@ -1,38 +1,4 @@
-function [S] = S_BT(data, S, M, k_index, VARoptions)
-
-stop('Function in development')
-
-% meter en opciones
-%   window_name
-%   gamma_fun_method
-%   window_y_param
-
-%           window_name:            select window.name (from object class
-%                                   'window'). String:
-%                                   'rectangular'
-%                                   'triangular'
-%                                   'Hann'
-%                                   'Hamming'
-%                                   'Nuttall'
-%                                   'Truncated_Gaussian'
-%                                   'Chebyshev'
-
-%
-%           gamma_fun_method:       select method for estimating gamma_fun:
-%                                   'unbiased'/'biased'
-%                                   'unbiased_matlab'/'biased_matlab'
-%                                   'unbiased_marple'/'biased_marple'
-%                                   See function 'get_gamma_data' for more information.
-%
-
-%           (window_y_param):       optional input for object class 'window'
-%                                   case 'Nuttall': input is a_r column vector
-%                                   case 'Truncated_Gaussian': input is alpha (integer)
-%                                   case 'Chebyshev': input is beta (integer)
-%                                   To default values specify as empty: []
-%                                   See 'get_window' for more information.
-% 
-%
+function [S] = get_S_BT(data, S, gamma_fun, window, k_index)
 
 
 %% Description of the function
@@ -42,50 +8,63 @@ stop('Function in development')
 % 
 % The method consists on the following steps:
 %   (1) estimate the autocovariance function for lags -M:M
-%   (2) apply an odd-length lag window with (2*M+1) points to (1) output.
-%   (3) compute the DTFT of (2) output.
+%   (2) apply a lag window
+%   (3) compute the DTFT
 %
 % Note that the choice of parameter M (maximum lag) is critical in the
 % quality of the estimated PSD.
 % 
 %
 %% Inputs:
-%           data:           An object (structure) class 'data'
-%                           The following fields need to be defined:
-%                               data.ind_var
-%                               data.x_parameters.delta_x
-%                               data.y_values
+%           data:       An object (structure) class 'data'
+%                       The following fields need to be defined:
+%                           .ind_var
+%                           .x_parameters.delta_x
+%                           .y_values
 % 
-%           S:              An object (structure) class 'S'
-%                           The following fields need to be defined:
-%                               S.x_values
+%           S:          An object (structure) class 'S'
+%                       The following fields need to be defined:
+%                           .x_values
 % 
-%           M:              Integer, the maximum lag
+%           gamma_fun:  An object (sctructure) class 'gamma'.
+%                       The following fields need to be defined:
+%                           .x_parameters.M
+%                           (.method) < Optional field. If empty, the default value is 
+%                                       employed (see function 'fun_default_value')
 %
-%           (k_index):      Optional parameter for multivariate input data. 
-%                           k represents the variable (column in data.y_values) for which
-%                           the PSD is obtained. 
-%                           If k_index is a vector with two elements, [k1 k2], the output
-%                           is the CPSD between variables (columns) k1 and k2.
-%                           If k is not provided, the default value is k_index = 1.
+%           (window):   An object (structure) class 'window'.
+%                       Optional object, if not provided, default values are considered
+%                       for the required fields.
+%                       The following fields need to be defined:
+%                           (.name)         < Optional input. If not provided, the 
+%                                             default value is employed (see function
+%                                             'fun_default_value').
+%                           (.y_parameters) < optional input required only for some windows.
+%                                                .a_R    < for Nuttall
+%                                                .alpha  < for Truncated Gaussian
+%                                                .beta   < for Chebyshev
+%                                             If required but not provided, the default 
+%                                             value is employed (see function
+%                                             'fun_default_value').
 % 
-%           (VARoptions):   An object (sctructure) class 'VARoptions'
-%                           If not provided, default values are employed.
-%                           The following fields are employed:
-%                               VARoptions.
-% 
+%           (k_index):  Optional parameter for multivariate input data. 
+%                       k represents the variable (column in data.y_values) for which
+%                       the PSD is obtained. 
+%                       If k_index is a vector with two elements, [k1 k2], the output
+%                       is the CPSD between variables (columns) k1 and k2.
+%                       If k is not provided, the default value is employed (see function
+%                       'fun_default_value').
 % 
 % 
 %% Outputs:
 %           S:          An object (structure) class 'S'
 %                       The following fields are added to the object:
-%                           S.type = 'data'
-%                           S.ind_var
-%                           S.sides = '1S'
-%                           S.x_parameters.x_min
-%                           S.x_parameters.x_max
-%                           S.x_parameters.N
-%                           S.y_values
+%                           .type = 'data'
+%                           .ind_var
+%                           .sides = '1S'
+%                           .x_parameters.x_min
+%                           .x_parameters.x_max
+%                           .y_values
 % 
 %
 %% Comments:
@@ -110,7 +89,7 @@ stop('Function in development')
 % data.ind_var it time
 switch data.ind_var
     case 't'
-        ind_var_DTFT = ('f');
+        % Nothing happents, because DTFT.ind_var = 'f' comes through gamma_fun.ind_var = 't'
     otherwise
         stop('Operation still not supported for data domain other than time')
 end
@@ -126,9 +105,40 @@ if strcmp(S.sides,'2S')
     warning('The input S was 2-sided, but this function provides 1-sided S.\nChanging from 2-sided to 1-sided')    
 end
 
+% gamma_fun.method
+if isempty(gamma_fun.method)
+    gamma_fun.method = fun_default_value('gamma_fun.method');
+end
+
+% window
+if ~exist('window','var')
+    window = initialise_window();
+end
+
+% window.name
+if isempty(window.name)
+    window.name = fun_default_value('window.name');
+end
+
+% window.name
+if isempty(window.name)
+    window.name = fun_default_value('window.name');
+end
+
+% Check if y_parameters is required but not provided
+windows_with_y_parameters = {'Nuttall','Truncated_Gaussian','Chebyshev'};
+if any(strcmp(windows_with_y_parameters,window.name)) && isempty(window.y_parameters)
+    eval(sprintf('field_name = "window.y_parameters_%s";',window.name));
+    window.y_parameters = fun_default_value(field_name);
+end
+
 % k_index
 if ~exist('k_index','var')
-    k_index = 1;
+    if size(data.y_values,2)>1
+        k_index = fun_default_value('k_index');
+    else
+        k_index = 1;
+    end
 end
 
 if length(k_index)>2
@@ -145,64 +155,73 @@ delta_x = data.x_parameters.delta_x;
 % N_data
 N_data = size(data.y_values,1);
 
+% M_gamma_fun
+M_gamma_fun = gamma_fun.x_parameters.M;
+
 % x_values_S
 x_values_S = S.x_values;
 
-% N_S
-N_S = size(x_values_S,1);
-
 
 
 %% Code
+
+x_sim = N_data*delta_x;
+x_min = 1/x_sim;
+x_max = 1/(2*delta_x);
+
+
+%%% (1) estimate the autocovariance function for lags -M:M
+
+[gamma_fun] = get_gamma_data(data, gamma_fun, k_index);
+
+y_values_gamma_fun = gamma_fun.y_values;
+
+
+
+%%% (2) apply a lag window
 
 % Compute object class 'window' (lag window)
-N_window = 2*M+1;
+window.type = 'lag_window';
+window.x_parameters.N = 2*M_gamma_fun+1;
+[window] = get_window(window);
 
-if ~exist('window_y_param','var') || isempty(window_y_param)
-    [window] = get_window('lag_window', window_name, N_window);
+y_values_window = window.y_values;
 
-else
-    [window] = get_window('lag_window', window_name, N_window, window_y_param);
-    
-end
-
-
-% Check if the field 'S.ind_var' is empty
-ind_var = S.ind_var;
-
-if isempty(ind_var) == 0 && ind_var ~= 'f'
-    warning('field "S.ind_var" is being replaced because this estimator requires "f"')
-end
-
-
-
-%% Code
-
-% Compute object class 'gamma'
-[gamma_fun] = get_gamma_data(data, gamma_fun_method, M, k_index);
-
-% DTFT
 % Windowed autocovariance function
-gamma_fun.y_values = window.y_values.*gamma_fun.y_values;
-
-% Discrete-time Fourier transform (DTFT) of the windowed autocovariance function
-[DTFT_gamma] = get_DTFT_gamma(gamma_fun, f_vector);
+gamma_fun.y_values = y_values_window.*y_values_gamma_fun;
 
 
 
-%% Assign outputs
+%%%   (3) compute the DTFT
 
-S.type = 'data';
+DTFT = initialise_DTFT('x_values',x_values_S);
 
-S.ind_var = 'f';
-
-S.sides = '2S';
-
-S.x_parameters.x_min = 1/((size(data.y_values,1)-1)*delta_t);
-S.x_parameters.x_max = 1/(2*delta_t);
-S.x_parameters.N_x = length(f_vector);
-
-S.y_values = DTFT_gamma.y_values;
+[DTFT] = get_DTFT_gamma(gamma_fun, DTFT);
 
 
-convert 2S to 1S
+ind_var_S       = DTFT.ind_var;
+S_2S_y_values   = DTFT.y_values;
+
+
+% Remove imaginary part of S_2S_y_values if it is very small
+if max(abs(imag(S_2S_y_values))) < 1e-7
+    S_2S_y_values = real(S_2S_y_values);
+end
+
+
+
+%% Assign outputs: initialise S_2S and change to 1-sided
+
+[S_2S] = initialise_S('type','data', ...
+                      'ind_var',ind_var_S, ...
+                      'sides','2S', ...
+                      'x_min',x_min, ...
+                      'x_max',x_max, ...
+                      'x_values',x_values_S, ...
+                      'y_values',S_2S_y_values);
+
+% Convert '2S'->'1S', which updates S.x_parameters.N 
+[S] = fun_S_1S_from_S_2S (S_2S);
+
+
+
