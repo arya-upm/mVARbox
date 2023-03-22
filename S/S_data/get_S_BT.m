@@ -11,7 +11,7 @@ function [S] = get_S_BT(data, S, gamma_fun, window, k_index)
 %   (2) apply a lag window
 %   (3) compute the DTFT
 %
-% Note that the choice of parameter M (maximum lag) is critical in the
+% Note that the choice for parameter M (maximum lag) is critical in the
 % quality of the estimated PSD.
 % 
 %
@@ -111,13 +111,8 @@ if isempty(gamma_fun.method)
 end
 
 % window
-if ~exist('window','var')
+if ~exist('window','var') || isempty(window)
     window = initialise_window();
-end
-
-% window.name
-if isempty(window.name)
-    window.name = fun_default_value('window.name');
 end
 
 % window.name
@@ -133,7 +128,7 @@ if any(strcmp(windows_with_y_parameters,window.name)) && isempty(window.y_parame
 end
 
 % k_index
-if ~exist('k_index','var')
+if ~exist('k_index','var') || isempty(k_index)
     if size(data.y_values,2)>1
         k_index = fun_default_value('k_index');
     else
@@ -142,7 +137,7 @@ if ~exist('k_index','var')
 end
 
 if length(k_index)>2
-    error('Error: dim(k_vector)>2')
+    error('Error: dim(k_index)>2')
 end
 
 

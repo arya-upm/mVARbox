@@ -83,7 +83,7 @@ if strcmp(S.sides,'2S')
 end
 
 % k_index
-if ~exist('k_index','var')
+if ~exist('k_index','var') || isempty(k_index)
     if size(data.y_values,2)>1
         k_index = fun_default_value('k_index');
     else
@@ -135,7 +135,7 @@ else
     data.y_values = data.y_values(:,k_index);
 
     % DTFT for both time series, k_index(1) and k_index(2)
-    [ DTFT ] = get_DTFT_data(data, DTFT, 0);
+    [DTFT] = get_DTFT_data(data, DTFT, 0);
 
     % CPSD
     S_2S_y_values = DTFT.y_values(:,1).*conj(DTFT.y_values(:,2))/(N_data*delta_t);
