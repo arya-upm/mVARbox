@@ -107,7 +107,6 @@ function [S, S_seg] = get_S_Welch(data, S, N_seg, overlap, window, k_index)
 %% Checks
  
 % data.ind_var it time
-
 switch data.ind_var
     case 't'
         ind_var_S = ('f');
