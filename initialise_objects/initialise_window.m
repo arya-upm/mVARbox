@@ -40,16 +40,16 @@ window.name                   = [];         % string, name of the window. Option
                                             %   'triangular'
                                             %   'Hann'
                                             %   'Hamming' 
-                                            %   'Nuttall' (*)
-                                            %   'Truncated_Gaussian' (*)
-                                            %   'Chebyshev' (*)
+                                            %   'Nuttall' (P)
+                                            %   'Truncated_Gaussian' (P)
+                                            %   'Chebyshev' (P)
 
 window.x_parameters.N         = [];         % integer, length of the window
                                             % for 'data' window must be even
                                             % for 'lag' window must be odd
 
-window.y_parameters   		  = []; 		% This is a substructure to be completed only for 
-                                            % windows marked with (*) in the list above.
+window.y_parameters           = []; 		% This is a substructure to be completed only for 
+                                            % windows marked with (P) in the list above.
                                             %   .a_R    < for Nuttall
                                             %   .alpha  < for Truncated Gaussian
                                             %   .beta   < for Chebyshev
