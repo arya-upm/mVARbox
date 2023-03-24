@@ -67,7 +67,7 @@ if ~iscolumn(DTFT.x_values)
 end
 
 % k_index
-if ~exist('k_index','var')
+if ~exist('k_index','var') || isempty(k_index)
     if size(data.y_values,2)>1
         k_index = fun_default_value('k_index');
     else
