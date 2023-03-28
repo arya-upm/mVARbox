@@ -5,10 +5,19 @@ function [gamma_fun] = initialise_gamma(varargin)
 %
 % This function is to initialise a gamma object (auto/cross covariance function).
 %
-% The independent variable is the lag, ranging from -M to M. Note that the autocovariance
-% function of a real time series is by definition an even function, which implies that
-% its DTFT is real (no imaginary component). The crosscovariance function is not 
-% necessarily even; in that case, its DTFT has imaginary part.
+% The independent variable is the lag, ranging from -M to M. 
+%
+% The employed definition of auto/cross covariance function is the one employed in [1]:
+%
+%       Cov_xy[lag] = Cov( x[t+lag] , y[t] ) = Cov( x[t] , y[t-lag] )
+%
+% Some works use a definition changing the order of the variables  x[t+lag] and y[t]. This 
+% has no impact for the autocovariance because this function is even. But for the
+% case of the cross-covariance, which is not necessarily symmetric, the employed 
+% definition is important.
+% 
+% The output of this function is set to "gamma_fun" and not just "gamma" to avoid 
+% conflicts with matlab native function "gamma".
 % 
 % It can be initialised empty with:
 % 
@@ -26,6 +35,13 @@ function [gamma_fun] = initialise_gamma(varargin)
 %   my_x_parameters.M 		= 2;
 %   my_x_parameters.N 		= 5;
 %   my_gamma_fun = initialise_gamma ( 'x_parameters',  my_x_parameters)
+% 
+%
+%% References:
+% 
+% [1] Gallego-Castillo, C. et al., A tutorial on reproducing a predefined autocovariance 
+%     function through AR models: Application to stationary homogeneous isotropic 
+%     turbulence, Stochastic Environmental Research and Risk Assessment, 2021.
 % 
 % 
 
@@ -64,7 +80,7 @@ gamma_fun.ind_var               = [];   	% string ('t','s', ...)
 												
 gamma_fun.x_parameters.delta_x  = [];       % sampling x 
 
-gamma_fun.x_parameters.M  		= [];       % integer, maximum lag 
+gamma_fun.x_parameters.M  		= [];       % integer, the number of positive lags (not including 0)
 
 gamma_fun.x_parameters.N 		= [];		% integer, number of elements, N = 2M + 1
 

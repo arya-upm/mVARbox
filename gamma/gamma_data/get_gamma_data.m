@@ -6,14 +6,6 @@ function [gamma_fun] = get_gamma_data(data, gamma_fun, k_index)
 % This function computes the unbiased/biased auto/cross covariance function
 % estimation from data.
 % 
-% The employed definition of covariance function is the one employed in [1]:
-%
-%       Cov_xy[lag] = Cov( x[t] , y[t-lag] ) )
-%
-% In other works, the definition uses x[t] and y[t+lag]. Both definitions provide the
-% same autocovariance function because it is symmetryc, but this is not the case of the 
-% cross covariance function.
-% 
 %
 %% Inputs:
 %           data:       An object (structure) class 'data'. 
@@ -30,7 +22,8 @@ function [gamma_fun] = get_gamma_data(data, gamma_fun, k_index)
 %                       k represents the variable (column in data.y_values) for which
 %                       the autocovariance function is obtained. 
 %                       If k_index is a vector with two elements, [k1 k2], the output
-%                       is the cross covariance function between variables (columns) k1 and k2.
+%                       is the cross covariance function between variables (columns) k1 
+%                       and k2.
 %                       If k is not provided, the default value is employed (see function
 %                       'fun_default_value').
 %
@@ -42,7 +35,8 @@ function [gamma_fun] = get_gamma_data(data, gamma_fun, k_index)
 %                           .xlag_values 
 %                           .y_values 
 %                           (.ind_var)  < inherited from data.ind_var
-%                           (.x_parameters.delta_x)  < inherited from data.x_parameters.delta_x 
+%                           (.x_parameters.delta_x)  < inherited from 
+%                                                      data.x_parameters.delta_x 
 % 
 % 
 %% Comments:
@@ -52,13 +46,9 @@ function [gamma_fun] = get_gamma_data(data, gamma_fun, k_index)
 %
 %   - tutorials/getting_gamma_from_data.mlx
 % 
-% 
-% The output of this function is set to "gamma_fun" and not just "gamma" to avoid overlapping 
-% with matlab native function "gamma".
-%
 % This function computes the autocovariance function, defined as the second central
-% moment (about the mean) as a function of the lag. In order to compute the second non-central 
-% moment (about zero), the following expression can be employed:
+% moment (about the mean) as a function of the lag. In order to compute the second 
+% non-central moment (about zero), the following expression can be employed:
 %
 % [non-central second moment] = [central second moment] + mu^2
 %
@@ -68,8 +58,8 @@ function [gamma_fun] = get_gamma_data(data, gamma_fun, k_index)
 %% References:
 % 
 % [1] Gallego-Castillo, C. et al., A tutorial on reproducing a predefined autocovariance 
-%     function through AR models: Application to stationary homogeneous isotropic turbulence,
-%     Stochastic Environmental Research and Risk Assessment, 2021.
+%     function through AR models: Application to stationary homogeneous isotropic 
+%     turbulence, Stochastic Environmental Research and Risk Assessment, 2021.
 % 
 % [2] S. Lawrence Marple Jr. Digital Spectral Analysis 2019 (see chapter 5)
 % 

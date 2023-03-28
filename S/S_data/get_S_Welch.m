@@ -74,7 +74,7 @@ function [S, S_seg] = get_S_Welch(data, S, N_seg, overlap, window, k_index)
 %                           .y_values
 %
 % 
-%           (S_seg)		Optional output. Object (sctructure) class 'S' with the 
+%           (S_seg):	Optional output. Object (sctructure) class 'S' with the 
 %                       sample spectra ensemble employed to get the Welch 
 %                       estimation.
 %                       The following fields are included in the object:

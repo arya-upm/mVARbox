@@ -21,6 +21,7 @@ To get a fresh copy of **mVARbox**, clone the git repository located [here](http
 Functions in mVARbox are implemented to work mainly with pseudo-objects (matlab structures). The following classes are included:
 
 - `data`, to handle time series.
+- `AR`, to handle autoregressive models.
 - `gamma` to handle auto/cross covariance functions.
 - `S` to handle auto/cross power spectral densities.
 - `window` to handle time/lag windows.

@@ -6,6 +6,11 @@ function [DTFT] = get_DTFT_gamma(gamma_fun, DTFT)
 % This function provides the discrete-time Fourier transform (DTFT) of a 
 % covariance function. 
 % 
+% Note that the autocovariance function of a real time series is by definition an even 
+% function, which implies that its DTFT is real (no imaginary component). The 
+% cross-covariance function is not necessarily even; in that case, its DTFT has imaginary 
+% part.
+% 
 % 
 %% Inputs:
 %           gamma_fun:  An object (structure) class 'gamma'

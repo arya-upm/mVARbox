@@ -17,7 +17,8 @@ function [S] = initialise_S(varargin)
 % 
 %   S = initialise_S ( 'x_min', 0, 'x_max', 10 )
 % 
-% A substructure can also be defined (make it sure all the fields inside the substructure are defined):
+% A substructure can also be defined (make it sure all the fields inside the substructure 
+% are defined):
 % 
 %   my_x_parameters.x_min  = 0;
 %   my_x_parameters.x_max  = 10;

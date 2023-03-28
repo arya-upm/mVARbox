@@ -13,6 +13,8 @@ switch name
 
     case 'k_index'; default_value = 1;
 
+	case 'linsys_solving_method'; default_value = 'mldivide';
+
 	case 'N_seg'; default_value = 8;	
 
 	case 'overlap'; default_value = 0.5;	
