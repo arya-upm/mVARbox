@@ -24,7 +24,7 @@ function [gamma_fun] = get_gamma_AR (AR, gamma_fun)
 %% Outputs:
 %           gamma_fun:  An object (structure) class 'gamma'
 %                       The following fields are added to the object:
-%						    .type  : 'AR'                           
+%						    .type = 'AR'                           
 %                           .y_values
 %
 %
@@ -34,8 +34,9 @@ function [gamma_fun] = get_gamma_AR (AR, gamma_fun)
 %     Wiley, 2013
 % 
 % [2] Gallego-Castillo, C. et al., A tutorial on reproducing a predefined autocovariance 
-%     function through AR models: Application to stationary homogeneous isotropic turbulence,
-%     Stochastic Environmental Research and Risk Assessment, 2021.
+%     function through AR models: Application to stationary homogeneous isotropic 
+%     turbulence, Stochastic Environmental Research and Risk Assessment, 2021. 
+%     DOI: 10.1007/s00477-021-02156-0
 %
 %
 %% Comments:
@@ -53,7 +54,7 @@ function [gamma_fun] = get_gamma_AR (AR, gamma_fun)
 
 % Check if the AR model is provided in restricted form. If so, complete unrestricted.
 if isempty(AR.parameters.phi_vector) && ~isempty(AR.restricted_parameters.a_vector)
-    AR = get_phi_from_a ( AR );
+    AR = fun_phi_vector_from_a_vector(AR);
 elseif isempty(AR.parameters.phi_vector)
     error('AR regression coefficients not provided')
 end
@@ -75,7 +76,7 @@ phi_vector  = AR.parameters.phi_vector;
 sigma       = AR.parameters.sigma;
 
 % M
-M           = gamma_fun.M;
+M           = gamma_fun.x_parameters.M;
 
 
 
@@ -97,36 +98,36 @@ else
 end
 
 
-%%% Define matrix M, from the system of equations:
+%%% Define matrix A, from the system of equations:
 %
-%  M * [ gamma(-p) ... gamma(0) ... gamma(M) ]' = [ 0 ... sigma2 ... 0 ]'
+%  A * [ gamma(-p) ... gamma(0) ... gamma(M) ]' = [ 0 ... sigma2 ... 0 ]'
 
-M = eye(M+p+1);
+A = eye(M+p+1);
 
 for ii = 1:p
-    M = M + diag( -phi_vector(ii)*ones(1,M-ii+p+1) , -ii);
+    A = A + diag( -phi_vector(ii)*ones(1,M-ii+p+1) , -ii);
 end
 
 
 %%% Remove first p row-columns, related to autocovariances at -p , -p+1 , -p+2 , ... , -1
 
-Mred = M(p+1:end,p+1:end);
+Ared = A(p+1:end,p+1:end);
 
 
 %%% Re-allocate the removed columns in Ared appropriately
 
 for jj = 2:p+1
     
-    Mred(:,jj) = Mred(:,jj) + M(p+1:end,p-jj+2);    
+    Ared(:,jj) = Ared(:,jj) + A(p+1:end,p-jj+2);    
     
 end
 
 
-%%% Define matrix N, from the system of equations:
+%%% Define matrix B, from the system of equations:
 %
-% Mred * [ gamma (0) ... gamma(M) ].' = N
+% Ared * [ gamma (0) ... gamma(M) ].' = B
     
-N = [ sigma2 ; zeros(M,1) ] ;
+B = [ sigma2 ; zeros(M,1) ] ;
 
 
 
@@ -134,7 +135,7 @@ N = [ sigma2 ; zeros(M,1) ] ;
 
 linsys_solving_method = 'mldivide';
 
-y_values_positive_lags = fun_solve_linear_system (Mred, N, linsys_solving_method);
+y_values_positive_lags = fun_solve_linear_system (Ared, B, linsys_solving_method);
 
 
 
@@ -147,11 +148,11 @@ end
 y_values = [ flipud(y_values_positive_lags(2:end)) ; y_values_positive_lags];
 
 
+
 %% Assign outputs
 
-[gamma_fun] = initialise_gamma('type', 'AR',...
-                               'M', M,...
-                               'y_values', y_values);
+gamma_fun.type      = 'AR';
+gamma_fun.y_values  = y_values;
 
 
 

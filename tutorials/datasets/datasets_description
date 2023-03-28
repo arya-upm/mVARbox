@@ -10,7 +10,6 @@ Synthetic 2-variate time series generated with a restricted VAR(5) model.
 
 Includes true Covariance Matrix Function and CPSDM of the VAR model.
 
-
 Contains:	
 
 	- VAR
@@ -22,4 +21,15 @@ Contains:
 
 
 
+### case_03_AR
+
+Restricted autoregressive model from Section 3.1 of [1]
+
+Contains:
+
+	- AR
+
+[1] Gallego-Castillo, C. et al., A tutorial on reproducing a predefined autocovariance 
+    function through AR models: Application to stationary homogeneous isotropic turbulence,
+    Stochastic Environmental Research and Risk Assessment. DOI: 10.1007/s00477-021-02156-0
 

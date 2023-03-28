@@ -52,6 +52,12 @@ These are support functions to perform secondary operations. They are not intend
 
 
 
+### Function `fun_default_value`
+
+This is a special function located in folder [funs/](https://github.com/cristobal-GC/mVARbox/tree/main/funs). It contains default values for a number of parameters and fields. When optional input parameters are ommited, they take their value from here. Users may change default values editing this function.
+
+
+
 ### Tutorials
 
 **mVARbox** includes a number of well-documented and illustrative tutorials. You will find them in folder [tutorials/](https://github.com/cristobal-GC/mVARbox/tree/main/tutorials). The corresponding [pdf files](http://arya.dave.upm.es/library/mVARbox_tutorials/) are also available.

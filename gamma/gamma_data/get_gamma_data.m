@@ -59,7 +59,8 @@ function [gamma_fun] = get_gamma_data(data, gamma_fun, k_index)
 % 
 % [1] Gallego-Castillo, C. et al., A tutorial on reproducing a predefined autocovariance 
 %     function through AR models: Application to stationary homogeneous isotropic 
-%     turbulence, Stochastic Environmental Research and Risk Assessment, 2021.
+%     turbulence, Stochastic Environmental Research and Risk Assessment, 2021. 
+%     DOI: 10.1007/s00477-021-02156-0
 % 
 % [2] S. Lawrence Marple Jr. Digital Spectral Analysis 2019 (see chapter 5)
 % 

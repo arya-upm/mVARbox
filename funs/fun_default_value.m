@@ -7,6 +7,9 @@ function [default_value] = fun_default_value(name)
 % 
 % 
 
+no_warning = 0;
+
+
 switch name
 
 	case 'gamma_fun.method'; default_value = 'biased_matlab';
@@ -14,6 +17,8 @@ switch name
     case 'k_index'; default_value = 1;
 
 	case 'linsys_solving_method'; default_value = 'mldivide';
+
+	case 'rcond_tolerance'; default_value = 1e-4; no_warning = 1;
 
 	case 'N_seg'; default_value = 8;	
 
@@ -33,5 +38,9 @@ switch name
 end
 
 
-warning('\nUsing default value for variable/field %s.\nSee function "fun_default_values" for details.\n',name)
+if no_warning == 0
+
+	warning('\nUsing default value for variable/field %s.\nSee function "fun_default_values" for details.\n',name)
+
+end
 
