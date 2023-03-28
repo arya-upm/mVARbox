@@ -75,9 +75,9 @@ y_values_2S = y_values_2S/2;
 
 S_2S = S_1S;
 
-S_2S.sides = '2S';
-S_2S.x_values = x_values_2S;
-S_2S.y_values = y_values_2S;
-S_2S.x_parameters.N = length(x_values_2S);
+S_2S = fun_append_S(S_2S,...
+                    'sides','2S',...
+                    'x_values',x_values_2S,...
+                    'y_values',y_values_2S);
 
 

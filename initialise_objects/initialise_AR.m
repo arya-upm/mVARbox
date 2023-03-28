@@ -83,40 +83,7 @@ for ii = 1:n_fields
     field_label = varargin{field_label_position};
     field_value = varargin{field_value_position};
 
+    [AR] = fun_append_AR(AR, field_label, field_value);
     
-    % check within first level fields
-    if any(strcmp(field_label,fieldnames(AR)))
-        AR.(field_label) = field_value;
-    % check within second level: AR.parameters
-    elseif any(strcmp(field_label,fieldnames(AR.parameters)))
-        AR.parameters.(field_label) = field_value;
-    % check within second level: AR.restricted_parameters
-    elseif any(strcmp(field_label,fieldnames(AR.restricted_parameters)))
-        AR.restricted_parameters.(field_label) = field_value;
-    % check within second level: AR.poles
-    elseif any(strcmp(field_label,fieldnames(AR.poles)))
-        AR.poles.(field_label) = field_value;
-    % check within third level: AR.poles
-    elseif any(strcmp(field_label,fieldnames(AR.poles.poles_AR_struct)))
-        AR.poles.poles_AR_struct.(field_label) = field_value;  
-    % Error, field not found
-    else
-        error('\n ERROR: Name %s is not a valid field label for this object',field_label)
-    end
-
-end
-
-
-
-%% Check if some fields can be completed from the input information
-
-if ~isempty(AR.parameters.phi_vector)
-    % Complete p
-	AR.p = size(AR.parameters.phi_vector,2);
-end
-
-if ~isempty(AR.restricted_parameters.j_vector)
-    % Complete p
-	AR.p = AR.restricted_parameters.j_vector(end);
 end
 

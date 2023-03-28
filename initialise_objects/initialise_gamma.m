@@ -113,43 +113,10 @@ for ii = 1:n_fields
     field_value = varargin{field_value_position};
 
     
-    % check within first level fields
-    if any(strcmp(field_label,fieldnames(gamma_fun)))
-        gamma_fun.(field_label) = field_value; 
-    % check within second level: gamma_fun.x_parameters
-    elseif any(strcmp(field_label,fieldnames(gamma_fun.x_parameters)))
-        gamma_fun.x_parameters.(field_label) = field_value;           
-    % Error, field not found
-    else
-        error('\n ERROR: Name %s is not a valid field label for this object',field_label)
-    end
+   [gamma_fun] = fun_append_gamma(gamma_fun, field_label, field_value);
 
 end
 
 
 
-%% Check if some fields can be completed from the input information
-
-if ~isempty(gamma_fun.x_parameters.M)
-    % Complete N
-    gamma_fun.x_parameters.N = 2*gamma_fun.x_parameters.M+1;
-    % Complete xlag_values
-    gamma_fun.xlag_values = transpose(-gamma_fun.x_parameters.M:gamma_fun.x_parameters.M);
-end
-
-if ~isempty(gamma_fun.y_values)
-    % Check that y_values is column-wise
-    if isrow(gamma_fun.y_values); gamma_fun.y_values = transpose(gamma_fun.y_values); end
-    % Complete N
-	gamma_fun.x_parameters.N = length(gamma_fun.y_values);
-    % Complete M
-	gamma_fun.x_parameters.M = (gamma_fun.x_parameters.N-1)/2;
-    % Complete xlag_values    
-	gamma_fun.xlag_values = transpose(-gamma_fun.x_parameters.M:gamma_fun.x_parameters.M);
-end
-
-%% Check if delta_x exists, to create x_values
-if ~isempty(gamma_fun.x_parameters.delta_x) && ~isempty(gamma_fun.xlag_values)
-    gamma_fun.x_values = gamma_fun.x_parameters.delta_x*gamma_fun.xlag_values;
-end
 

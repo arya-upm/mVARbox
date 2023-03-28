@@ -82,16 +82,7 @@ for ii = 1:n_fields
     field_value = varargin{field_value_position};
 
     
-    % check within first level fields
-    if any(strcmp(field_label,fieldnames(window)))
-        window.(field_label) = field_value; 
-    % check within second level: window.x_parameters
-    elseif any(strcmp(field_label,fieldnames(window.x_parameters)))
-        window.x_parameters.(field_label) = field_value;   
-    % Error, field not found
-    else
-        error('\n ERROR: Name %s is not a valid field label for this object',field_label)
-    end
+   [window] = fun_append_window(window, field_label, field_value);
 
 end
 

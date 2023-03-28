@@ -151,8 +151,9 @@ y_values = [ flipud(y_values_positive_lags(2:end)) ; y_values_positive_lags];
 
 %% Assign outputs
 
-gamma_fun.type      = 'AR';
-gamma_fun.y_values  = y_values;
+gamma_fun = fun_append_gamma(gamma_fun,...
+                             'type','AR',...
+                             'y_values',y_values);
 
 
 

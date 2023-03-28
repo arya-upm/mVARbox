@@ -164,14 +164,7 @@ end
 
 
 
-%% Assign outputs
-
-gamma_fun.type 			= 'data';
-gamma_fun.xlag_values	= lag_vector;
-gamma_fun.y_values		= gamma_values;
-
-							
-% inherited 
+%% inherited 
 
 if ~isempty(data.ind_var)
 	gamma_fun.ind_var = data.ind_var;
@@ -181,4 +174,16 @@ if ~isempty(data.x_parameters.delta_x)
 	gamma_fun.x_parameters.delta_x = data.x_parameters.delta_x;
 	gamma_fun.x_values = gamma_fun.xlag_values*gamma_fun.x_parameters.delta_x;
 end
+
+
+
+%% Assign outputs
+
+gamma_fun = fun_append_gamma(gamma_fun,...
+                             'type','data',...
+                             'xlag_values',lag_vector,...
+                             'y_values',gamma_values);
+
+							
+
 

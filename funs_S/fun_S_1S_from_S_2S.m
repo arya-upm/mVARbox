@@ -73,10 +73,11 @@ y_values_1S = y_values_1S(positions,:);
 
 S_1S = S_2S;
 
-S_1S.sides = '1S';
-S_1S.x_values = x_values_1S;
-S_1S.y_values = y_values_1S;
-S_1S.x_parameters.N = length(x_values_1S);
+S_1S = fun_append_S(S_1S,...
+                    'sides','1S',...
+                    'x_values',x_values_1S,...
+                    'y_values',y_values_1S);
+
 
 
 

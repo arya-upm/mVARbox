@@ -64,33 +64,10 @@ for ii = 1:n_fields
     field_value = varargin{field_value_position};
 
     
-    % check within first level fields
-    if any(strcmp(field_label,fieldnames(DTFT)))
-        DTFT.(field_label) = field_value;
-    % check within second level: DTFT.x_parameters
-    elseif any(strcmp(field_label,fieldnames(DTFT.x_parameters)))
-        DTFT.x_parameters.(field_label) = field_value;
-    % Error, field not found
-    else
-        error('\n ERROR: Name %s is not a valid field label for this object',field_label)
-    end
+   [DTFT] = fun_append_DTFT(DTFT, field_label, field_value);
 
 end
 
 
 
-%% Check if some fields can be completed from the input information
 
-if ~isempty(DTFT.x_values)
-	% Check that independent variable is column-wise
-    if isrow(DTFT.x_values); DTFT.x_values = transpose(DTFT.x_values); end
-    % Complete N
-	DTFT.x_parameters.N = size(DTFT.x_values,1);    
-end
-
-if ~isempty(DTFT.y_values)
-	% Check that univariate data is column-wise
-    if isrow(DTFT.y_values); DTFT.y_values = transpose(DTFT.y_values); end
-    % Complete N
-	DTFT.x_parameters.N = size(DTFT.x_values,1);    
-end

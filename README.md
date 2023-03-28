@@ -48,7 +48,7 @@ Sometimes, specific parameters not contained in a object field are also required
 
 ### Functions `fun_`
 
-These are support functions to perform secondary operations. They are not intended to be employed directly by users.
+These are support functions to perform secondary operations. Users generally do not need to deal with them.
 
 
 

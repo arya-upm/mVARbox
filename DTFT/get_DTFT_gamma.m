@@ -94,7 +94,8 @@ y_values_DTFT = delta_x*e_m_H*y_values_gamma_fun;
 
 %% Assign outputs
 
-DTFT.type 		= 'gamma';
-DTFT.ind_var	= ind_var_DTFT;
-DTFT.y_values	= y_values_DTFT;
+DTFT = fun_append_DTFT(DTFT,...
+                       'type','gamma',...
+                       'ind_var',ind_var_DTFT,...
+                       'y_values',y_values_DTFT);
 

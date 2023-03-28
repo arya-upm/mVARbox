@@ -66,7 +66,7 @@ end
 
 %% Assign outputs
 
-AR.parameters.phi_vector   = phi_vector;
-AR.p                       = p;
+AR = fun_append_AR(AR,...
+                   'phi_vector',phi_vector);
 
 

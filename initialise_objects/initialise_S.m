@@ -80,36 +80,10 @@ for ii = 1:n_fields
     field_value = varargin{field_value_position};
 
     
-    % check within first level fields
-    if any(strcmp(field_label,fieldnames(S)))
-        S.(field_label) = field_value;
-    % check within second level: S.x_parameters
-    elseif any(strcmp(field_label,fieldnames(S.x_parameters)))
-        S.x_parameters.(field_label) = field_value;
-    % Error, field not found
-    else
-        error('\n ERROR: Name %s is not a valid field label for this object',field_label)
-    end
+   [S] = fun_append_S(S, field_label, field_value);
 
 end
 
-
-
-%% Check if some fields can be completed from the input information
-
-if ~isempty(S.x_values)
-	% Check that independent variable is column-wise
-    if isrow(S.x_values); S.x_values = transpose(S.x_values); end
-    % Complete N
-	S.x_parameters.N = size(S.x_values,1);    
-end
-
-if ~isempty(S.y_values)
-	% Check that univariate data is column-wise
-    if isrow(S.y_values); S.y_values = transpose(S.y_values); end
-    % Complete N
-	S.x_parameters.N = size(S.y_values,1);    
-end
 
 
 

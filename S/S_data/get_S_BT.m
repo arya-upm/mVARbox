@@ -191,7 +191,7 @@ gamma_fun.y_values = y_values_window.*y_values_gamma_fun;
 
 DTFT = initialise_DTFT('x_values',x_values_S);
 
-[DTFT] = get_DTFT_gamma(gamma_fun, DTFT);
+DTFT = get_DTFT_gamma(gamma_fun, DTFT);
 
 
 ind_var_S       = DTFT.ind_var;
@@ -205,9 +205,10 @@ end
 
 
 
-%% Assign outputs: initialise S_2S and change to 1-sided
+%% Assign outputs to S_2S, and change to 1-sided
 
-[S_2S] = initialise_S('type','data', ...
+[S_2S] = fun_append_S(S,...
+                      'type','data', ...
                       'ind_var',ind_var_S, ...
                       'sides','2S', ...
                       'x_min',x_min, ...

@@ -168,8 +168,8 @@ end
 
 %% Assign outputs
 
-window.x_values     = x_values;
-
-window.y_values     = y_values;
+window = fun_append_window(window,...
+                           'x_values',x_values,...
+                           'y_values',y_values);
 
 
