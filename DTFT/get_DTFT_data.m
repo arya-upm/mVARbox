@@ -116,9 +116,7 @@ y_values_DTFT = delta_x*e_m_H*y_values_data;
 
 %% Assign outputs
 
-[DTFT] = initialise_DTFT('type','data',...
-                         'ind_var',ind_var_DTFT,...
-                         'x_values',x_values_DTFT,...
-                         'y_values',y_values_DTFT);
-
+DTFT.type 		= 'data';
+DTFT.ind_var	= ind_var_DTFT;
+DTFT.y_values	= y_values_DTFT;
 
