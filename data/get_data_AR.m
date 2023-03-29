@@ -30,6 +30,14 @@ function [data] = get_data_AR(AR, data)
 %                       .y_values < matrix (N)x(k)
 % 
 % 
+%% Comments:
+% 
+% % You can find examples of implementation of this function in the following
+% tutorials:
+%
+%   - tutorials/getting_data_from_AR.mlx
+%
+%
 
 
 
