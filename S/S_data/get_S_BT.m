@@ -94,12 +94,6 @@ switch data.ind_var
         stop('Operation still not supported for data domain other than time')
 end
 
-% S.x_values is column
-if ~iscolumn(S.x_values)
-    S.x_values = transpose(S.x_values);
-    warning('The frequency vector S.x_values is row-wise, but it should be column-wise.\nTransposing..')    
-end
-
 % S.sides
 if strcmp(S.sides,'2S')    
     warning('The input S was 2-sided, but this function provides 1-sided S.\nChanging from 2-sided to 1-sided')    

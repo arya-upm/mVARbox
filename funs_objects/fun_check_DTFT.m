@@ -12,7 +12,7 @@ function [DTFT] = fun_check_DTFT(DTFT)
 
 if ~isempty(DTFT.x_values)
 	% Check that independent variable is column-wise
-    if isrow(DTFT.x_values); DTFT.x_values = transpose(DTFT.x_values); end
+    if ~iscolumn(DTFT.x_values); DTFT.x_values = transpose(DTFT.x_values); end
     % Complete N
 	DTFT.x_parameters.N = size(DTFT.x_values,1);    
 end

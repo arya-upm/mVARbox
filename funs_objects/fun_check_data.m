@@ -16,9 +16,12 @@ if ~isempty(data.y_values)
     % Complete N
 	data.x_parameters.N = size(data.y_values,1);
     % Complete k
-	data.k 				= size(data.y_values,2);
+	data.k 				= size(data.y_values,2);	
+end
+
+if ~isempty(data.y_values) && ~isempty(data.x_parameters.delta_x)
     % Complete x_values
-    data.x_values       = data.x_parameters.delta_x*(1:data.x_parameters.N)';	
+    data.x_values       = data.x_parameters.delta_x*transpose(1:data.x_parameters.N);
 end
 
 

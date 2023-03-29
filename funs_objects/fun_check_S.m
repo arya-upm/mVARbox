@@ -12,7 +12,7 @@ function [S] = fun_check_S(S)
 
 if ~isempty(S.x_values)
 	% Check that independent variable is column-wise
-    if isrow(S.x_values); S.x_values = transpose(S.x_values); end
+    if ~iscolumn(S.x_values); S.x_values = transpose(S.x_values); end
     % Complete N
 	S.x_parameters.N = size(S.x_values,1);    
 end

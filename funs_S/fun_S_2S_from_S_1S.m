@@ -36,12 +36,6 @@ if ~strcmp(S_1S.sides,'1S')
     error('The input spectrum does not have field "sides" = "1S"')
 end
 
-% S_1S.x_values is column
-if ~iscolumn(S_1S.x_values)
-    S_1S.x_values = transpose(S_1S.x_values);
-    warning('The frequency vector S_1S.x_values is row-wise, but it should be column-wise.\nTransposing..')    
-end
-
 % S_2S.y_values is not row (it may be a matrix)
 if isrow(S_1S.y_values)
     S_1S.y_values = transpose(S_1S.y_values);

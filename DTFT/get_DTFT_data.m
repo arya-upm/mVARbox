@@ -60,12 +60,6 @@ switch data.ind_var
         stop('Operation still not supported for data domain other than time')
 end
 
-% DTFT.x_values is column
-if ~iscolumn(DTFT.x_values)
-    DTFT.x_values = transpose(DTFT.x_values);
-    warning('The frequency vector DTFT.x_values is row-wise, but it should be column-wise.\nTransposing..')    
-end
-
 % k_index
 if ~exist('k_index','var') || isempty(k_index)
     if size(data.y_values,2)>1

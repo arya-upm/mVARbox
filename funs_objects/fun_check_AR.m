@@ -11,11 +11,20 @@ function [AR] = fun_check_AR(AR)
 
 
 if ~isempty(AR.parameters.phi_vector)
+	% check phi_vector is row vector
+	if iscolumn(AR.parameters.phi_vector); AR.parameters.phi_vector = transpose(AR.parameters.phi_vector); end
     % Complete p
 	AR.p = size(AR.parameters.phi_vector,2);
 end
 
+if ~isempty(AR.restricted_parameters.a_vector)
+	% check a_vector is row vector
+	if iscolumn(AR.restricted_parameters.a_vector); AR.restricted_parameters.a_vector = transpose(AR.restricted_parameters.a_vector); end
+end
+
 if ~isempty(AR.restricted_parameters.j_vector)
+	% check j_vector is row vector
+	if iscolumn(AR.restricted_parameters.j_vector); AR.restricted_parameters.j_vector = transpose(AR.restricted_parameters.j_vector); end
     % Complete p
 	AR.p = AR.restricted_parameters.j_vector(end);
 end

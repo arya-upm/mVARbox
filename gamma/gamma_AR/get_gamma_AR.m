@@ -1,4 +1,4 @@
-function [gamma_fun] = get_gamma_AR (AR, gamma_fun)
+function [gamma_fun] = get_gamma_AR(AR, gamma_fun)
 
 
 %% Description of the function
@@ -52,7 +52,8 @@ function [gamma_fun] = get_gamma_AR (AR, gamma_fun)
 
 %% Checks
 
-% Check if the AR model is provided in restricted form. If so, complete unrestricted.
+% Check if the AR model is provided in restricted form. If so, complete 
+% unrestricted.
 if isempty(AR.parameters.phi_vector) && ~isempty(AR.restricted_parameters.a_vector)
     AR = fun_phi_vector_from_a_vector(AR);
 elseif isempty(AR.parameters.phi_vector)

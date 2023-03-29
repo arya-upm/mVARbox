@@ -48,12 +48,12 @@ AR.p                                = [];   % Integer, model order (the highest 
                                             % considered)
 
                                             % Model parameters (unrestricted version):
-AR.parameters.phi_vector            = [];   % Regression coefficients 
+AR.parameters.phi_vector            = [];   % Row vector, regression coefficients 
 AR.parameters.sigma                 = [];   % Noise coefficient
 
                                             % Model parameters (restricted version):
-AR.restricted_parameters.j_vector   = [];   % lag vector
-AR.restricted_parameters.a_vector   = [];   % Regression coefficients
+AR.restricted_parameters.j_vector   = [];   % Row vector, lag vector
+AR.restricted_parameters.a_vector   = [];   % Row vector, regression coefficients
 AR.restricted_parameters.b          = [];   % Noise coefficient
 
 AR.poles.N_real                     = [];   % Integer, number or real poles

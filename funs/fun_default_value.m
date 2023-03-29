@@ -14,6 +14,8 @@ switch name
 
 	case 'gamma_fun.method'; default_value = 'biased_matlab';
 
+    case 'k'; default_value = 1;
+
     case 'k_index'; default_value = 1;
 
 	case 'linsys_solving_method'; default_value = 'mldivide';
