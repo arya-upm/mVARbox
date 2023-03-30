@@ -43,18 +43,15 @@ function [data] = get_data_AR(AR, data)
 
 %% Checks
 
-% Check if the AR model is provided in restricted form. If so, complete
+% Check if the AR model is provided in restricted form. If so, complete 
 % unrestricted.
-if isempty(AR.parameters.phi_vector) && ~isempty(AR.restricted_parameters.a_vector)
-    AR = fun_phi_vector_from_a_vector(AR);
-elseif isempty(AR.parameters.phi_vector)
-    error('AR regression coefficients not provided')
-end
-
-if isempty(AR.parameters.sigma) && ~isempty(AR.restricted_parameters.b)
-    AR.parameters.sigma = AR.restricted_parameters.b;
-elseif isempty(AR.parameters.sigma)
-    error('AR noise coefficient not provided')
+if isempty(AR.parameters.phi_vector) && ...
+   isempty(AR.parameters.sigma) && ...
+   ~isempty(AR.restricted_parameters.a_vector) && ...
+   ~isempty(AR.restricted_parameters.b)
+    AR = fun_AR_unrestricted_from_restricted(AR);
+elseif isempty(AR.parameters.phi_vector) || isempty(AR.parameters.sigma)
+    error('AR coefficients not defined')
 end
 
 % k

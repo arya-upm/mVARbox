@@ -104,7 +104,7 @@ switch linsys_solving_method
     %   x = inv(A)*B is equivalent, but less robust
     %   rcond should be checked, if it is below threshold, pop-up warning
         if size(A,1)==size(A,2)
-            rcond_tolerance = fun_default_value('rcond_tolerance');
+            rcond_tolerance = fun_default_value('rcond_tolerance',0);
             if rcond(A) < rcond_tolerance && use_log==1
                 warning('mldivide says: ill-conditioned matrix');
             end

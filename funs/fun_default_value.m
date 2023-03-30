@@ -1,13 +1,13 @@
-function [default_value] = fun_default_value(name)
+function [default_value] = fun_default_value(name,token_warning)
 
 
 %% Description of the function
 % 
 % This function contains default values for some variables and fields
 % 
-% 
+% If token_warning = 0, then warning of default value does not pop-up
 
-no_warning = 0;
+if nargin == 1; token_warning = 1; end
 
 
 switch name
@@ -20,7 +20,7 @@ switch name
 
 	case 'linsys_solving_method'; default_value = 'mldivide';
 
-	case 'rcond_tolerance'; default_value = 1e-4; no_warning = 1;
+	case 'rcond_tolerance'; default_value = 1e-4;
 
 	case 'N_seg'; default_value = 8;	
 
@@ -40,7 +40,7 @@ switch name
 end
 
 
-if no_warning == 0
+if token_warning ~= 0
 
 	warning('\nUsing default value for variable/field %s.\nSee function "fun_default_values" for details.\n',name)
 
