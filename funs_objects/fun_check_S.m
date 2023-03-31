@@ -12,13 +12,13 @@ function [S] = fun_check_S(S)
 
 if ~isempty(S.x_values)
 	% Check that independent variable is column-wise
-    if ~iscolumn(S.x_values); S.x_values = transpose(S.x_values); end
+    if isrow(S.x_values); S.x_values = transpose(S.x_values); end
     % Complete N
 	S.x_parameters.N = size(S.x_values,1);    
 end
 
 if ~isempty(S.y_values)
-	% Check that univariate data is column-wise
+	% Check that univariate data is not row-wise (perhaps is a matrix)
     if isrow(S.y_values); S.y_values = transpose(S.y_values); end
     % Complete N
 	S.x_parameters.N = size(S.y_values,1);    

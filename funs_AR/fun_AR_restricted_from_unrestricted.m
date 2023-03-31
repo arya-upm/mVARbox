@@ -11,14 +11,14 @@ function [AR] = fun_AR_restricted_from_unrestricted(AR)
 %           AR: An object (structure) class 'AR'
 %               The following fields need to be defined:
 %                   .parameters.phi_vector
-%				    .parameters.sigma
+%				    (.parameters.sigma) < optional parameter, can be empty
 % 
 %
 %% Outputs:
 %           AR: An object (structure) class 'AR'
 %               The following fields are added to the object:
 %                   .restricted_parameters.a_vector
-%                   .restricted_parameters.b
+%                   (.restricted_parameters.b) < can be empty
 %                   .restricted_parameters.j_vector
 %
 %

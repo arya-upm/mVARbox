@@ -1,4 +1,4 @@
-function [S, S_seg] = get_S_Welch(data, S, N_seg, overlap, window, k_index)
+function [S, S_seg] = get_S_data_Welch(data, S, N_seg, overlap, window, k_index)
 
 %% Description of the function
 % 
@@ -116,7 +116,8 @@ end
 
 % S.sides
 if strcmp(S.sides,'2S')    
-    warning('The input S was 2-sided, but this function provides 1-sided S.\nChanging from 2-sided to 1-sided')    
+    warning('The input S was 2-sided, but this function provides 1-sided S.\nChanging from 2-sided to 1-sided') 
+    S = fun_append_S(S,'x_values',S.x_values(S.x_values>=0));   
 end
 
 % N_seg
@@ -284,7 +285,7 @@ end
 
 if ~exist('k_vector','var')
 
-    ss = get_S_sample_spectrum(data_seg_1, S, 0);
+    ss = get_S_data_sample_spectrum(data_seg_1, S, 0);
 
     y_values_ss = ss.y_values; 
 

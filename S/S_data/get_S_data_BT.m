@@ -1,4 +1,4 @@
-function [S] = get_S_BT(data, S, gamma_fun, window, k_index)
+function [S] = get_S_data_BT(data, S, gamma_fun, window, k_index)
 
 
 %% Description of the function
@@ -96,7 +96,8 @@ end
 
 % S.sides
 if strcmp(S.sides,'2S')    
-    warning('The input S was 2-sided, but this function provides 1-sided S.\nChanging from 2-sided to 1-sided')    
+    warning('The input S was 2-sided, but this function provides 1-sided S.\nChanging from 2-sided to 1-sided')
+    S = fun_append_S(S,'x_values',S.x_values(S.x_values>=0));
 end
 
 % gamma_fun.method

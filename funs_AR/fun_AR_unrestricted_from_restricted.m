@@ -11,7 +11,7 @@ function [AR] = fun_AR_unrestricted_from_restricted(AR)
 %           AR: An object (structure) class 'AR'
 %               The following fields need to be defined:
 %                   .restricted_parameters.a_vector
-%                   .restricted_parameters.b
+%                   (.restricted_parameters.b) < optional parameter, can be empty
 %                   .restricted_parameters.j_vector
 % 
 %
@@ -19,7 +19,7 @@ function [AR] = fun_AR_unrestricted_from_restricted(AR)
 %           AR: An object (structure) class 'AR'
 %               The following fields are added to the object:
 %                   .parameters.phi_vector
-%                   .parameters.sigma
+%                   (.parameters.sigma) < optional parameter, can be empty
 %
 %
 
@@ -45,7 +45,7 @@ p = j_vector(end);
 phi_vector = zeros(1,p);
 phi_vector(j_vector) = a_vector;
 
-sigma =b;
+sigma = b;
 
 
 

@@ -36,12 +36,6 @@ if ~strcmp(S_2S.sides,'2S')
     error('The input spectrum does not have field "sides" = "2S"')
 end
 
-% S_2S.y_values is not row (it may be a matrix)
-if isrow(S_2S.y_values)
-    S_2S.y_values = transpose(S_2S.y_values);
-    warning('The PSD S_2S.y_values is row-wise, but it should be column-wise.\nTransposing..')    
-end
-
 
 
 %% Unwrap relevant variables, include conjugate of y_values for negative frequencies
