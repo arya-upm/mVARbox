@@ -98,7 +98,8 @@ x_vector_multiplied_factor = (pi/f_max) .* x_vector;
 Cs1 = inv(f_max);
 
 % Warning
-if x_vector(end) > f_max
+epsilon = fun_default_value('epsilon', 0);
+if abs(x_vector(end) - f_max) > epsilon 
     warning('The selected domain for S(f) is higher than f_max')
 end
 

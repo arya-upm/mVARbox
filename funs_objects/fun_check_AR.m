@@ -29,3 +29,31 @@ if ~isempty(AR.restricted_parameters.j_vector)
 	AR.p = AR.restricted_parameters.j_vector(end);
 end
 
+if ~isempty(AR.poles.poles_AR)
+    % check is column vector
+    if ~iscolumn(AR.poles.poles_AR)
+        AR.poles.poles_AR = transpose(AR.poles.poles_AR);
+    end
+    % complete N_real and N_complex
+    AR.poles.N_real = length(find(abs(imag(AR.poles.poles_AR)) < 1e-6));
+    AR.poles.N_complex = length(find(abs(imag(AR.poles.poles_AR)) >= 1e-6))/2;
+    if AR.poles.N_real+2*AR.poles.N_complex ~= AR.p
+        error(sprintf('Error while completing N_real and N_complex through fun_check_AR function].\nN_real + 2xN_complex = p does not hold.'))
+    end
+end
+
+if ~isempty(AR.poles.poles_AR_struct.real)
+    % check is column vector
+    if ~iscolumn(AR.poles.poles_AR_struct.real)
+        AR.poles.poles_AR_struct.real = transpose(AR.poles.poles_AR_struct.real);
+    end
+end
+
+if ~isempty(AR.poles.poles_AR_struct.complex)
+    % check is column vector
+    if ~iscolumn(AR.poles.poles_AR_struct.complex)
+        AR.poles.poles_AR_struct.complex = transpose(AR.poles.poles_AR_struct.complex);
+    end
+end
+
+

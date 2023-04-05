@@ -94,9 +94,10 @@ x_vector = S.x_values;
 x_vector_multiplied_factor = 2 * pi .* x_vector;
 Cs1 = 2;
 
-% Warrning
-if x_vector(end) > 0.5
-    disp('The selected domain for S(ftilde) is higher than 0.5')
+% Warning
+epsilon = fun_default_value('epsilon', 0);
+if abs(x_vector(end) - f_max) > epsilon 
+    warning('The selected domain for S(f) is higher than f_max')
 end
 
 % calculating the spectrum S(ftilde)

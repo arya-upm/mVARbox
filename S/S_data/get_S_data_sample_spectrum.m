@@ -68,7 +68,7 @@ switch data.ind_var
     case 't'
         ind_var_S = ('f');
     otherwise
-        stop('Operation still not supported for data domain other than time')
+        error('Operation still not supported for data domain other than time')
 end
 
 % S.sides

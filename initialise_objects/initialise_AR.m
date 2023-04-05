@@ -57,11 +57,12 @@ AR.restricted_parameters.a_vector   = [];   % Row vector, regression coefficient
 AR.restricted_parameters.b          = [];   % Noise coefficient
 
 AR.poles.N_real                     = [];   % Integer, number or real poles
-AR.poles.N_complex                  = [];   % Integer, number of comples poles
+AR.poles.N_complex                  = [];   % Integer, number of complex conjugate pairs
 AR.poles.poles_AR                   = [];	% column vector (N_real+2·N_complex)x(1)
 
-AR.poles.poles_AR_struct.real       = []; 	% column vector (N_real)x(1)
-AR.poles.poles_AR_struct.complex    = [];   % column vector (N_complex)x(1) , just one by conjugate pair
+AR.poles.poles_AR_struct.real       = []; 	% column vector (N_real)x(1) with real poles
+AR.poles.poles_AR_struct.complex    = [];   % column vector (N_complex)x(1) with complex poles 
+											% just one by conjugate pair
 
 
 
