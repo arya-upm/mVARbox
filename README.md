@@ -98,8 +98,6 @@ Elagamy, M.; Gallego-Castillo, C.; Cuerva-Tejero, A.; Lopez-Garcia, O. & Avila-S
 
 Luis Mora de la Cruz, Spectral estimation methods from finite time series: application to wind energy related variables. ETSIAE, Universidad Politécnica de Madrid, Master thesis, 2023. (link)
 
-Elagamy, M.; Gallego-Castillo, C.; Cuerva-Tejero, A.; Lopez-Garcia, O. & Avila-Sanchez, Eigenanalysis of vector autoregressive model
-for optimal fitting of a predefined cross power spectral density matrix: Application to numeric generation of stationary homogeneous isotropic/anisotropic turbulent wind fields. Journal of Wind Engineering and Industrial Aerodynamics (in press).
-
+Elagamy, M.; Gallego-Castillo, C.; Cuerva-Tejero, A.; Lopez-Garcia, O. & Avila-Sanchez, S. Eigenanalysis of vector autoregressive model for optimal fitting of a predefined cross power spectral density matrix: Application to numeric generation of stationary homogeneous isotropic/anisotropic turbulent wind fields. Journal of Wind Engineering and Industrial Aerodynamics, 2023, 238, 105420. DOI: [10.1016/j.jweia.2023.105420](https://doi.org/10.1016/j.jweia.2023.105420)
 
 
