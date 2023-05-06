@@ -3,7 +3,7 @@ function [S] = get_S_AR(AR, S)
 
 %% Description of the function
 % 
-% This function provides the one-sided PSD from an AR model.
+% This function provides the one-sided PSD of an AR model.
 % 
 %
 %% Inputs:
@@ -53,17 +53,15 @@ function [S] = get_S_AR(AR, S)
 if any(strcmp({'f','ftilde'},S.ind_var))
 
     if ~isempty(AR.parameters.phi_vector) && ...
-       ~isempty(AR.parameters.sigma) && ...
-       isempty(AR.restricted_parameters.a_vector) && ...
-       isempty(AR.restricted_parameters.b)
+       isempty(AR.restricted_parameters.a_vector)
         AR = fun_AR_restricted_from_unrestricted(AR);
-    elseif isempty(AR.restricted_parameters.a_vector) || isempty(AR.restricted_parameters.b)
+    elseif isempty(AR.restricted_parameters.a_vector) 
         error('AR coefficients not defined')
     end
 
 else
 
-    stop('Functionality still not available for S.ind_var = %ds',S.ind_var)
+    stop('Functionality still not available for S.ind_var = %s',S.ind_var)
 
 end
     
@@ -91,7 +89,8 @@ switch ind_var
         S = fun_S_AR_f_1S(AR, S);
 
     case 'ftilde'
-
+    
+        
         S = fun_S_AR_ftilde_1S(AR, S);
 
     otherwise

@@ -17,12 +17,12 @@ function [S] = initialise_S(varargin)
 % 
 %   S = initialise_S ( 'x_min', 0, 'x_max', 10 )
 % 
-% A substructure can also be defined (make it sure all the fields inside the substructure 
-% are defined):
+% A substructure can also be defined (make it sure all the fields inside the 
+% substructure are defined):
 % 
 %   my_x_parameters.x_min  = 0;
 %   my_x_parameters.x_max  = 10;
-%   my_x_parameters.N_x  = 100;
+%   my_x_parameters.N      = 100;
 %   S = initialise_S ( 'x_parameters',  my_x_parameters)
 % 
 % 
@@ -34,7 +34,8 @@ function [S] = initialise_S(varargin)
 S.class                     = 'S';
 
 S.type                      = [];   % string ('data', 'AR', ...).
-                                    % Defines the original object employed to get S
+                                    % Defines the original object employed to 
+                                    % get S
 
 S.ind_var                   = [];   % string ('f','w','k','fnode', ...)
                                     % 'f': frequency [Hz]

@@ -96,7 +96,7 @@ Cs1 = 2;
 
 % Warning
 epsilon = fun_default_value('epsilon', 0);
-if abs(x_vector(end) - f_max) > epsilon 
+if x_vector(end) > 0.5
     warning('The selected domain for S(f) is higher than f_max')
 end
 
@@ -107,6 +107,7 @@ y_values = fun_S_AR_calculator(x_vector_multiplied_factor,Cs1,AR);
 S = fun_append_S(S,...
                  'type','AR',...
                  'sides','1S',...
+                 'x_max',0.5,...
                  'y_values',y_values);
 
 

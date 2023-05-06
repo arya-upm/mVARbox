@@ -28,6 +28,14 @@ function [gamma_fun] = get_gamma_AR(AR, gamma_fun)
 %                           .y_values
 %
 %
+%% Comments:
+% 
+% You can find examples of implementation of this function in the following
+% tutorials:
+%
+%   - tutorials/getting_gamma_from_AR.mlx
+%
+%
 %% References:
 %
 % [1] Tsay, R. S., Multivariate Time Series Analysis: With R and Financial Applications, 
@@ -37,14 +45,6 @@ function [gamma_fun] = get_gamma_AR(AR, gamma_fun)
 %     function through AR models: Application to stationary homogeneous isotropic 
 %     turbulence, Stochastic Environmental Research and Risk Assessment, 2021. 
 %     DOI: 10.1007/s00477-021-02156-0
-%
-%
-%% Comments:
-% 
-% % You can find examples of implementation of this function in the following
-% tutorials:
-%
-%   - tutorials/getting_gamma_from_AR.mlx
 %
 %
 

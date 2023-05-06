@@ -1,10 +1,10 @@
 function [S] = fun_S_AR_f_1S(AR, S)
 
-% This function is to evaluate spectrum S(f) in the normal frequency f(Hz) domain for AR
+% This function is to evaluate spectrum S(f) in the frequency f(Hz) domain for AR
 % model
 %
-% The evaluation of the spectrum is done through fun_S_calculator and this
-% function feeds fun_S_calculator with the Cs1 and x_vector_multiplied_factor
+% The evaluation of the spectrum is done through fun_S_AR_calculator and this
+% function feeds fun_S_AR_calculator with the Cs1 and x_vector_multiplied_factor
 % to evaluate the spectrum as the spectrum is evaluated using the following
 % equation:
 %
@@ -74,7 +74,8 @@ function [S] = fun_S_AR_f_1S(AR, S)
 %
 %                      sides    : type of the spectrum 1S or 2S (string)
 %
-%                      y_values : one sided power spectrum density in terms of the normal frequency f with size [Nx X 1]  (column vector)
+%                      y_values : one sided power spectrum density in terms of 
+%                                 the frequency f with size [Nx X 1]  (column vector)
 %
 % NOTE:
 % ----
