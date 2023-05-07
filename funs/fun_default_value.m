@@ -12,6 +12,8 @@ if nargin == 1; token_warning = 1; end
 
 switch name
 
+	case 'CMF.method'; default_value = 'biased_matlab';
+
 	case 'epsilon'; default_value = 1e-5;
 
 	case 'fun_score_1V'; default_value = @fun_rmse_1V;

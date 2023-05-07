@@ -34,14 +34,6 @@ function [CPSDM] = get_CPSDM_VAR(VAR, CPSDM)
 %                       .y_values
 % 
 % 
-%% Comments:
-% 
-% You can find examples of implementation of this function in the following
-% tutorials:
-%
-%   - tutorials/getting_CPSDM_from_VAR.mlx
-%
-% 
 
 
 

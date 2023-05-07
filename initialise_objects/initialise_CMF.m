@@ -86,7 +86,10 @@ CMF.x_values              = [];       % column vector (2M+1)x(1)
 CMF.xlag_values           = [];       % column vector (2M+1)x(1) 
                                             % lag index, [ -M ; ... ; M ]
 
-CMF.y_values              = [];       % 3D matrix (k)x(k)x(2M+1)
+CMF.y_values              = [];       % array (k)x(k)x(2M+1)
+									% CMF[l,i,j] represents the covariance between variables 'i' 
+									% and 'j' of the multivariate random process, for lag given by
+									% xlag_values[l]
 
 
 

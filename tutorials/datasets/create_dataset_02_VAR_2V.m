@@ -37,7 +37,7 @@ VAR = initialise_VAR('A_vector',A_vector,'B',B,'j_vector',j_vector);
 
 M = 200;
 
-CMF_VAR = initialise_CMF('M',M);
+CMF_VAR = initialise_CMF('M',M,'delta_x',delta_t,'ind_var','t');
 
 CMF_VAR = get_CMF_VAR(VAR,CMF_VAR);
 

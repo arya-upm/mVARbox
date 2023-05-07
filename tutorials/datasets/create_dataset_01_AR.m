@@ -27,7 +27,7 @@ AR = initialise_AR('a_vector',a_vector,'b',b,'j_vector',j_vector);
 
 M = 200;
 
-gamma_AR = initialise_gamma('M',M);
+gamma_AR = initialise_gamma('M',M,'delta_x',delta_t,'ind_var','t');
 
 gamma_AR = get_gamma_AR(AR,gamma_AR);
 

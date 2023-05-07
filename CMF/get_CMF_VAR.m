@@ -30,11 +30,6 @@ function [CMF] = get_CMF_VAR(VAR , CMF )
 %
 %% Comments:
 % 
-% You can find examples of implementation of this function in the following
-% tutorials:
-%
-%   - tutorials/getting_CMF_from_VAR.mlx
-% 
 % This methodology involves large computational burden, as a matrix of size
 % (k*p)^2 x (k*p)^2 is required.
 %
