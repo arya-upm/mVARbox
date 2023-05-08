@@ -3,7 +3,7 @@ function [gamma_fun] = fun_append_gamma(gamma_fun, varargin)
 
 %% Description of the function
 %
-% This function is to add a field to a gamma object
+% This function is to add fields to a gamma object
 % Check is performed at the end
 %
 %

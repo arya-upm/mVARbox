@@ -3,7 +3,7 @@ function [CMF] = fun_append_CMF(CMF, varargin)
 
 %% Description of the function
 %
-% This function is to add a field to a CMF object
+% This function is to add fields to a CMF object
 % Check is performed at the end
 %
 %

@@ -3,7 +3,7 @@ function [VAR] = fun_append_VAR(VAR, varargin)
 
 %% Description of the function
 %
-% This function is to add a field to an AR object
+% This function is to add fields to a VAR object
 % Check is performed at the end
 %
 %

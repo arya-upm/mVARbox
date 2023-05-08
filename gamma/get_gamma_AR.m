@@ -73,6 +73,10 @@ phi_vector  = AR.parameters.phi_vector;
 % sigma
 sigma       = AR.parameters.sigma;
 
+% p
+[AR] = fun_check_AR(AR);
+p = AR.p;
+
 % M
 M           = gamma_fun.x_parameters.M;
 
@@ -83,7 +87,6 @@ M           = gamma_fun.x_parameters.M;
 %%% Compute other required parameters
 
 sigma2  = sigma*sigma;          % variance of the random term
-p       = length(phi_vector);   % model order
 
 
 % If M < p the computations cannot be performed, so replace "M" with "p" for computations, 

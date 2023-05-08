@@ -1,9 +1,9 @@
-function [DTFT] = fun_append_DTFT(DTFT, varargin)
+function [MA] = fun_append_MA(MA, varargin)
 
 
 %% Description of the function
 %
-% This function is to add fields to a DTFT object
+% This function is to add fields to a MA object
 % Check is performed at the end
 %
 %
@@ -30,11 +30,11 @@ for ii = 1:n_fields
 
     
     % check within first level fields
-    if any(strcmp(field_label,fieldnames(DTFT)))
-        DTFT.(field_label) = field_value;
-    % check within second level: DTFT.x_parameters
-    elseif any(strcmp(field_label,fieldnames(DTFT.x_parameters)))
-        DTFT.x_parameters.(field_label) = field_value;
+    if any(strcmp(field_label,fieldnames(MA)))
+        MA.(field_label) = field_value;
+    % check within second level: AR.parameters
+    elseif any(strcmp(field_label,fieldnames(MA.parameters)))
+        MA.parameters.(field_label) = field_value;
     % Error, field not found
     else
         error('\n ERROR: Name %s is not a valid field label for this object',field_label)
@@ -46,7 +46,4 @@ end
 
 %% Checks
 
-[DTFT] = fun_check_DTFT(DTFT);
-
-
-
+[MA] = fun_check_MA(MA);

@@ -3,7 +3,7 @@ function [VAR] = fun_check_VAR(VAR)
 
 %% Description of the function
 %
-% This function checks fields of an VAR object, and complete empty fields if possible. 
+% This function checks fields of a VAR object, and complete empty fields if possible. 
 % It is always employed at the end of a fun_append_(class) function.
 %
 %

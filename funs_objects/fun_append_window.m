@@ -3,7 +3,7 @@ function [window] = fun_append_window(window, varargin)
 
 %% Description of the function
 %
-% This function is to add a field to a window object
+% This function is to add fields to a window object
 % Check is performed at the end
 %
 %

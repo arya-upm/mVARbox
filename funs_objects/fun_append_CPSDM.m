@@ -3,7 +3,7 @@ function [CPSDM] = fun_append_CPSDM(CPSDM, varargin)
 
 %% Description of the function
 %
-% This function is to add a field to an CPSDM object
+% This function is to add fields to a CPSDM object
 % Check is performed at the end
 %
 %

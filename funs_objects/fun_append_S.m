@@ -3,7 +3,7 @@ function [S] = fun_append_S(S, varargin)
 
 %% Description of the function
 %
-% This function is to add a field to an S object
+% This function is to add fields to an S object
 % Check is performed at the end
 %
 %

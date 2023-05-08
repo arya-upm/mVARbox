@@ -5,8 +5,8 @@ function [AR] = initialise_AR(varargin)
 %
 % This function is to initialise an AR object.
 %
-% An AR object contains information of an AR model like model order, coefficients (either 
-% in unrestricted and restricted version), poles of the model, etc.
+% An AR object contains information of an autoregressive model, like model order, 
+% coefficients (either in unrestricted and restricted version), poles of the model, etc.
 % 
 % Details and notation of the AR model are described in [1]
 % 
