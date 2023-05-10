@@ -81,9 +81,9 @@ Please write to *cristobaljose.gallego AT upm DOT es* to report bugs and provide
 
 ## List of authors and mantainers
 
-- Cristóbal J. Gallego Castillo [(orcid)](orcid.org/0000-0002-8249-5179)
-- Álvaro Cuerva Tejero [(orcid)](orcid.org/0000-0002-1690-1634)
-- Óscar López García [(orcid)](orcid.org/0000-0002-0209-2469)
+- Cristóbal J. Gallego Castillo [(orcid)](www.orcid.org/0000-0002-8249-5179)
+- Álvaro Cuerva Tejero [(orcid)](www.orcid.org/0000-0002-1690-1634)
+- Óscar López García [(orcid)](www.orcid.org/0000-0002-0209-2469)
 
 
 ## List of contributors
