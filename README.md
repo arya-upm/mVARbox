@@ -1,6 +1,6 @@
 # mVARbox
 
-**mVARbox** is a Matlab toolbox for uni/multivariate time series analysis in both time and frequency domains, with focus on mutivariate autoregressive (VAR) models. By using **mVARbox**, you will be able to, among others:
+**mVARbox** is a Matlab toolbox for uni/multivariate data series analysis in both time/space and frequency domains, with focus on mutivariate autoregressive (VAR) models. By using **mVARbox**, you will be able to, among others:
 
 - estimate auto/cross spectra from time series using different estimation methods (Welch, Blackman–Tukey, Daniell, etc.).
 - obtain optimal Autoregressive Models that reproduce a predefined target covariance/spectral structure.
@@ -12,7 +12,7 @@
 
 **mVARbox** is free software and you can redistribute it and or modify it under the terms of the GNU General Public License (GPL) v3.
 
-To get a fresh copy of **mVARbox**, clone the git repository located [here](https://github.com/cristobal-GC/mVARbox). You can also [download](https://github.com/cristobal-GC/mVARbox/archive/refs/heads/main.zip) it directly.
+To get a fresh copy of **mVARbox**, clone the git repository located [here](https://github.com/arya-upm/mVARbox). You can also [download](https://github.com/arya-upm/mVARbox/archive/refs/heads/main.zip) it directly.
 
 
 
@@ -20,32 +20,32 @@ To get a fresh copy of **mVARbox**, clone the git repository located [here](http
 
 Functions in mVARbox are implemented to work mainly with pseudo-objects (matlab structures). The following classes are included:
 
-- `data`, to handle time series.
+- `data`, to handle data series.
 - `AR`, to handle autoregressive models.
 - `VAR`, to handle multivariate autoregressive models.
 - `gamma`, to handle auto/cross covariance functions.
 - `S` to handle auto/cross power spectral densities.
 - `CMF`, to handle covariance matrix functions.
 - `CPSDM`, to handle coss power spectral density matrices.
-- `window`, to handle time/lag windows.
 - `DTFT`, to handle Discrete Time Fourier Transforms.
+- `window`, to handle time/lag windows.
 - ...
 
-Each class has a number of associated fields. Several fields are shared between classes, but others are just class-specific.
+Each class has a number of associated fields. 
 
 Below is a description of the main type of functions that you will find in **mVARbox**.
 
 
 ### Functions `initialise_(class)`
 
-This family of functions are located in folder [initialise_objects/](https://github.com/cristobal-GC/mVARbox/tree/main/initialise_objects). They are employed to initialise an object of a specific class. The object can be initialise empty, or assessing some or all the associated fields. You will find a detailed description of the fields associated to each class in the corresponding initialisation funcion.
+This family of functions are located in folder [initialise_objects/](https://github.com/arya-upm/mVARbox/tree/main/initialise_objects). They can be employed to initialise an object of a specific class. The object can be initialise empty, or assessing some or all the associated fields. You will find a detailed description of the fields associated to each class in the corresponding initialisation funcion.
 
 
 
 ### Functions `get_`
 
-These are the functions mainly intended for users. They usually take objects as inputs and generate one or more objects as outputs. The documentation of the functions describes thoroughly the fields that need to be filled in the input objects, as well as the fields that are filled in the output objects. 
-Sometimes, specific parameters not contained in a object field are also required. 
+These are the functions mainly intended for users. They usually take objects as inputs and generate one or more objects as outputs. The documentation of each function describes thoroughly the fields that need to be filled in the input objects, as well as the fields that are filled in the output objects. Sometimes, specific variables not contained in a object field are also required
+
 
 
 
@@ -63,7 +63,7 @@ This is a special function located in folder [funs/](https://github.com/cristoba
 
 ### Tutorials
 
-**mVARbox** includes a number of well-documented and illustrative tutorials. You will find them in folder [tutorials/](https://github.com/cristobal-GC/mVARbox/tree/main/tutorials). The corresponding [pdf files](http://arya.dave.upm.es/library/mVARbox_tutorials/) are also available.
+**mVARbox** includes a number of well-documented and illustrative tutorials. You will find them in folder [tutorials/](https://github.com/arya-upm/mVARbox/tree/main/tutorials). The corresponding [pdf files](http://arya.dave.upm.es/library/mVARbox_tutorials/) are also available.
 
 
 
@@ -81,14 +81,14 @@ Please write to *cristobaljose.gallego AT upm DOT es* to report bugs and provide
 
 ## List of authors and mantainers
 
-- Cristóbal J. Gallego Castillo
-- Álvaro Cuerva Tejero
-- Óscar López García
+- Cristóbal J. Gallego Castillo [(orcid)](orcid.org/0000-0002-8249-5179)
+- Álvaro Cuerva Tejero [(orcid)](orcid.org/0000-0002-1690-1634)
+- Óscar López García [(orcid)](orcid.org/0000-0002-0209-2469)
 
 
 ## List of contributors
 
-- Mohanad Elagamy
+- Mohanad Elagamy [(orcid)](orcid.org/0000-0001-8427-0195)
 - Luis Mora de la Cruz
 
 
