@@ -17,7 +17,7 @@ function [CPSDM] = get_CPSDM_data_BT(data, CPSDM, gamma_fun, window)
 %                           .x_parameters.delta_t
 %                           .y_values
 %
-%           CPSD:       An object (structure) class 'CPSDM'
+%           CPSDM:      An object (structure) class 'CPSDM'
 %                       The following fields need to be defined:
 %                           .x_values
 % 
@@ -49,6 +49,7 @@ function [CPSDM] = get_CPSDM_data_BT(data, CPSDM, gamma_fun, window)
 %           CPSDM:      An object (structure) class 'CPSD'
 %                       The following fields are added to the object:
 %                           .type = 'data'
+%                           .ind_var
 %                           .sides = '1S'
 %                           .x_parameters.x_min
 %                           .x_parameters.x_max
@@ -77,7 +78,7 @@ function [CPSDM] = get_CPSDM_data_BT(data, CPSDM, gamma_fun, window)
 % data.ind_var it time
 switch data.ind_var
     case 't'
-        % Nothing happents, because DTFT.ind_var = 'f' comes through gamma_fun.ind_var = 't'
+        ind_var_CPSDM = 'f';
     otherwise
         stop('Operation still not supported for data domain other than time')
 end
@@ -127,7 +128,7 @@ N_CPSDM = length(x_values_CPSDM);
 
 %% Code
 
-% Initialise object class 'S' to introduce f_vector
+% Initialise object class 'S' to introduce x_values_CPSDM
 [S0] = initialise_S('x_values', x_values_CPSDM);
 
 % Build one-sided CPSDM y_values (3D matrix)
@@ -163,6 +164,7 @@ x_max = S.x_parameters.x_max;
 
 [CPSDM] = fun_append_CPSDM(CPSDM,...
                            'type','data',...
+                           'ind_var',ind_var_CPSDM, ...
                            'sides','1S',...
                            'x_min',x_min,...
                            'x_max',x_max,...

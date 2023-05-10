@@ -12,5 +12,9 @@ if mod(N_data_seg,2)==1
 end
 
 % N_overlap
-N_overlap = round(N_data_seg*overlap);
+N_overlap = floor(N_data_seg*overlap);
 
+
+
+
+   

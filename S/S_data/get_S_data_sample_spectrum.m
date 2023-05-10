@@ -133,7 +133,7 @@ else
     [DTFT] = get_DTFT_data(data, DTFT, 0);
 
     % CPSD
-    S_2S_y_values = DTFT.y_values(:,1).*conj(DTFT.y_values(:,2))/(N_data*delta_t);
+    S_2S_y_values = DTFT.y_values(:,1).*conj(DTFT.y_values(:,2))/(N_data*delta_x);
 
 end
 

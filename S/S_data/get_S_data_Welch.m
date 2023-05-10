@@ -176,12 +176,9 @@ N_data = size(data.y_values,1);
 % N_f
 N_f = size(S.x_values,1);
 
-% x_values_S
-x_values_S = S.x_values;
-
 % k_index (one value), k_vector (two different values)
-if length(k_index) == 1 || k_index(1) == k_index(2)
-    k_index = k_index(1);
+if length(k_index) == 1 
+    k_vector = [k_index k_index];
 else
     k_vector = [k_index(1) k_index(2)];
 end
@@ -190,29 +187,50 @@ end
 
 %% Code
 
+k1 = k_vector(1);
+k2 = k_vector(2);
+
 
 %% (1) divide the original time series in a number of overlapped segments
 
 %%%%% Overlapping segments of the first time series
 
-y_values_data_1 = data.y_values(:,k_index);
+y_values_data_1 = data.y_values(:,k1);
 
 % get length of the segments (N_data_seg) and length of the overlap 
 % (N_overlap) from N_seg and overlap
 [N_data_seg, N_overlap] = fun_N_data_seg_N_overlap_Welch(N_data, N_seg, overlap);
 
 % get overlapping segments
-[y_values_data_seg_1, ~] = buffer(y_values_data_1,N_data_seg,N_overlap,'nodelay');
+[y_values_data_seg_1] = buffer(y_values_data_1,N_data_seg,N_overlap,'nodelay');
+
+% check buffer
+col = size(y_values_data_seg_1,2);
+while col<N_seg
+    warning('Number of segments updated from %d to %d for feasibility',N_seg,N_seg-1)
+    N_seg = N_seg-1;
+    [N_data_seg, N_overlap] = fun_N_data_seg_N_overlap_Welch(N_data, N_seg, overlap);
+    [y_values_data_seg_1] = buffer(y_values_data_1,N_data_seg,N_overlap,'nodelay');    
+end
 
 
 %%%%% Overlapping segments of the second time series (if needed)
 
-if exist('k_vector','var')
+if k1~=k2
    
-    y_values_data_2 = data.y_values(:,k_vector(2));
+    y_values_data_2 = data.y_values(:,k2);
 
     % get overlapping segments
-    [y_values_data_seg_2, ~] = buffer(y_values_data_2,N_data_seg,N_overlap,'nodelay');
+    [y_values_data_seg_2] = buffer(y_values_data_2,N_data_seg,N_overlap,'nodelay');
+
+    % check buffer
+    col = size(y_values_data_seg_1,2);
+    while col<N_seg
+        warning('Number of segments for Welch estimation updated from %d to %d for feasibility',N_seg,N_seg-1)
+        N_seg = N_seg-1;
+        [N_data_seg, N_overlap] = fun_N_data_seg_N_overlap_Welch(N_data, N_seg, overlap);
+        [y_values_data_seg_1] = buffer(y_values_data_1,N_data_seg,N_overlap,'nodelay');    
+    end
 
 end
 
@@ -239,7 +257,7 @@ x_max = 1/(2*delta_x);
 %     
 %         y = y_values_data(:,1);
 %         y_mean = mean(y);
-%         y_values_data_seg = y_values_data_seg - mean(y_values_data_seg) + y_mean*ones(1,N_segments);
+%         y_values_data_seg = y_values_data_seg - mean(y_values_data_seg) + y_mean*ones(1,N_seg);
 % 
 % 
 %     case 2
@@ -269,7 +287,7 @@ data_seg_1 = initialise_data ('ind_var',ind_var_data,...
                               'y_values',y_values_data_seg_1_windowed);
 
 
-if exist('k_vector','var')
+if k1~=k2
     
     y_values_data_seg_2_windowed = window.y_values.*y_values_data_seg_2;
 
@@ -283,7 +301,7 @@ end
 
 %%   (3) compute the sample spectrum of each segment
 
-if ~exist('k_vector','var')
+if k1==k2
 
     ss = get_S_data_sample_spectrum(data_seg_1, S, 0);
 
@@ -292,12 +310,12 @@ if ~exist('k_vector','var')
 else
     
     % CPSD of each segment
-    y_values_ss = zeros(N_f,N_segments);
+    y_values_ss = zeros(N_f,N_seg);
 
-    for j = 1:N_segments
+    for j = 1:N_seg
         k_i = j;
-        k_j = N_segments+j;
-        ss = S_sample_spectrum(data_seg_1_and_2, S, [k_i k_j]);
+        k_j = N_seg+j;
+        ss = get_S_data_sample_spectrum(data_seg_1_and_2, S, [k_i k_j]);
         y_values_ss(:,j) = ss.y_values;
 
     end

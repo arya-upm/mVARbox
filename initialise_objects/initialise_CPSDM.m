@@ -40,7 +40,7 @@ CPSDM.type                  = [];   % string ('data', 'VAR', ...).
 CPSDM.ind_var               = [];   % string ('f','w','k','fnode', ...)
                                     % 'f': frequency [Hz]
                                     % 'k': wave number
-                                    % Defines the independent variable of CPSDM                                           = [];
+                                    % Defines the independent variable of CPSDM
 
 CPSDM.k                     = [];   % number of variables
 

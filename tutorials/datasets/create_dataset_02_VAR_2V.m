@@ -44,7 +44,9 @@ CMF_VAR = get_CMF_VAR(VAR,CMF_VAR);
 
 %%% CPSDM 
 
-f_vector = linspace(0,f_max,100);
+f_vector_lin = linspace(0,f_max,100);
+f_vector_log = logspace(-2,log10(f_max),100);
+f_vector = sort([f_vector_lin f_vector_log]);
 
 CPSDM_VAR = initialise_CPSDM('ind_var','f',...
                              'x_max',f_max,...
