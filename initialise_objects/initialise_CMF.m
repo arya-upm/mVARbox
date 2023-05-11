@@ -57,15 +57,23 @@ CMF.method                = [];       % string, indicates estimation method
                                             %   'unbiased' (estimated with mVARbox function) 
                                             %   'biased' (estimated with mVARbox function)
                                             %   'unbiased_matlab' (estimated with matlab native 
-											%					   function 'xcov')
+											%					   function 'xcov' for 1-var 
+											%					   and loop over vars)
                                             %   'biased_matlab' (estimated with matlab native 
-											%					 function 'xcov')
+											%					 function 'xcov' for 1-var)
+											%					 and loop over vars)
+                                            %   'unbiased_matlab_v2' (estimated with matlab native 
+											%					      function 'xcov' for multi-var)
+                                            %   'biased_matlab_v2' (estimated with matlab native 
+											%					      function 'xcov' for multi-var)
 											% Matlab native function 'xcov' is computationally 
 											% efficient if input data length is a power of 2.
                                             % Usually, 'biased' method is preferred to 'unbiased'
                                             % because it guarantees a positive semi-definite
                                             % covariance function. It also oscillates less
                                             % for large lag values.
+											% If option 'xcov' multi-var requires too much memory, use
+											% 'xcov' 1-var with a loop instead
 
 CMF.ind_var               = [];   	% string ('t','s', ...)
                                    		 	%   't': time series

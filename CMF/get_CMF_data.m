@@ -138,6 +138,56 @@ switch method
 
     case 'unbiased_matlab'
 
+        y_values_CMF = zeros(k,k,2*M+1);
+        
+        gamma_fun0 = initialise_gamma('M',M,'method',method);
+
+        for k_i = 1:k
+        
+            for k_j = k_i:k
+
+                [gamma_fun] = get_gamma_data(data, gamma_fun0, [k_i k_j]);
+                gamma_fun_y_values = gamma_fun.y_values;
+        
+                y_values_CMF(k_i,k_j,:) = gamma_fun_y_values;
+        
+                if k_i ~= k_j
+                    y_values_CMF(k_j,k_i,:) = flipud(gamma_fun_y_values);        
+                end
+        
+            end
+        
+        end
+
+
+
+    case 'biased_matlab'
+
+        y_values_CMF = zeros(k,k,2*M+1);
+
+        gamma_fun0 = initialise_gamma('M',M,'method',method);
+        
+        for k_i = 1:k
+
+            for k_j = k_i:k
+
+                [gamma_fun] = get_gamma_data(data, gamma_fun0, [k_i k_j]);
+                gamma_fun_y_values = gamma_fun.y_values;
+        
+                y_values_CMF(k_i,k_j,:) = gamma_fun_y_values;
+        
+                if k_i ~= k_j
+                    y_values_CMF(k_j,k_i,:) = flipud(gamma_fun_y_values);
+                end
+        
+            end
+        
+        end
+
+
+
+    case 'unbiased_matlab_v2'
+
         y_values_CMF_matrix = xcov(y_values_data,M,'unbiased');
         
         % Reshape to adapt to (k)x(k)x(2M+1) array
@@ -152,7 +202,7 @@ switch method
 
 
 
-    case 'biased_matlab'
+    case 'biased_matlab_v2'
 
         y_values_CMF_matrix = xcov(y_values_data,M,'biased');
         
