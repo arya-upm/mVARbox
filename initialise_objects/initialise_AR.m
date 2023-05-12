@@ -48,12 +48,17 @@ AR.p                                = [];   % Integer, model order (the highest 
                                             % considered)
 
                                             % Model parameters (unrestricted version):
-AR.parameters.phi_vector            = [];   % Row vector, regression coefficients 
+AR.parameters.phi_vector            = [];   % Row vector, (1)x(N) , [ phi_1 , phi_2 , ... , phi_p ]
+											% Contains the regression coefficients
 AR.parameters.sigma                 = [];   % Noise coefficient
 
                                             % Model parameters (restricted version):
-AR.restricted_parameters.j_vector   = [];   % Row vector, lag vector
-AR.restricted_parameters.a_vector   = [];   % Row vector, regression coefficients
+AR.restricted_parameters.j_vector   = [];   % Row vector, (1)x(N) , [ j1 , j2 , ... , jN ]
+											% Contains the regression lags considered in the 
+											% restricted AR model.
+											% jN sets the AR model order, 'p'.
+AR.restricted_parameters.a_vector   = [];   % Row vector, (1)x(N) , [ a_j1 , a_j2 , ... , a_jN ]
+											% Contains the regression coefficients
 AR.restricted_parameters.b          = [];   % Noise coefficient
 
 AR.poles.N_real                     = [];   % Integer, number or real poles
