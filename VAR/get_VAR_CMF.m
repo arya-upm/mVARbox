@@ -45,6 +45,7 @@ function [VAR] = get_VAR_CMF(CMF, VAR, l_vector, mVARboptions)
 %                             .rcond_tolerance
 %                             .linsys_solving_method   
 %                             .get_VAR_eqs_steps
+%                             .impose_BBT
 %                             .log_write
 %                             .log_name
 %                             .log_path
@@ -56,19 +57,9 @@ function [VAR] = get_VAR_CMF(CMF, VAR, l_vector, mVARboptions)
 %           VAR:        An object (structure) class 'VAR'
 %                       The following fields are added to the object:
 %                           .restricted_parameters.A_vector
-%                           .restricted_parameters.B
-
-
+%                           .restricted_parameters.B 
 %
-%           VARoptions      An object (structure) class 'class'
-%                           The following fields could have been updated
-%                           .token_quasisymmetric
-%                           .token_nonsymmetric
-%                           .token_nonsemidefinitePos
-%                           .token_changed_mldivide_to_gmres
-%                           .token_used_preconditioning
 % 
-%
 %% References:
 %
 % [1] Gallego-Castillo, C. et al., A tutorial on reproducing a predefined autocovariance 
@@ -81,12 +72,15 @@ function [VAR] = get_VAR_CMF(CMF, VAR, l_vector, mVARboptions)
 
 %% Checks
 
+% l_vector is row vector
+if ~isrow(l_vector) && iscolumn(l_vector)
+    l_vector = transpose(l_vector);
+end
 
-% %% Check if VARoptions was provided. If not, get default values
-% 
-% if nargin < 4
-%     [ VARoptions ] = initialise_VARoptions();
-% end
+% Check if mVARoptions was provided. If not, get it with default values
+if ~exist(mVARboptions,'var') 
+    mVARoptions = initialise_mVARoptions();
+end
 
 
 
@@ -112,7 +106,8 @@ fun_CMF_l = @(lag) CMF.y_values(:,:,M+1+lag);
 
 [A_vector, B, ~ ] = fun_A_vector_B_BBT_from_fun_CMF_l(j_vector,...
                                                       l_vector,...
-                                                      fun_CMF_l);
+                                                      fun_CMF_l,...
+                                                      mVARoptions);
 
 
 

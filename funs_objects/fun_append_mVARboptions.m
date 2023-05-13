@@ -42,7 +42,7 @@ end
 
 %% Checks
 
-
+[mVARboptions] = fun_check_mVARboptions(mVARboptions);
 
 
 

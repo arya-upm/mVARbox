@@ -48,6 +48,7 @@ function [AR] = get_AR_gamma(gamma_fun, AR, l_vector, mVARboptions)
 %                             .rcond_tolerance
 %                             .linsys_solving_method   
 %                             .get_VAR_eqs_steps
+%                             .impose_BBT
 %                             .log_write
 %                             .log_name
 %                             .log_path
@@ -79,12 +80,15 @@ function [AR] = get_AR_gamma(gamma_fun, AR, l_vector, mVARboptions)
 
 %% Checks
 
+% l_vector is row vector
+if ~isrow(l_vector) && iscolumn(l_vector)
+    l_vector = transpose(l_vector);
+end
 
-% %% Check if VARoptions was provided. If not, get default values
-% 
-% if nargin < 4
-%     [ VARoptions ] = initialise_VARoptions();
-% end
+% Check if mVARoptions was provided. If not, get it with default values
+if ~exist(mVARboptions,'var') 
+    mVARoptions = initialise_mVARoptions();
+end
 
 
 
@@ -108,9 +112,10 @@ fun_gamma_l = @(lag) gamma_fun.y_values(M+1+lag);
 
 %% Get AR coefficients (trhough the code for MV case)
 
-[ a_vector , b , ~ ] = fun_A_vector_B_BBT_from_fun_CMF_l(j_vector,...
-                                                         l_vector,...
-                                                         fun_gamma_l);
+[a_vector, b, ~] = fun_A_vector_B_BBT_from_fun_CMF_l(j_vector,...
+                                                     l_vector,...
+                                                     fun_gamma_l,...
+                                                     mVARoptions);
 
 
 

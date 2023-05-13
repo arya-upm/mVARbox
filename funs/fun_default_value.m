@@ -25,6 +25,8 @@ switch name
 
 	case 'get_VAR_eqs_steps'; default_value = '2-steps';
 
+	case 'impose_BBT'; default_value = 'none';
+
     case 'k'; default_value = 1;
 
     case 'k_index'; default_value = 1;

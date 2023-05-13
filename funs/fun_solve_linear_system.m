@@ -1,4 +1,4 @@
-function [x] = fun_solve_linear_system (A, B, linsys_solving_method, AA, bb, AAeq, bbeq, lb, ub)
+function [x] = fun_solve_linear_system (A, B, mVARoptions, AA, bb, AAeq, bbeq, lb, ub)
 
 
 %% Description of the function

@@ -42,13 +42,10 @@ mVARboptions.rcond_tolerance				= fun_default_value('rcond_tolerance',0);
 mVARboptions.linsys_solving_method     		= fun_default_value('linsys_solving_method',0);
  											% Options:
 % 											%    'mldivide'
-% 											%    'lsqr'
-% 											%    'gmres'
+% 											%    'lsqlin'
+% 											%    'lsqr'   	< not implemented
+% 											%    'gmres'	< not implemented
 % 
-% mVARboptions.impose_BBT						= 'none';       % Options:
-%                                                             %   'diagonal' 
-%                                                             %   'symmetric'
-%                                                             %       
 % 
 % %mVARboptions.preconditioning_method 			= 'ilu';		% Options:
 % 															%    'ilu'
@@ -60,8 +57,18 @@ mVARboptions.linsys_solving_method     		= fun_default_value('linsys_solving_met
 % 
 mVARboptions.get_VAR_eqs_steps				= fun_default_value('get_VAR_eqs_steps',0);	
 											% Options:
-											%    '1-step' : variance equations are solved for l=0 and l>0 at once
-											%    '2-steps': variance equations are solved for l=0 and l>0 in 2 steps
+											%    '1-step' : variance equations are solved at once
+											%    '2-steps': variance equations are solved in 2 steps
+											%				(first A, then BBT with no constraints)
+
+mVARboptions.impose_BBT						= fun_default_value('impose_BBT',0);       
+                                            % Options:
+							                %   'none'
+                                            %   'symmetric'
+											%	'diagonal' 
+
+                            
+
 % 
 % 
 % 
