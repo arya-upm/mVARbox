@@ -34,10 +34,16 @@ function [x] = fun_solve_linear_system (A, B, mVARoptions, AA, bb, AAeq, bbeq, l
 % 
 %           B:      Matrix (m)x(d), where typically d=1, but not necessarly
 % 
-%           (linsys_solving_method):    Optional parameter.    
-%                                       Implemented methods are listed above.
-%                                       If not provided, the default value is employed 
-%                                       (see function 'fun_default_value').
+%           (mVARoptions):  An object (structure) class 'mVARoptions'
+%                           Optional variable. If not provided, default values 
+%                           (see function 'fun_default_value') will be employed.
+%                           Required fields:
+%                               .rcond_tolerance
+%                               .linsys_solving_method
+%                               .log_write
+%                               .log_name
+%                               .log_path
+% 
 %
 %           (AA,bb,AAeq,bbeq,lb,ub):    To define constraints
 %                                       Only required for some methods
@@ -50,34 +56,36 @@ function [x] = fun_solve_linear_system (A, B, mVARoptions, AA, bb, AAeq, bbeq, l
 % 
 
 
-%%%                           .rcond_tolerance         : 1e-4
-%%%                           .use_log                 : 1
 
+%% Checks 
 
-
-%% Checks
-
-% linsys_solving_method
-if ~exist('linsys_solving_method','var') || isempty(linsys_solving_method)
-    linsys_solving_method = fun_default_value('linsys_solving_method');
+% Check if VARoptions was provided. If not, get it with default values
+if ~exist(mVARboptions,'var') 
+    mVARoptions = initialise_mVARoptions();
 end
+
+% log
+log_write           = mVARoptions.log_write;            
+log_name            = mVARoptions.log_name;
+log_path            = mVARoptions.log_path;
 
 % Constraint matrices 
-if nargin < 4
-    AA = [];
-    bb = [];
-    AAeq = [];
-    bbeq = [];
-    lb = [];
-    ub = [];
-end
+if ~exist(AA,'var');    AA = [];    end
+if ~exist(bb,'var');    bb = [];    end
+if ~exist(AAeq,'var');  AAeq = [];  end
+if ~exist(bbeq,'var');  bbeq = [];  end
+if ~exist(lb,'var');    lb = [];    end
+if ~exist(ub,'var');    ub = [];    end
 
 
 
 %% Unwrap relevant variables
 
-%%% rcond_tolerance         = VARoptions.rcond_tolerance;
-%%% use_log                 = VARoptions.use_log;
+% linsys_solving_method
+linsys_solving_method = mVARboptions.linsys_solving_method;
+
+% rcond_tolerance
+rcond_tolerance         = mVARoptions.rcond_tolerance;
 
 
 
@@ -104,9 +112,9 @@ switch linsys_solving_method
     %   x = inv(A)*B is equivalent, but less robust
     %   rcond should be checked, if it is below threshold, pop-up warning
         if size(A,1)==size(A,2)
-            rcond_tolerance = fun_default_value('rcond_tolerance',0);
-            if rcond(A) < rcond_tolerance && use_log==1
-                warning('mldivide says: ill-conditioned matrix');
+            if rcond(A) < rcond_tolerance && log_write==1
+                message = 'mldivide says: ill-conditioned matrix';
+                fun_write_log(message,log_name,log_path)
             end
         end
     %
@@ -117,7 +125,7 @@ switch linsys_solving_method
     %
     %
     %%% In both cases, the solution is given by:
-        x = A\B;
+        x = mldivide(A,B);
 
 
 

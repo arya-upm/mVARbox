@@ -131,7 +131,7 @@ if strcmp(get_VAR_eqs_steps,'2-steps')
     Gamma_l_T  = transpose(Gamma_l);
     Gamma_jl_T = transpose(Gamma_jl);
     
-    [x] = fun_solve_linear_system (Gamma_jl_T, Gamma_l_T, VARoptions);
+    [x] = fun_solve_linear_system (Gamma_jl_T, Gamma_l_T, mVARoptions);
     
     A_vector = transpose(x);
         
