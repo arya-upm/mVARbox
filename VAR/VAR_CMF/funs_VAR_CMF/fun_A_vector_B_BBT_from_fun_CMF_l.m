@@ -27,7 +27,7 @@ function [A_vector, B, BBT] = fun_A_vector_B_BBT_from_fun_CMF_l(j_vector,...
 % i.e. l_vector having more elements than j_vector. 
 %  
 % 
-%           (mVARoptions):  An object (structure) class 'mVARoptions'
+%           (mVARboptions): An object (structure) class 'mVARboptions'
 %                           Optional variable. If not provided, default values 
 %                           (see function 'fun_default_value') will be employed.
 %                           Required fields:
@@ -64,20 +64,20 @@ function [A_vector, B, BBT] = fun_A_vector_B_BBT_from_fun_CMF_l(j_vector,...
 
 %% Checks 
 
-% Check if VARoptions was provided. If not, get it with default values
-if ~exist(mVARboptions,'var') 
-    mVARoptions = initialise_mVARoptions();
+% Check if mVARboptions was provided. If not, get it with default values
+if ~exist('mVARboptions','var') 
+    mVARboptions = initialise_mVARboptions();
 end
 
 
 
 %% Unwrap relevant variables
 
-get_VAR_eqs_steps   = mVARoptions.get_VAR_eqs_steps;    
-log_write           = mVARoptions.log_write;            
-log_name            = mVARoptions.log_name;
-log_path            = mVARoptions.log_path;
-impose_BBT          = mVARoptions.impose_BBT;
+get_VAR_eqs_steps   = mVARboptions.get_VAR_eqs_steps;    
+log_write           = mVARboptions.log_write;            
+log_name            = mVARboptions.log_name;
+log_path            = mVARboptions.log_path;
+impose_BBT          = mVARboptions.impose_BBT;
 
 
 
@@ -110,13 +110,14 @@ end
 % then BBT is computed directly through eq. (2), meaning that there is no means 
 % to impose constraints to BBT during the obtention of A, which may lead to
 % non-symmetric BBT matrices.
-% For this reason, solver 'mldivide' is recommended for this case.
+% For this reason, solver 'mldivide' is recommended for this case, but any solver can be
+% employed.
 
 if strcmp(get_VAR_eqs_steps,'2-steps')
 
     if log_write == 1
         message = sprintf('Solving A_vector and B in 2-steps for j_vector = [%s] and l_vector = [%s] through method %s', ...
-                           num2str(j_vector),l_vector_string,VARoptions.linsys_solving_method);
+                           num2str(j_vector),l_vector_string,mVARboptions.linsys_solving_method);
         fun_write_log(message,log_name,log_path)
     end
 
@@ -131,7 +132,7 @@ if strcmp(get_VAR_eqs_steps,'2-steps')
     Gamma_l_T  = transpose(Gamma_l);
     Gamma_jl_T = transpose(Gamma_jl);
     
-    [x] = fun_solve_linear_system (Gamma_jl_T, Gamma_l_T, mVARoptions);
+    [x] = fun_solve_linear_system (Gamma_jl_T, Gamma_l_T, mVARboptions);
     
     A_vector = transpose(x);
         
@@ -150,7 +151,8 @@ end
 % matrices A and BBT are obtained at once. This could be more convenient for 
 % the overdetermined approach, where MSE is applied, and adding constraints is 
 % possible. 
-% For this reason, solver 'lsqlin' is recommended. However the linear system 
+% If 'impose_BBT' indicates that constraints are to be imposed, iterative solver is 
+% required ('lsqlin' recommended). Note that linear system 
 % must be modified because 'lsqlin' only accepts a column vector as independent
 % term of the linear system.
 
@@ -158,7 +160,7 @@ if strcmp(get_VAR_eqs_steps,'1-step')
   
     if log_write == 1
         message = sprintf('Solving A_vector and B in 1-steps for j_vector = [%s] and l_vector = [%s] through method %s', ...
-                       num2str(j_vector),l_vector_string,VARoptions.linsys_solving_method);
+                       num2str(j_vector),l_vector_string,mVARboptions.linsys_solving_method);
         fun_write_log(message,log_name,log_path)
     end
 
@@ -187,16 +189,15 @@ if strcmp(get_VAR_eqs_steps,'1-step')
                                   transpose(Gamma_j)    Gamma_jl                ]);
        
 
-    %%%%% Make a different call depending on the solver and constraints on BBT 
+    %%%%% Make a different call depending on the constraints on BBT 
 
     switch impose_BBT
 
 
         case 'none'
-        % No constraint is imposed on BBT, which may result in a non-symmetric
-        % matrix
+        % No constraint is imposed on BBT, which may result in a non-symmetric matrix
 
-            [X_EXT_T] = fun_solve_linear_system(Gamma_jl_EXT_T, Gamma_l_EXT_T, VARoptions);
+            [X_EXT_T] = fun_solve_linear_system(Gamma_jl_EXT_T, Gamma_l_EXT_T, mVARboptions);
 
 
 
@@ -224,7 +225,7 @@ if strcmp(get_VAR_eqs_steps,'1-step')
                 [AA, bb] = fun_constraint_on_BBT_positive_elements(Gamma_jl_EXT_T,Gamma_l_EXT_T);
     
                 % call the solver
-                [x_ext] = fun_solve_linear_system(A_ext, b_ext, VARoptions, AA, bb, AAeq, bbeq, [], []);
+                [x_ext] = fun_solve_linear_system(A_ext, b_ext, mVARboptions, AA, bb, AAeq, bbeq, [], []);
     
                 % Reconstruct the solution
                 col_x = k;
@@ -274,7 +275,7 @@ if strcmp(get_VAR_eqs_steps,'1-step')
 % 
 %         end
 %         
-%         [ x , VARoptions ] = fun_solve_linear_system ( Gamma_jl_EXT_T , Gamma_l_EXT_T , VARoptions, AA, bb, AAeq, bbeq, lb, ub);
+%         [ x , mVARboptions ] = fun_solve_linear_system ( Gamma_jl_EXT_T , Gamma_l_EXT_T , mVARboptions, AA, bb, AAeq, bbeq, lb, ub);
 
     
 
@@ -316,7 +317,7 @@ if strcmp(get_VAR_eqs_steps,'1-step')
     
             end
                
-            [X_EXT_T] = fun_solve_linear_system (Gamma_jl_EXT_T, Gamma_l_EXT_T, VARoptions, AA, bb, AAeq, bbeq, lb, ub);
+            [X_EXT_T] = fun_solve_linear_system (Gamma_jl_EXT_T, Gamma_l_EXT_T, mVARboptions, AA, bb, AAeq, bbeq, lb, ub);
 
     
 
@@ -339,13 +340,13 @@ end
 
 % Check and, if possible, correct quasi-non-ymmetry in BBT. 
 
-[BBT] = fun_check_symmetry (BBT, VARoptions);
+[BBT] = fun_check_symmetry(BBT, mVARboptions);
 
 
 % Check if BBT is semidefinitePos. If not, B is imposed to be identity matrix, 
 % so dummy results are obtained
 
-[B] = fun_check_semidefinitePos (BBT, VARoptions);
+[B] = fun_check_semidefinitePos(BBT, mVARboptions);
 
 
 

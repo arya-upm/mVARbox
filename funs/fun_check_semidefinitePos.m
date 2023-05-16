@@ -1,4 +1,4 @@
-function [M] = fun_check_semidefinitePos (MMT, VARoptions)
+function [M] = fun_check_semidefinitePos (MMT, mVARboptions)
 
 
 %% Description of the function
@@ -14,7 +14,7 @@ function [M] = fun_check_semidefinitePos (MMT, VARoptions)
 %%% Inputs: 
 %           MMT             Matrix to check the semidefinitePos
 % 
-%           (mVARoptions):  An object (structure) class 'mVARoptions'
+%           (mVARboptions): An object (structure) class 'mVARboptions'
 %                           Optional variable. If not provided, default values 
 %                           (see function 'fun_default_value') will be employed.
 %                           Required fields:
@@ -32,18 +32,18 @@ function [M] = fun_check_semidefinitePos (MMT, VARoptions)
 
 %% Checks 
 
-% Check if VARoptions was provided. If not, get it with default values
-if ~exist(mVARboptions,'var') 
-    mVARoptions = initialise_mVARoptions();
+% Check if mVARboptions was provided. If not, get it with default values
+if ~exist('mVARboptions','var') 
+    mVARboptions = initialise_mVARboptions();
 end
 
 
 
 %% Unwrap relevant variables
 
-log_write           = mVARoptions.log_write;            
-log_name            = mVARoptions.log_name;
-log_path            = mVARoptions.log_path;
+log_write           = mVARboptions.log_write;            
+log_name            = mVARboptions.log_name;
+log_path            = mVARboptions.log_path;
 
 
 

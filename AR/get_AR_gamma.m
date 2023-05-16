@@ -38,7 +38,7 @@ function [AR] = get_AR_gamma(gamma_fun, AR, l_vector, mVARboptions)
 %                       equations is overdetermined, and provides minimum
 %                       squared error solution.
 % 
-%           (mVARoptions):  An object (structure) class 'mVARoptions'
+%           (mVARboptions): An object (structure) class 'mVARboptions'
 %                           Optional variable. If not provided, default values 
 %                           (see function 'fun_default_value') will be employed.
 %                           Required fields:
@@ -85,9 +85,9 @@ if ~isrow(l_vector) && iscolumn(l_vector)
     l_vector = transpose(l_vector);
 end
 
-% Check if mVARoptions was provided. If not, get it with default values
-if ~exist(mVARboptions,'var') 
-    mVARoptions = initialise_mVARoptions();
+% Check if mVARboptions was provided. If not, get it with default values
+if ~exist('mVARboptions','var') 
+    mVARboptions = initialise_mVARboptions();
 end
 
 
@@ -115,7 +115,7 @@ fun_gamma_l = @(lag) gamma_fun.y_values(M+1+lag);
 [a_vector, b, ~] = fun_A_vector_B_BBT_from_fun_CMF_l(j_vector,...
                                                      l_vector,...
                                                      fun_gamma_l,...
-                                                     mVARoptions);
+                                                     mVARboptions);
 
 
 

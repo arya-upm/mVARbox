@@ -71,7 +71,7 @@ function [gamma_fun] = get_gamma_data(data, gamma_fun, k_index)
 
 % gamma_fun.method
 if isempty(gamma_fun.method)
-    gamma_fun = fun_append_gamma(gamma,'method',fun_default_value('gamma_fun.method'));
+    gamma_fun = fun_append_gamma(gamma_fun,'method',fun_default_value('gamma_fun.method'));
 end
 
 % k_index

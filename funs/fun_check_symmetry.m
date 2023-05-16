@@ -1,4 +1,4 @@
-function [M_sym] = fun_check_symmetry(M, VARoptions)
+function [M_sym] = fun_check_symmetry(M, mVARboptions)
 
 
 
@@ -19,7 +19,7 @@ function [M_sym] = fun_check_symmetry(M, VARoptions)
 %% Inputs: 
 %           M               Matrix to check the symmetry
 % 
-%           (mVARoptions):  An object (structure) class 'mVARoptions'
+%           (mVARboptions): An object (structure) class 'mVARboptions'
 %                           Optional variable. If not provided, default values 
 %                           (see function 'fun_default_value') will be employed.
 %                           Required fields:
@@ -39,20 +39,20 @@ function [M_sym] = fun_check_symmetry(M, VARoptions)
 
 %% Checks 
 
-% Check if VARoptions was provided. If not, get it with default values
-if ~exist(mVARboptions,'var') 
-    mVARoptions = initialise_mVARoptions();
+% Check if mVARboptions was provided. If not, get it with default values
+if ~exist('mVARboptions','var') 
+    mVARboptions = initialise_mVARboptions();
 end
 
 
 
 %% Unwrap relevant variables
 
-symmetry_tolerance  = mVARoptions.symmetry_tolerance;
-symmetry_operate_it = mVARoptions.symmetry_operate_it;
-log_write           = mVARoptions.log_write;            
-log_name            = mVARoptions.log_name;
-log_path            = mVARoptions.log_path;
+symmetry_tolerance  = mVARboptions.symmetry_tolerance;
+symmetry_operate_it = mVARboptions.symmetry_operate_it;
+log_write           = mVARboptions.log_write;            
+log_name            = mVARboptions.log_name;
+log_path            = mVARboptions.log_path;
 
 
 

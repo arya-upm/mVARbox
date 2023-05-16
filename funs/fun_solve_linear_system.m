@@ -1,4 +1,4 @@
-function [x] = fun_solve_linear_system (A, B, mVARoptions, AA, bb, AAeq, bbeq, lb, ub)
+function [x] = fun_solve_linear_system (A, B, mVARboptions, AA, bb, AAeq, bbeq, lb, ub)
 
 
 %% Description of the function
@@ -17,11 +17,12 @@ function [x] = fun_solve_linear_system (A, B, mVARoptions, AA, bb, AAeq, bbeq, l
 % 
 %   > 'mldivide'        no                  no                  no              direct
 % 
+%   > 'lsqlin'          no                  yes                  ?              iterat
+% 
 %   > 'lsqr'            no                  yes             only A square?      iterat.
 % 
 %   > 'gmres'           yes                 yes                 yes             iterat.
 % 
-%   > 'lsqlin'          no                  yes                  ?              iterat
 % 
 % See more details below, in the corresponding code lines.
 % 
@@ -34,7 +35,7 @@ function [x] = fun_solve_linear_system (A, B, mVARoptions, AA, bb, AAeq, bbeq, l
 % 
 %           B:      Matrix (m)x(d), where typically d=1, but not necessarly
 % 
-%           (mVARoptions):  An object (structure) class 'mVARoptions'
+%           (mVARboptions): An object (structure) class 'mVARboptions'
 %                           Optional variable. If not provided, default values 
 %                           (see function 'fun_default_value') will be employed.
 %                           Required fields:
@@ -59,33 +60,33 @@ function [x] = fun_solve_linear_system (A, B, mVARoptions, AA, bb, AAeq, bbeq, l
 
 %% Checks 
 
-% Check if VARoptions was provided. If not, get it with default values
-if ~exist(mVARboptions,'var') 
-    mVARoptions = initialise_mVARoptions();
+% Check if mVARboptions was provided. If not, get it with default values
+if ~exist('mVARboptions','var') 
+    mVARboptions = initialise_mVARboptions();
 end
 
 % log
-log_write           = mVARoptions.log_write;            
-log_name            = mVARoptions.log_name;
-log_path            = mVARoptions.log_path;
+log_write           = mVARboptions.log_write;            
+log_name            = mVARboptions.log_name;
+log_path            = mVARboptions.log_path;
 
 % Constraint matrices 
-if ~exist(AA,'var');    AA = [];    end
-if ~exist(bb,'var');    bb = [];    end
-if ~exist(AAeq,'var');  AAeq = [];  end
-if ~exist(bbeq,'var');  bbeq = [];  end
-if ~exist(lb,'var');    lb = [];    end
-if ~exist(ub,'var');    ub = [];    end
+if ~exist('AA','var');    AA = [];    end
+if ~exist('bb','var');    bb = [];    end
+if ~exist('AAeq','var');  AAeq = [];  end
+if ~exist('bbeq','var');  bbeq = [];  end
+if ~exist('lb','var');    lb = [];    end
+if ~exist('ub','var');    ub = [];    end
 
 
 
 %% Unwrap relevant variables
 
 % linsys_solving_method
-linsys_solving_method = mVARboptions.linsys_solving_method;
+linsys_solving_method   = mVARboptions.linsys_solving_method;
 
 % rcond_tolerance
-rcond_tolerance         = mVARoptions.rcond_tolerance;
+rcond_tolerance         = mVARboptions.rcond_tolerance;
 
 
 
@@ -129,43 +130,18 @@ switch linsys_solving_method
 
 
 
-%     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% lsqr: least-square method
-%     % Resolution for B matrices is column-by-column
-%     case 'lsqr'
-%     %
-%     % Admits pre-conditioning for square matrices?
-% 
-%         cols_A = size(A,2);
-%         cols_B = size(B,2);
-% 
-%         x = nan(cols_A,cols_B);
-% 
-%         for ii = 1:cols_B
-% 
-%             b_local = B(:,ii);
-% 
-%             %  write here code for preconditioning, if required 
-% 
-%             [x_local , flag_local] = lsqr(A,b_local);
-% 
-%             if use_log == 1
-%                 VARoptions.log{end+1,1} = sprintf('Flag for lsqr is: %d',flag_local);
-%             end
-% 
-%             x(:,ii) = x_local;
-% 
-%         end
-% 
-% 
-% 
-% 
-%     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% lsqlin: least-square method 
-%     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% with constraints
-%     % Resolution for b matrices 
-%     case 'lsqlin'
-%         optim_opciones = optimoptions('lsqlin');
-%         optim_opciones.Display = 'iter' %'off';
-%         [x , flag] = lsqlin(A,B,AA,bb,AAeq,bbeq,lb,ub,[],optim_opciones);
+
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% lsqlin
+    %  least-square method with constraints
+    case 'lsqlin'
+        optim_opciones = optimoptions('lsqlin');
+        optim_opciones.Display = 'iter' %'off';
+        [x , flag] = lsqlin(A,B,AA,bb,AAeq,bbeq,lb,ub,[],optim_opciones);
+
+
+
+
 % 
 % 
 % 
@@ -190,7 +166,7 @@ switch linsys_solving_method
 %             %  write here code for preconditioning, if required 
 % 
 %             % fill bbeq in case that BBT symmetry is to be imposed
-%             if ii>1 && strcmp(VARoptions.impose_BBT,'symmetric')
+%             if ii>1 && strcmp(mVARboptions.impose_BBT,'symmetric')
 %                 for jj=1:ii-1
 %                     bbeq_local(jj,1) = x(ii,jj); 
 %                 end
@@ -203,7 +179,37 @@ switch linsys_solving_method
 %             [x_local , flag_local] = lsqlin(A,b_local,AA{ii},bb{ii},AAeq{ii},bbeq{ii},lb{ii},ub{ii},[],optim_opciones);
 % 
 %             if use_log == 1
-%                 VARoptions.log{end+1,1} = sprintf('Flag for lsqr is: %d',flag_local);
+%                 mVARboptions.log{end+1,1} = sprintf('Flag for lsqr is: %d',flag_local);
+%             end
+% 
+%             x(:,ii) = x_local;
+% 
+%         end
+% 
+% 
+% 
+% 
+%     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% lsqr: least-square method
+%     % Resolution for B matrices is column-by-column
+%     case 'lsqr'
+%     %
+%     % Admits pre-conditioning for square matrices?
+% 
+%         cols_A = size(A,2);
+%         cols_B = size(B,2);
+% 
+%         x = nan(cols_A,cols_B);
+% 
+%         for ii = 1:cols_B
+% 
+%             b_local = B(:,ii);
+% 
+%             %  write here code for preconditioning, if required 
+% 
+%             [x_local , flag_local] = lsqr(A,b_local);
+% 
+%             if use_log == 1
+%                 mVARboptions.log{end+1,1} = sprintf('Flag for lsqr is: %d',flag_local);
 %             end
 % 
 %             x(:,ii) = x_local;
@@ -245,7 +251,7 @@ switch linsys_solving_method
 %             [x_local , flag_local] = gmres(A,b_local);
 % 
 %             if use_log == 1
-%                 VARoptions.log{end+1,1} = sprintf('Flag for gmres is: %d',flag_local);
+%                 mVARboptions.log{end+1,1} = sprintf('Flag for gmres is: %d',flag_local);
 %             end
 % 
 %             x(:,ii) = x_local;

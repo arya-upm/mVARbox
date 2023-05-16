@@ -134,9 +134,7 @@ B = [ sigma2 ; zeros(M,1) ] ;
 
 %%% Get the autocovariance function by efficient linear system resolution
 
-linsys_solving_method = fun_default_value('linsys_solving_method',0);
-
-y_values_positive_lags = fun_solve_linear_system (Ared, B, linsys_solving_method);
+y_values_positive_lags = fun_solve_linear_system (Ared, B);
 
 
 
