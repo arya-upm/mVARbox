@@ -31,6 +31,8 @@ switch name
 
     case 'k_index'; default_value = 1;
 
+    case 'linsys_B_matrix'; default_value = 'ext';
+
 	case 'linsys_solving_method'; default_value = 'mldivide';
 
 	case 'log_name'; default_value = 'mVARbox_log';

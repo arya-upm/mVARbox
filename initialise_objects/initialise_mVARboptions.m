@@ -24,48 +24,57 @@ mVARboptions.class                            = 'mVARboptions';
 
 
 %%%%% Fields related to function "fun_check_symmetry.m"
-% 
-mVARboptions.symmetry_tolerance          	= fun_default_value('symmetry_tolerance',0);
-											% Threshold for considerind a matrix quasi-symmetric
  
-mVARboptions.symmetry_operate_it			= fun_default_value('symmetry_operate_it',0);
-% 											% Options:
-% 											%    0 : doesn't operate to fix a quasi-symmetric matrix
-%                                           %    1 : operates a quasi-symmetric matrix to have it be symmetric"
-% 
-% 
+mVARboptions.symmetry_tolerance     = fun_default_value('symmetry_tolerance',0);
+									% Threshold for considerind a matrix quasi-symmetric
+ 
+mVARboptions.symmetry_operate_it	= fun_default_value('symmetry_operate_it',0);
+ 									% Options:
+ 									%    0 : doesn't operate to fix a quasi-symmetric matrix
+                                    %    1 : operates a quasi-symmetric matrix to have it be symmetric"
+ 
+
+
 %%%%% Fields related to function "fun_solve_linear_system.m"
-% 
-mVARboptions.rcond_tolerance				= fun_default_value('rcond_tolerance',0);
-											% Threshold for considering a matrix badly conditioned
+ 
+mVARboptions.rcond_tolerance		= fun_default_value('rcond_tolerance',0);
+									% Threshold for considering a matrix badly conditioned
  			
-mVARboptions.linsys_solving_method     		= fun_default_value('linsys_solving_method',0);
- 											% Options:
-% 											%    'mldivide'
-% 											%    'lsqlin'
-% 											%    'lsqr'   	< not implemented
-% 											%    'gmres'	< not implemented
+mVARboptions.linsys_solving_method  = fun_default_value('linsys_solving_method',0);
+ 									% Options:
+ 									%   'mldivide'
+ 									%   'lsqlin'
+ 									%   'lsqr'   	< not implemented
+ 									%   'gmres'	    < not implemented
+
+mVARboptions.linsys_B_matrix        = fun_default_value('linsys_B_matrix',0);
+                                    % Options:
+                                    %   'ext'  : to solve through A_ext, B_ext
+                                    %   'iter' : solve iterating through B columns
+
 % 
 % 
 % %mVARboptions.preconditioning_method 			= 'ilu';		% Options:
 % 															%    'ilu'
 % 															%    'ichol'
-% 
-% 
-% 
-%%%%% Fields related to function "fun_A_vector_B_BBT_from_fun_CMF_l.m"
-% 
-mVARboptions.get_VAR_eqs_steps				= fun_default_value('get_VAR_eqs_steps',0);	
-											% Options:
-											%    '1-step' : variance equations are solved at once
-											%    '2-steps': variance equations are solved in 2 steps
-											%				(first A, then BBT with no constraints)
 
-mVARboptions.impose_BBT						= fun_default_value('impose_BBT',0);       
-                                            % Options:
-							                %   'none'
-                                            %   'symmetric'
-											%	'diagonal' 
+
+
+%%%%% Fields related to function "fun_A_vector_B_BBT_from_fun_CMF_l.m"
+
+mVARboptions.get_VAR_eqs_steps      = fun_default_value('get_VAR_eqs_steps',0);	
+									% Options:
+									%    '1-step' : variance equations are solved at once.
+                                    %               This allows imposing constraints on BBT.
+									%    '2-steps': variance equations are solved in 2 
+                                    %               steps: first A, then BBT.
+                                    %               No constraints can be imposed on BBT.
+
+mVARboptions.impose_BBT				= fun_default_value('impose_BBT',0);       
+                                    % Options:
+							        %   'none'
+                                    %   'symmetric'
+									%	'diagonal' 
 
                             
 
@@ -77,21 +86,21 @@ mVARboptions.impose_BBT						= fun_default_value('impose_BBT',0);
 % 															%	0 : no correction is implemented (each segment has its own mean value)
 % 															%   1 : equal to the mean value of the input time series
 % 															%  	2 : equal to 0 (theoretical mean of a zero mean process)
-% 
-% 
-% 
+
+
+
 %%%%% Other fields
-% 
-mVARboptions.log_write						= fun_default_value('log_write',0);	
-											% Options:
- 											%     0 : to not write in log
-											%	  1 : to write in log
+ 
+mVARboptions.log_write				= fun_default_value('log_write',0);	
+									% Options:
+ 									%     0 : to not write in log
+									%	  1 : to write in log
 
-mVARboptions.log_name						= fun_default_value('log_name',0);
-											% File name of the log
+mVARboptions.log_name				= fun_default_value('log_name',0);
+									% File name of the log
 
-mVARboptions.log_path						= fun_default_value('log_path',0);
-											% Relative/absolute path where the log is stored
+mVARboptions.log_path				= fun_default_value('log_path',0);
+									% Relative/absolute path where the log is stored
 
 
 %% Allocate inputs

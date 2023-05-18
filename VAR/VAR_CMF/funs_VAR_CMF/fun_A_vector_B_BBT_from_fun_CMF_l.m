@@ -73,11 +73,11 @@ end
 
 %% Unwrap relevant variables
 
-get_VAR_eqs_steps   = mVARboptions.get_VAR_eqs_steps;    
-log_write           = mVARboptions.log_write;            
-log_name            = mVARboptions.log_name;
-log_path            = mVARboptions.log_path;
-impose_BBT          = mVARboptions.impose_BBT;
+get_VAR_eqs_steps       = mVARboptions.get_VAR_eqs_steps;    
+log_write               = mVARboptions.log_write;            
+log_name                = mVARboptions.log_name;
+log_path                = mVARboptions.log_path;
+impose_BBT              = mVARboptions.impose_BBT;
 
 
 
@@ -121,6 +121,11 @@ if strcmp(get_VAR_eqs_steps,'2-steps')
         fun_write_log(message,log_name,log_path)
     end
 
+    if ~strcmp(impose_BBT,'none')
+        message = 'BBT constraints ignored, because solving selected method is 2-steps.';
+        fun_write_log(message,log_name,log_path)
+    end
+
     %%%%% Matrix A_vector
     %
     % Eq. (1) is rewritten as follows:
@@ -152,9 +157,7 @@ end
 % the overdetermined approach, where MSE is applied, and adding constraints is 
 % possible. 
 % If 'impose_BBT' indicates that constraints are to be imposed, iterative solver is 
-% required ('lsqlin' recommended). Note that linear system 
-% must be modified because 'lsqlin' only accepts a column vector as independent
-% term of the linear system.
+% required ('lsqlin' recommended).
 
 if strcmp(get_VAR_eqs_steps,'1-step')
   
@@ -181,7 +184,6 @@ if strcmp(get_VAR_eqs_steps,'1-step')
     %
 
     l_size = length(l_vector);
-    j_size = length(j_vector);
     k      = size(Gamma_0,1);
     
     Gamma_l_EXT_T  = transpose([ Gamma_0 Gamma_l]);
@@ -189,54 +191,51 @@ if strcmp(get_VAR_eqs_steps,'1-step')
                                   transpose(Gamma_j)    Gamma_jl                ]);
        
 
-    %%%%% Make a different call depending on the constraints on BBT 
+    %%%%% Make a different call depending on BBT constraints
+    
 
     switch impose_BBT
 
-
-        case 'none'
         % No constraint is imposed on BBT, which may result in a non-symmetric matrix
+        case 'none'
 
             [X_EXT_T] = fun_solve_linear_system(Gamma_jl_EXT_T, Gamma_l_EXT_T, mVARboptions);
 
 
 
-
-
-        case 'symmetric'
         % BBT constraint: symmetric
-        % solver must accept constraints, e.g. 'lsqlin'
-        % but 'lsqlin' only accepts a column vector as independent term
-        % There are two options:    
-        %   (1) the EXTended system is modified to have a column vector as independent term
-        %   (2) the system is solved column by column
-        % This module is for option (1)
-        % Option (2) is commented below, but currently deprecated
-            if strcmp(linsys_solving_method,'lsqlin')
-            
-                % First of all, the linear system is modified to have a column vector
-                % as independent term
-                [A_ext , b_ext] = fun_convert_linear_system_from_B_matrix_to_b_vector (Gamma_jl_EXT_T,Gamma_l_EXT_T);
+        case 'symmetric'
     
-                % Next, obtain the constraint matrices for imposing symmetry on BBT
-                [AAeq, bbeq] = fun_constrain_on_BBT_symmetry(Gamma_jl_EXT_T,Gamma_l_EXT_T);
-     
-                % Next, obtain the constraint matrices for imposing positive elements in diag(BBT)
-                [AA, bb] = fun_constraint_on_BBT_positive_elements(Gamma_jl_EXT_T,Gamma_l_EXT_T);
+            % Obtain the constraint matrices for imposing symmetry on BBT
+            [AAeq, bbeq] = fun_constrain_on_BBT_symmetry(Gamma_jl_EXT_T,Gamma_l_EXT_T);
     
-                % call the solver
-                [x_ext] = fun_solve_linear_system(A_ext, b_ext, mVARboptions, AA, bb, AAeq, bbeq, [], []);
+            % Obtain the constraint matrices for imposing positive elements in diag(BBT)
+            [AA, bb] = fun_constraint_on_BBT_positive_elements(Gamma_jl_EXT_T,Gamma_l_EXT_T);
     
-                % Reconstruct the solution
-                col_x = k;
-                fil_x = size(x_ext,1)/col_x;
-                X_EXT_T = reshape(x_ext,[fil_x col_x]);
-            
-            else
-                error('Solver not implemented for obtaining constrained BBT')
+            % call the solver
+            [X_EXT_T] = fun_solve_linear_system(Gamma_jl_EXT_T, Gamma_l_EXT_T,...
+                                                mVARboptions, AA, bb, AAeq, bbeq, [], []);
 
-            end
 
+        case 'diagonal'
+
+            error('Constraint "diagonal" for BBT not implemented yet')
+
+
+    end
+
+
+X_EXT = transpose(X_EXT_T);
+
+BBT = X_EXT(1:k,1:k);
+
+A_vector = X_EXT(1:k,k+1:end);
+
+
+end
+
+
+    
 
 
 %         case 'symmetric'
@@ -276,64 +275,52 @@ if strcmp(get_VAR_eqs_steps,'1-step')
 %         end
 %         
 %         [ x , mVARboptions ] = fun_solve_linear_system ( Gamma_jl_EXT_T , Gamma_l_EXT_T , mVARboptions, AA, bb, AAeq, bbeq, lb, ub);
+        % 
+        % 
+        % 
+        % 
+        % 
+        % case 'diagonal'
+        % % BBT constraint: diagonal
+        % % solver must accept constraints, e.g. 'lsqlin'
+        % % but 'lsqlin' only accepts a column vector as independent term
+        % % There are two options:    
+        % %   (1) the EXTended system is modified to have a column vector as independent term
+        % %   (2) the system is solved column by column
+        % % This module is for option (1)
+        % % Option (2) is commented below
+        % 
+        % % We need to define AA, bb, AAeq, bbeq, lb, ub in the form of cells, to be
+        % % employed for each column of B (because this solver is only valid for independent
+        % % terms as column vectors)
+        %     ncols_x = size(Gamma_l_EXT_T,2);  % this is number of cols in "X_EXT" as well
+        %     nrows_x = size(Gamma_jl_EXT_T,2); % this is number of rows in "X_EXT" as well
+        % 
+        %     for kk = 1:ncols_x
+        % 
+        %         % inequality constraints are employed to impose positive components in the main diagonal of BBT
+        %         AA_preliminar       = zeros(1,nrows_x);
+        %         AA_preliminar(kk)   = -1;
+        %         AA{kk}              = AA_preliminar;
+        %         bb{kk}              = 0;
+        %         % equality constraints are employed to set to zero everything but the main diagonal of BBT
+        %         AAeq_preliminar = [eye(ncols_x) zeros(ncols_x,nrows_x-ncols_x)]; % this is a [I 0], now we need to remove row "kk"
+        %         AAeq_preliminar(kk,:) = [];
+        %         AAeq{kk}        = AAeq_preliminar;
+        %         bbeq{kk}        = zeros(ncols_x-1,1);
+        %         % nothing to say about lb and ub
+        %         lb{kk} = [];
+        %         ub{kk} = [];
+        % 
+        %         clear AA_preliminar AAeq_preliminar
+        % 
+        %     end
+        % 
+        %     [X_EXT_T] = fun_solve_linear_system (Gamma_jl_EXT_T, Gamma_l_EXT_T, mVARboptions, AA, bb, AAeq, bbeq, lb, ub);
+        % 
+        % 
 
-    
-
-
-
-        case 'diagonal'
-        % BBT constraint: diagonal
-        % solver must accept constraints, e.g. 'lsqlin'
-        % but 'lsqlin' only accepts a column vector as independent term
-        % There are two options:    
-        %   (1) the EXTended system is modified to have a column vector as independent term
-        %   (2) the system is solved column by column
-        % This module is for option (1)
-        % Option (2) is commented below
-            
-        % We need to define AA, bb, AAeq, bbeq, lb, ub in the form of cells, to be
-        % employed for each column of B (because this solver is only valid for independent
-        % terms as column vectors)
-            ncols_x = size(Gamma_l_EXT_T,2);  % this is number of cols in "X_EXT" as well
-            nrows_x = size(Gamma_jl_EXT_T,2); % this is number of rows in "X_EXT" as well
-            
-            for kk = 1:ncols_x
-    
-                % inequality constraints are employed to impose positive components in the main diagonal of BBT
-                AA_preliminar       = zeros(1,nrows_x);
-                AA_preliminar(kk)   = -1;
-                AA{kk}              = AA_preliminar;
-                bb{kk}              = 0;
-                % equality constraints are employed to set to zero everything but the main diagonal of BBT
-                AAeq_preliminar = [eye(ncols_x) zeros(ncols_x,nrows_x-ncols_x)]; % this is a [I 0], now we need to remove row "kk"
-                AAeq_preliminar(kk,:) = [];
-                AAeq{kk}        = AAeq_preliminar;
-                bbeq{kk}        = zeros(ncols_x-1,1);
-                % nothing to say about lb and ub
-                lb{kk} = [];
-                ub{kk} = [];
-    
-                clear AA_preliminar AAeq_preliminar
-    
-            end
-               
-            [X_EXT_T] = fun_solve_linear_system (Gamma_jl_EXT_T, Gamma_l_EXT_T, mVARboptions, AA, bb, AAeq, bbeq, lb, ub);
-
-    
-
-    end
-
-
-X_EXT = transpose(X_EXT_T);
-
-BBT = X_EXT(1:k,1:k);
-
-A_vector = X_EXT(1:k,k+1:end);
-
-
-end
-
-
+  
 
 
 %% Obtain B

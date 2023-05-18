@@ -15,14 +15,25 @@ function [x] = fun_solve_linear_system (A, B, mVARboptions, AA, bb, AAeq, bbeq, 
 % 
 %                   A must be square    B must be vector    Allows precond.   Direct/iterat
 % 
+% 
+%   (implemented)
+% 
 %   > 'mldivide'        no                  no                  no              direct
 % 
 %   > 'lsqlin'          no                  yes                  ?              iterat
+% 
+% 
+%   (not implemented)
 % 
 %   > 'lsqr'            no                  yes             only A square?      iterat.
 % 
 %   > 'gmres'           yes                 yes                 yes             iterat.
 % 
+% 
+% 
+% Note that, for the case of methods requiring B to be vector, A and B matrices are 
+% manipulated to generate A_ext and B_ext, so that b_ext is a vector. In that case, constraints
+% must be provided for this version of the system of equations.
 % 
 % See more details below, in the corresponding code lines.
 % 
@@ -41,6 +52,7 @@ function [x] = fun_solve_linear_system (A, B, mVARboptions, AA, bb, AAeq, bbeq, 
 %                           Required fields:
 %                               .rcond_tolerance
 %                               .linsys_solving_method
+%                               .linsys_B_matrix
 %                               .log_write
 %                               .log_name
 %                               .log_path
@@ -65,11 +77,6 @@ if ~exist('mVARboptions','var')
     mVARboptions = initialise_mVARboptions();
 end
 
-% log
-log_write           = mVARboptions.log_write;            
-log_name            = mVARboptions.log_name;
-log_path            = mVARboptions.log_path;
-
 % Constraint matrices 
 if ~exist('AA','var');    AA = [];    end
 if ~exist('bb','var');    bb = [];    end
@@ -85,12 +92,27 @@ if ~exist('ub','var');    ub = [];    end
 % linsys_solving_method
 linsys_solving_method   = mVARboptions.linsys_solving_method;
 
+% linsys_B_matrix
+linsys_B_matrix         = mVARboptions.linsys_B_matrix;
+
 % rcond_tolerance
 rcond_tolerance         = mVARboptions.rcond_tolerance;
+
+% log
+log_write           = mVARboptions.log_write;            
+log_name            = mVARboptions.log_name;
+log_path            = mVARboptions.log_path;
 
 
 
 %% Code
+
+% rows of x
+n = size(A,2);
+
+% columns of x
+d = size(B,2);
+
 
 
 switch linsys_solving_method
@@ -98,34 +120,34 @@ switch linsys_solving_method
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% mldivide, '/', '\'
     case 'mldivide'
-    %
-    % It is probably the most recommended among the direct methods
-    %   https://www.mathworks.com/help/matlab/ref/mldivide.html
-    %
-    % Equivalent commands:
-    %   x = mldivide(A,B)
-    %   x = A\B
-    %   x' = (B')/(A')
-    %
-    %
-    %%% If A is square (m=n):
-    %   x = A\B is the solution of the system 
-    %   x = inv(A)*B is equivalent, but less robust
-    %   rcond should be checked, if it is below threshold, pop-up warning
+        %
+        % It is probably the most recommended among the direct methods
+        %   https://www.mathworks.com/help/matlab/ref/mldivide.html
+        %
+        % Equivalent commands:
+        %   x = mldivide(A,B)
+        %   x = A\B
+        %   x' = (B')/(A')
+        %
+        %
+        %%% If A is square (m=n):
+        %   x = A\B is the solution of the system 
+        %   x = inv(A)*B is equivalent, but less robust
+        %   rcond should be checked, if it is below threshold, pop-up warning
         if size(A,1)==size(A,2)
             if rcond(A) < rcond_tolerance && log_write==1
                 message = 'mldivide says: ill-conditioned matrix';
                 fun_write_log(message,log_name,log_path)
             end
         end
-    %
-    %
-    %%% If A is non-square (m~=n)
-    %   x is the least-squares solution of the system, i.e. minimum |(A*x-b)|, 
-    %   but |x| is not minimised. Conversely, there are as many '0' as possible
-    %
-    %
-    %%% In both cases, the solution is given by:
+        %
+        %
+        %%% If A is non-square (m~=n)
+        %   x is the least-squares solution of the system, i.e. minimum |(A*x-b)|, 
+        %   but |x| is not minimised. Conversely, there are as many '0' as possible
+        %
+        %
+        %%% In both cases, the solution is given by:
         x = mldivide(A,B);
 
 
@@ -135,10 +157,34 @@ switch linsys_solving_method
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% lsqlin
     %  least-square method with constraints
     case 'lsqlin'
-        optim_opciones = optimoptions('lsqlin');
-        optim_opciones.Display = 'iter' %'off';
-        [x , flag] = lsqlin(A,B,AA,bb,AAeq,bbeq,lb,ub,[],optim_opciones);
 
+
+        %%% switch 'linsys_B_matrix' depending on how to solve with B being matrix
+        switch linsys_B_matrix
+
+            
+            %%%%% ext, matrices A and B are rewritten as A_ext and B_ext
+            case 'ext'
+
+                [A_ext , B_ext] = fun_convert_linear_system_from_B_matrix_to_b_vector (A, B);
+
+                optim_opciones = optimoptions('lsqlin');
+                optim_opciones.Display = 'iter'; %'off';
+                [x_ext , ~] = lsqlin(A_ext,B_ext,AA,bb,AAeq,bbeq,lb,ub,[],optim_opciones);
+
+                % Reconstruct the solution
+                x = reshape(x_ext,[n d]);
+
+
+            case 'iter'
+
+                error('Method "iter" for solving linear system of eqs. with B being a matrix not implemented yet')
+
+
+        end
+
+
+end
 
 
 
@@ -258,7 +304,7 @@ switch linsys_solving_method
 % 
 %         end
         
-end
+
 
 
 

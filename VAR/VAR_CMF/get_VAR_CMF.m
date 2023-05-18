@@ -90,7 +90,7 @@ end
 M = CMF.x_parameters.M;
 
 % j_vector
-j_vector = AR.restricted_parameters.j_vector;
+j_vector = VAR.restricted_parameters.j_vector;
 
 
 

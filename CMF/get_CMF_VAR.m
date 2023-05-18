@@ -1,4 +1,4 @@
-function [CMF] = get_CMF_VAR(VAR , CMF )
+function [CMF] = get_CMF_VAR(VAR , CMF, mVARboptions)
 
 
 %% Description of the function
@@ -19,6 +19,16 @@ function [CMF] = get_CMF_VAR(VAR , CMF )
 %           CMF:    An object (sctructure) class 'CMF'.
 %                   The following fields need to be defined:
 %                       .x_parameters.M
+% 
+%           (mVARboptions): An object (structure) class 'mVARboptions'
+%                           Optional variable. If not provided, default values 
+%                           (see function 'fun_default_value') will be employed.
+%                           Required fields:
+%                             .rcond_tolerance
+%                             .linsys_solving_method   
+%                             .log_write
+%                             .log_name
+%                             .log_path
 % 
 % 
 %% Outputs:
@@ -62,6 +72,11 @@ if isempty(VAR.parameters.Phi_vector) && ...
     VAR = fun_VAR_unrestricted_from_restricted(VAR);
 elseif isempty(VAR.parameters.Phi_vector) || isempty(VAR.parameters.Sigma)
     error('VAR coefficients not defined')
+end
+
+% Check if mVARboptions was provided. If not, get it with default values
+if ~exist('mVARboptions','var') 
+    mVARboptions = initialise_mVARboptions();
 end
 
 
@@ -113,8 +128,7 @@ M = I - kron(Phi_1_star,Phi_1_star);
 vec_SigmaSigmaT_star = reshape(SigmaSigmaT_star,(p*k)^2,1);
 
 % Efficient M inversion for solution
-linsys_solving_method = 'mldivide';
-vec_CMF_0_star = fun_solve_linear_system (M, vec_SigmaSigmaT_star, linsys_solving_method);
+vec_CMF_0_star = fun_solve_linear_system(M, vec_SigmaSigmaT_star, mVARboptions);
 
 % Solution is vec(CMF_0_star). CMF_0_star is in the following form:
 %
