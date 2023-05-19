@@ -41,6 +41,8 @@ switch name
 
 	case 'log_write'; default_value = 0;
 
+	case 'norm_method'; default_value = 'center';
+
 	case 'N_seg'; default_value = 8;	
 
 	case 'overlap'; default_value = 0.5;	
