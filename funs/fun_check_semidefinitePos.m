@@ -11,7 +11,7 @@ function [M] = fun_check_semidefinitePos (MMT, mVARboptions)
 % that are diagonal and the value is the mean value of the initially returned diagonals
 %
 % 
-%%% Inputs: 
+%% Inputs: 
 %           MMT             Matrix to check the semidefinitePos
 % 
 %           (mVARboptions): An object (structure) class 'mVARboptions'
@@ -23,7 +23,7 @@ function [M] = fun_check_semidefinitePos (MMT, mVARboptions)
 %                               .log_path
 %
 %
-%%% Outputs:
+%% Outputs:
 % 
 %           M
 % 

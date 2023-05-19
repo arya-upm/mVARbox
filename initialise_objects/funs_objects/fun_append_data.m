@@ -35,6 +35,9 @@ for ii = 1:n_fields
     % check within second level: data.x_parameters
     elseif any(strcmp(field_label,fieldnames(data.x_parameters)))
         data.x_parameters.(field_label) = field_value;   
+    % check within second level: data.y_parameters
+    elseif any(strcmp(field_label,fieldnames(data.norm_parameters)))
+        data.norm_parameters.(field_label) = field_value;   
     % Error, field not found
     else
         error('\n ERROR: Name %s is not a valid field label for this object',field_label)

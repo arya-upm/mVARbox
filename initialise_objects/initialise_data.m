@@ -45,6 +45,10 @@ data.x_parameters.N         = [];   % integer, length of the data
 data.x_values               = [];   % column vector (N)x(1)
                                     % time/space vector
 
+data.norm_parameters.mean	= [];	% mean value/vector of normalised data (see fun_normalise_data)
+
+data.norm_parameters.sigma2	= [];	% variance value/vector of normalised data (see fun_normalise_data)
+
 data.y_values               = [];   % matrix (N)x(k)
                                     % data (column-wise). 
 									% Note that mVARbox supports only real data (not complex-valued data)

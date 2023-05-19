@@ -29,7 +29,7 @@ function [M_sym] = fun_check_symmetry(M, mVARboptions)
 %                               .log_name
 %                               .log_path
 %
-%%% Outputs:
+%% Outputs:
 % 
 %           M_sym           
 % 
@@ -56,7 +56,7 @@ log_path            = mVARboptions.log_path;
 
 
 
-%% Operations
+%% Code
 
 flag_symmetry = issymmetric(M);
 

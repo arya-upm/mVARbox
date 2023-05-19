@@ -1,4 +1,4 @@
-function [CMF] = get_CMF_VAR(VAR , CMF, mVARboptions)
+function [CMF] = get_CMF_VAR(VAR, CMF, mVARboptions)
 
 
 %% Description of the function
