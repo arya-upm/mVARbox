@@ -59,7 +59,9 @@ gamma_fun.type                  = [];       % string, indicates the object to wh
                                             %   ...
 
 gamma_fun.method                = [];       % string, indicates estimation method   
-                                            %   'theoretical' if type is different from 'data'
+                                            %   'theoretical' for exact gamma of a model
+											%	'MA_representation' for estimated of an AR 
+											%						model through MA model.
                                             %   'unbiased' (estimated with mVARbox function) 
                                             %   'biased' (estimated with mVARbox function)
                                             %   'unbiased_matlab' (estimated with matlab native 

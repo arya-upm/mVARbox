@@ -23,6 +23,7 @@ function [gamma_fun] = get_gamma_MA(MA, gamma_fun)
 %           gamma_fun   An object (structure) class 'gamma'
 %                       The following fields are added to the object:
 %                           .type = 'MA'
+%							.method = 'theoretical'
 %                           .y_values
 %
 %
@@ -113,5 +114,6 @@ y_values = [ flipud(y_values_positive_lags(2:end)) ; y_values_positive_lags];
 
 gamma_fun = fun_append_gamma(gamma_fun,...
                              'type','MA',...
+							 'method','theoretical',...
                              'y_values',y_values);
 

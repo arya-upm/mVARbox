@@ -1,9 +1,11 @@
-function [gamma_fun] = get_gamma_AR(AR, gamma_fun)
+function [gamma_fun] = get_gamma_AR_through_MA(AR, gamma_fun, q)
 
 
 %% Description of the function
 %
-% This function computes the exact autocovariance function of an AR(p) model. 
+% This function computes an estimation of the autocovariance function of an 
+% AR(p) model through a Moving Average (MA) representation. The MA model is
+% truncated to order 'q'.
 % 
 %
 %% Inputs:
@@ -20,12 +22,16 @@ function [gamma_fun] = get_gamma_AR(AR, gamma_fun)
 %                       The following fields need to be defined:
 %                           .x_parameters.M
 % 
+%           q:          Order of the truncated MA representation of the AR model.
+%                       For a proper representation, 'q' should be at least 
+%                       similar to the number of relevant terms in the 
+%                       autocovariance function of the original AR model.
 % 
 %% Outputs:
 %           gamma_fun:  An object (structure) class 'gamma'
 %                       The following fields are added to the object:
-%						    .type = 'AR' 
-%                           .method = 'theoretical'
+%						    .type = 'AR'    
+%                           .method = 'MA_representation'
 %                           .y_values
 %
 %
@@ -34,7 +40,7 @@ function [gamma_fun] = get_gamma_AR(AR, gamma_fun)
 % You can find examples of implementation of this function in the following
 % tutorials:
 %
-%   - tutorials/getting_gamma_from_AR.mlx
+%   - tutorials/getting_gamma_from_AR_through_MA.mlx
 %
 %
 %% References:
@@ -66,86 +72,19 @@ end
 
 
 
-%% Unwrap relevant variables
-
-% phi_vector
-phi_vector  = AR.parameters.phi_vector;
-
-% sigma
-sigma       = AR.parameters.sigma;
-
-% p
-[AR] = fun_check_AR(AR);
-p = AR.p;
-
-% M
-M           = gamma_fun.x_parameters.M;
-
-
-
 %% Code
 
-%%% Compute other required parameters
+%%% Get MA representation of AR model
 
-sigma2  = sigma*sigma;          % variance of the random term
+MA = initialise_MA('q',q);
 
-
-% If M < p the computations cannot be performed, so replace "M" with "p" for computations, 
-% and crop the output
-if M < p
-    M_original = M;
-    M = p;
-else
-    M_original = M;
-end
-
-
-%%% Define matrix A, from the system of equations:
-%
-%  A * [ gamma(-p) ... gamma(0) ... gamma(M) ]' = [ 0 ... sigma2 ... 0 ]'
-
-A = eye(M+p+1);
-
-for ii = 1:p
-    A = A + diag( -phi_vector(ii)*ones(1,M-ii+p+1) , -ii);
-end
-
-
-%%% Remove first p row-columns, related to autocovariances at -p , -p+1 , -p+2 , ... , -1
-
-Ared = A(p+1:end,p+1:end);
-
-
-%%% Re-allocate the removed columns in Ared appropriately
-
-for jj = 2:p+1
-    
-    Ared(:,jj) = Ared(:,jj) + A(p+1:end,p-jj+2);    
-    
-end
-
-
-%%% Define matrix B, from the system of equations:
-%
-% Ared * [ gamma (0) ... gamma(M) ].' = B
-    
-B = [ sigma2 ; zeros(M,1) ] ;
+MA = get_MA_AR(AR ,MA);
 
 
 
-%%% Get the autocovariance function by efficient linear system resolution
+%%% Get gamma of the MA model
 
-y_values_positive_lags = fun_solve_linear_system (Ared, B);
-
-
-
-% In case M was set < p , crop the output using M_original
-if M_original < M
-    y_values_positive_lags = y_values_positive_lags(1:M_original+1);
-end
-
-% complete for negative lags
-y_values = [ flipud(y_values_positive_lags(2:end)) ; y_values_positive_lags];
+gamma_fun = get_gamma_MA(MA, gamma_fun);
 
 
 
@@ -153,8 +92,7 @@ y_values = [ flipud(y_values_positive_lags(2:end)) ; y_values_positive_lags];
 
 gamma_fun = fun_append_gamma(gamma_fun,...
                              'type','AR',...
-                             'method','theoretical',...
-                             'y_values',y_values);
+                             'method','MA_representation');
 
 
 
