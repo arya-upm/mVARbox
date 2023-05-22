@@ -12,9 +12,9 @@ function [CMF] = get_CMF_VAR(VAR, CMF, mVARboptions)
 %                       .parameters.Phi_vector
 %                       .parameters.Sigma
 %                   It is also possible to provide the VAR model in restricted form:
-%					    .restricted_parameters.j_vector;
-%						.restricted_parameters.A_vector;
-%						.restricted_parameters.B;
+%					    .restricted_parameters.j_vector
+%						.restricted_parameters.A_vector
+%						.restricted_parameters.B
 % 
 %           CMF:    An object (sctructure) class 'CMF'.
 %                   The following fields need to be defined:
@@ -35,6 +35,7 @@ function [CMF] = get_CMF_VAR(VAR, CMF, mVARboptions)
 %           CMF:    An object (structure) class 'CMF'
 %                   The following fields are added to the object:
 %                       .type  = 'VAR' 
+%                       .method = 'theoretical'
 %                       .y_values 
 %
 %
@@ -193,6 +194,7 @@ end
 
 CMF = fun_append_CMF(CMF,...
                      'type','VAR',...
+                     'method','theoretical',...
                      'y_values',y_values_CMF);
 
 

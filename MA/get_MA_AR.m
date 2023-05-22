@@ -3,18 +3,23 @@ function [MA] = get_MA_AR(AR ,MA)
 
 %% Description of the function
 %
-% This function creates a MA(q) model from an AR(p) model
-% While the MA representation of an AR process has in theory infinite psi coefficients, 
-% this function computes a truncated version, given by MA order q
+% This function creates a MA(q) model from an AR(p) model.
+% While the MA representation of an AR(p) process has in theory infinite psi 
+% coefficients, this function computes a truncated version, given by MA order q.
 %
 %
 %% Inputs:
 %           AR: An object (structure) class 'AR'
 %               The following fields need to be defined:
 %                   .parameters.phi_vector
-%                   (.parameters.sigma) < optional parameter, not required to compute the
-%                                         MA representation of an AR model, but if it
-%                                         exists, it is transferred to the MA model
+%                   (.parameters.sigma) < optional parameter, not required to 
+%                                         compute the MA representation of an AR
+%                                         model, but if it exists, it is 
+%                                         transferred to the MA model
+%               It is also possible to provide the AR model in restricted form:
+%                   .restricted_parameters.j_vector   
+%                   .restricted_parameters.a_vector
+%                   (.restricted_parameters.b)
 % 
 %           MA: An object (structure) class 'MA'
 %               The following fields need to be defined:
@@ -25,10 +30,10 @@ function [MA] = get_MA_AR(AR ,MA)
 % 
 % 
 %% Outputs:
-%           MA  An object (structure) class 'MA'
+%           MA: An object (structure) class 'MA'
 %               The following fields are added to the object:
 %                   .parameters.psi_vector 
-%                   (.parameters.sigma) < if it exists in the AR model
+%                   (.parameters.sigma) < if it exists in the input AR model
 % 
 % 
 %% References:
@@ -42,6 +47,21 @@ function [MA] = get_MA_AR(AR ,MA)
 %     DOI: 10.1007/s00477-021-02156-0
 %
 %
+
+
+
+%% Checks
+
+% Check if the AR model is provided in restricted form. If so, complete 
+% unrestricted.
+if isempty(AR.parameters.phi_vector) && ...
+   isempty(AR.parameters.sigma) && ...
+   ~isempty(AR.restricted_parameters.a_vector) && ...
+   ~isempty(AR.restricted_parameters.b)
+    AR = fun_AR_unrestricted_from_restricted(AR);
+elseif isempty(AR.parameters.phi_vector) || isempty(AR.parameters.sigma)
+    error('AR coefficients not defined')
+end
 
 
 

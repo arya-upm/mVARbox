@@ -76,9 +76,9 @@ end
 
 %%% Get MA representation of AR model
 
-MA = initialise_MA('q',q);
+MA = initialise_MA('q', q);
 
-MA = get_MA_AR(AR ,MA);
+MA = get_MA_AR(AR, MA);
 
 
 
