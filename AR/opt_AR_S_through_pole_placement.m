@@ -63,7 +63,7 @@ function [AR, S_AR] = opt_AR_S_pole_placement(S_Target, AR, fun_score_1V, ...
 % You can find examples of implementation of this function in the following
 % tutorials:
 %
-%   - tutorials/optimal_AR_S_pole_placement.mlx
+%   - tutorials/optimal_AR_S_through_pole_placement
 %
 % 
 %% References:

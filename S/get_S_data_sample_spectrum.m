@@ -41,7 +41,6 @@ function [S] = get_S_data_sample_spectrum(data, S, k_index)
 %                           .sides = '1S'
 %                           .x_parameters.x_min
 %                           .x_parameters.x_max
-%                           .x_parameters.N
 %                           .y_values
 % 
 %
