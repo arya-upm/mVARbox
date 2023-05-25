@@ -206,11 +206,12 @@ y_values_data_1 = data.y_values(:,k1);
 
 % check buffer
 col = size(y_values_data_seg_1,2);
-while col<N_seg
+while col~=N_seg
     warning('Number of segments updated from %d to %d for feasibility',N_seg,N_seg-1)
     N_seg = N_seg-1;
     [N_data_seg, N_overlap] = fun_N_data_seg_N_overlap_Welch(N_data, N_seg, overlap);
-    [y_values_data_seg_1] = buffer(y_values_data_1,N_data_seg,N_overlap,'nodelay');    
+    [y_values_data_seg_1] = buffer(y_values_data_1,N_data_seg,N_overlap,'nodelay'); 
+    col = size(y_values_data_seg_1,2);
 end
 
 
@@ -224,12 +225,13 @@ if k1~=k2
     [y_values_data_seg_2] = buffer(y_values_data_2,N_data_seg,N_overlap,'nodelay');
 
     % check buffer
-    col = size(y_values_data_seg_1,2);
-    while col<N_seg
+    col = size(y_values_data_seg_2,2);
+    while col~=N_seg
         warning('Number of segments for Welch estimation updated from %d to %d for feasibility',N_seg,N_seg-1)
         N_seg = N_seg-1;
         [N_data_seg, N_overlap] = fun_N_data_seg_N_overlap_Welch(N_data, N_seg, overlap);
         [y_values_data_seg_1] = buffer(y_values_data_1,N_data_seg,N_overlap,'nodelay');    
+        col = size(y_values_data_seg_2,2);
     end
 
 end
