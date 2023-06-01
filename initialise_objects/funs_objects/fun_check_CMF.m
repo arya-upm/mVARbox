@@ -1,4 +1,4 @@
-function [CMF] = fun_check_gamma(CMF)
+function [CMF] = fun_check_CMF(CMF)
 
 
 %% Description of the function
