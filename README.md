@@ -1,16 +1,16 @@
 # mVARbox
 
-**mVARbox** is a Matlab toolbox for uni/multivariate data series analysis in both time/space and frequency domains, with focus on mutivariate autoregressive (VAR) models. By using **mVARbox**, you will be able to, among others:
+**mVARbox** is a Matlab toolbox for uni/multivariate data series analysis in both time/space and frequency domains, with special focus on multivariate autoregressive (VAR) models. By using **mVARbox**, you will be able to, among others:
 
-- estimate auto/cross spectra from time series using different estimation methods (Welch, Blackman–Tukey, Daniell, etc.).
+- estimate auto/cross spectra from time series using different estimation methods (Welch, Blackman-Tukey, Daniell, etc.).
 - obtain optimal Autoregressive Models that reproduce a predefined target covariance/spectral structure.
-- generate synthetic time series from VAR models.
+- generate uni/multivariate synthetic time series.
 - ...
 
 
-**mVARbox** is intended for educational and research purposes. It is under development by professors and students of the Rotary Wing and Wind Turbines ([ARYA](http://arya.dave.upm.es/)) unit of the Department of Aircraft and Space Vehicles (Universidad Politécnica de Madrid). 
+**mVARbox** is a software tool developed by professors and students of the Rotary Wing and Wind Turbines unit ([ARYA](http://arya.dave.upm.es/)) within the Department of Aircraft and Space Vehicles at the Universidad Politécnica de Madrid. It is specifically designed for educational and research purposes.
 
-**mVARbox** is free software and you can redistribute it and or modify it under the terms of the GNU General Public License (GPL) v3.
+**mVARbox** is released as free software under GNU General Public License (GPL) version 3. This license grants users the freedom to redistribute and modify the software according to the terms and conditions outlined in the GPL v3. It ensures that the software remains open-source and promotes the principles of open science.
 
 To get a fresh copy of **mVARbox**, clone the git repository located [here](https://github.com/arya-upm/mVARbox). You can also [download](https://github.com/arya-upm/mVARbox/archive/refs/heads/main.zip) it directly.
 
@@ -18,58 +18,73 @@ To get a fresh copy of **mVARbox**, clone the git repository located [here](http
 
 ## mVARbox in a nutshell
 
-Functions in mVARbox are implemented to work mainly with pseudo-objects (matlab structures). The following classes are included:
+**mVARbox** works with mathematical objects, and enables intuitive links between them. The main classes included are:
 
-- `data`, to handle data series.
+- `data`, to handle uni/multivariate data series.
 - `AR`, to handle autoregressive models.
 - `VAR`, to handle multivariate autoregressive models.
 - `gamma`, to handle auto/cross covariance functions.
-- `S` to handle auto/cross power spectral densities.
 - `CMF`, to handle covariance matrix functions.
+- `S` to handle auto/cross power spectral densities (PSDs).
 - `CPSDM`, to handle coss power spectral density matrices.
-- `DTFT`, to handle Discrete Time Fourier Transforms.
-- `window`, to handle time/lag windows.
-- ...
 
-Each class has a number of associated fields. 
+Note that `VAR`, `CMF` and `CPSDM` are the multivariate version of `AR`, `gamma` and `S`, respectively.
 
-Below is a description of the main type of functions that you will find in **mVARbox**.
+The following figure shows the links between classes that are implemented in **mVARbox**.
+
+![mVARbox main scheme](extras/mVARbox_scheme.png)
+ 
+In the figure, each row corresponds to the process of converting an object from one specific class to another distinct class. Different rows involve different mathematical problems or procedures. Below is a short description of each of them:
+
+- (1): Estimation of the covariance function of a dataset. 
+- (2): Spectral estimation from data. Several methods based on correlogram and periodogram approaches are implemented. You will find specific functionalities that are typically absent in alternative software packages. For instance, you can define precise frequency values for spectrum evaluation, enabling enhanced spectral resolution in plots with frequency-log scales.
+- (3) and (4): Estimation of an autoregressive model from either a covariance function or a power spectral density. The estimation of an AR/VAR model from a covariance function includes the possibility of restricted VAR models, where only specific lags are considered in the model scheme. Restricted AR models are particulary useful for processes with a slow decay of their covariance function. The estimation of an AR/VAR model from the PSD is less common in the literature, but it becomes very handy when modelling processes that are described in the frequency domain.
+- (5) and (6): Obtention of the theoretical covariance function and power spectral density of an autoregressive model.
+- (7) Data synthesis from an autoregressive model. This allows you to generate synthetic time or space series with prescribed statistical features (those of the employed AR/VAR model).
+
 
 
 ### Functions `initialise_(class)`
 
-This family of functions are located in folder [initialise_objects/](https://github.com/arya-upm/mVARbox/tree/main/initialise_objects). They can be employed to initialise an object of a specific class. The object can be initialise empty, or assessing some or all the associated fields. You will find a detailed description of the fields associated to each class in the corresponding initialisation funcion.
+To get a complete overview of the classes included in **mVARbox**, have a look at folder [initialise_objects/](https://github.com/arya-upm/mVARbox/tree/main/initialise_objects). This folder contains the functions employed to initialise objects of a particular class. Additionally, within each corresponding initialisation function, you will find a comprehensive description of the fields associated with each class. An object can be initialised either empty or with only a subset of the available fields.
 
 
 
-### Functions `get_`
+### Functions `get_(class1)_(class2)`
 
-These are the functions mainly intended for users. They usually take objects as inputs and generate one or more objects as outputs. The documentation of each function describes thoroughly the fields that need to be filled in the input objects, as well as the fields that are filled in the output objects. Sometimes, specific variables not contained in a object field are also required
+These are the functions that users will handle in most cases. A function named `get_(class1)_(class2)` indicates that the output is an object belonging to class2, and it is generated using an object of class1 as the input. For example, the function `get_gamma_data` is used to obtain the covariance function (output) from a dataset (input). This relationship is depicted as arrow (1) in the plot above.
 
+In certain cases, a function's name may include a third label, like `get_(class1)_(class2)_(method)`. This is associated with a specific method utilized. This label is used for operations that can be performed using multiple methods, see for example functions `get_S_data_Welch` and `get_S_data_BT` for spectral estimation through Welch and Blackman-Tukey estimator, respectively.
+
+The documentation provided within each function provides a comprehensive description of the fields that need to be populated in the input objects, as well as the fields that are populated in the output objects. 
 
 
 
 ### Functions `fun_`
 
-These are support functions to perform secondary operations. Users generally do not need to deal with them.
+These are auxiliary functions designed to carry out secondary operations. Typically, users do not need to interact with them directly.
 
 
 
 ### Function `fun_default_value`
 
-This is a special function located in folder [funs/](https://github.com/cristobal-GC/mVARbox/tree/main/funs). It contains default values for a number of parameters and fields. When optional input parameters are ommited, they take their value from here. Users may change default values editing this function.
+This is a special function located in folder [funs/](https://github.com/cristobal-GC/mVARbox/tree/main/funs). 
+It contains default values for a number of parameters and fields.
+When optional input parameters are omitted, they are automatically assigned the corresponding default values from this function. Users have the flexibility to modify these default values by editing the function
 
 
 
 ### Tutorials
 
-**mVARbox** includes a number of well-documented and illustrative tutorials. You will find them in folder [tutorials/](https://github.com/arya-upm/mVARbox/tree/main/tutorials). The corresponding [pdf files](http://arya.dave.upm.es/library/mVARbox_tutorials/) are also available.
+**mVARbox** includes an extensive set of well-documented and illustrative tutorials. These tutorials are arranged based on the functionalities described in the figure above. For example, if you are interested in spectral estimation from data, arrow (2), you are recommended to have a look at tutorials labeled with **T2_**.
+
+Tutorials are located in folder [tutorials/](https://github.com/arya-upm/mVARbox/tree/main/tutorials). The corresponding [pdf files](http://arya.dave.upm.es/library/mVARbox_tutorials/) are also available.
 
 
 
 ## First steps...
 
-To start using **mVARbox**, add permanently the main folder of the toolbox to the matlab path. This will enable functions `setmVARboxPath` and `unsetmVARboxPath` to easily add and remove **mVARbox** from the matlab folder.
+To start using **mVARbox**, we recommend you to go through tutorial **T0_starting_with_mVARbox**. 
 
 
 We hope you enjoy and find **mVARbox** useful. 
