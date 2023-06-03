@@ -95,7 +95,7 @@ Please write to *cristobaljose.gallego AT upm DOT es* to report bugs and provide
 
 
 
-## <div style="color: #2596be;">List of authors and mantainers</div>
+## <div style="color: #2596be;">List of authors and maintainers</div>
 
 - Cristóbal J. Gallego Castillo [(orcid)](https://orcid.org/0000-0002-8249-5179)
 - Álvaro Cuerva Tejero [(orcid)](https://orcid.org/0000-0002-1690-1634)
