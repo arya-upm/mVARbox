@@ -1,5 +1,4 @@
-# <div style="color: #2596be;">mVARbox</div>
-
+# mVARbox
 
 **mVARbox** is a Matlab toolbox for uni/multivariate data series analysis in both time/space and frequency domains, with special focus on multivariate autoregressive (VAR) models. By using **mVARbox**, you will be able to, among others:
 
@@ -17,7 +16,7 @@ To get a fresh copy of **mVARbox**, clone the git repository located [here](http
 
 
 
-## <div style="color: #2596be;">mVARbox in a nutshell</div>
+## mVARbox in a nutshell
 
 **mVARbox** works with mathematical objects, and enables intuitive links between them. The main classes included are:
 
@@ -83,7 +82,7 @@ Tutorials are located in folder [tutorials/](https://github.com/arya-upm/mVARbox
 
 
 
-## <div style="color: #2596be;">First steps...</div>
+## First steps...
 
 To start using **mVARbox**, we recommend you to go through tutorial **T0_starting_with_mVARbox**. 
 
@@ -95,21 +94,21 @@ Please write to *cristobaljose.gallego AT upm DOT es* to report bugs and provide
 
 
 
-## <div style="color: #2596be;">List of authors and maintainers</div>
+## List of authors and maintainers
 
 - Cristóbal J. Gallego Castillo [(orcid)](https://orcid.org/0000-0002-8249-5179)
 - Álvaro Cuerva Tejero [(orcid)](https://orcid.org/0000-0002-1690-1634)
 - Óscar López García [(orcid)](https://orcid.org/0000-0002-0209-2469)
 
 
-## <div style="color: #2596be;">List of contributors</div>
+## List of contributors
 
 - Mohanad Elagamy [(orcid)](https://orcid.org/0000-0001-8427-0195)
 - Luis Mora de la Cruz
 
 
 
-## <div style="color: #2596be;">Related publications</div>
+## Related publications
 
 Gallego-Castillo, C.; Cuerva-Tejero, A.; Elagamy, M.; Lopez-Garcia, O. & Avila-Sanchez, S. A tutorial on reproducing a predefined autocovariance function through AR models: Application to stationary homogeneous isotropic turbulence. Stochastic Environmental Research and Risk Assessment, 2021, 36, 2711-2736. DOI: [10.1007/s00477-021-02156-0](https://link.springer.com/article/10.1007/s00477-021-02156-0)
 
