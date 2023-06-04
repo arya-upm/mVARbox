@@ -1,16 +1,16 @@
 # mVARbox
 
-**mVARbox** is a Matlab toolbox for uni/multivariate data series analysis in both time/space and frequency domains, with special focus on multivariate autoregressive (VAR) models. By using **mVARbox**, you will be able to, among others:
+**mVARbox** is a Matlab toolbox for uni/multivariate data series analysis in both time and frequency domains, with special focus on multivariate autoregressive (VAR) models. By using **mVARbox**, you will be able to, among others:
 
-- estimate auto/cross spectra from time series using different estimation methods (Welch, Blackman-Tukey, Daniell, etc.).
-- obtain optimal Autoregressive Models that reproduce a predefined target covariance/spectral structure.
-- generate uni/multivariate synthetic time series.
+- estimate auto/cross spectra from time series using different estimation methods (Welch, Blackman-Tukey, Daniell, etc.),
+- obtain optimal Autoregressive Models that reproduce a predefined target covariance/spectral structure,
+- generate uni/multivariate synthetic time series,
 - ...
 
 
-**mVARbox** is a software tool developed by professors and students of the Rotary Wing and Wind Turbines unit ([ARYA](http://arya.dave.upm.es/)) within the Department of Aircraft and Space Vehicles at the Universidad Politécnica de Madrid. It is specifically designed for educational and research purposes.
+**mVARbox** is a software tool developed by professors and students of the Rotary Wing and Wind Turbines unit ([ARYA](http://arya.dave.upm.es/)) within the Department of Aircraft and Space Vehicles at the Universidad Politécnica de Madrid.
 
-**mVARbox** is released as free software under GNU General Public License (GPL) version 3. This license grants users the freedom to redistribute and modify the software according to the terms and conditions outlined in the GPL v3. It ensures that the software remains open-source and promotes the principles of open science.
+**mVARbox** is specifically designed for educational and research purposes, It is released as free software under GNU General Public License (GPL) version 3. This license grants users the freedom to redistribute and modify the software according to the terms and conditions outlined in the GPL v3. It ensures that the software remains open-source and promotes the principles of Open Science.
 
 To get a fresh copy of **mVARbox**, clone the git repository located [here](https://github.com/arya-upm/mVARbox). You can also [download](https://github.com/arya-upm/mVARbox/archive/refs/heads/main.zip) it directly.
 
@@ -20,7 +20,7 @@ To get a fresh copy of **mVARbox**, clone the git repository located [here](http
 
 **mVARbox** works with mathematical objects, and enables intuitive links between them. The main classes included are:
 
-- `data`, to handle uni/multivariate data series.
+- `data`, to handle uni/multivariate data series (time series and space series).
 - `AR`, to handle autoregressive models.
 - `VAR`, to handle multivariate autoregressive models.
 - `gamma`, to handle auto/cross covariance functions.
@@ -32,15 +32,15 @@ Note that `VAR`, `CMF` and `CPSDM` are the multivariate version of `AR`, `gamma`
 
 The following figure shows the links between classes that are implemented in **mVARbox**.
 
-![mVARbox main scheme](extras/mVARbox_scheme.png)
+![mVARbox main scheme](extras/mVARbox_scheme.jpg)
  
 In the figure, each row corresponds to the process of converting an object from one specific class to another distinct class. Different rows involve different mathematical problems or procedures. Below is a short description of each of them:
 
-- (1): Estimation of the covariance function of a dataset. 
-- (2): Spectral estimation from data. Several methods based on correlogram and periodogram approaches are implemented. You will find specific functionalities that are typically absent in alternative software packages. For instance, you can define precise frequency values for spectrum evaluation, enabling enhanced spectral resolution in plots with frequency-log scales.
-- (3) and (4): Estimation of an autoregressive model from either a covariance function or a power spectral density. The estimation of an AR/VAR model from a covariance function includes the possibility of restricted VAR models, where only specific lags are considered in the model scheme. Restricted AR models are particulary useful for processes with a slow decay of their covariance function. The estimation of an AR/VAR model from the PSD is less common in the literature, but it becomes very handy when modelling processes that are described in the frequency domain.
-- (5) and (6): Obtention of the theoretical covariance function and power spectral density of an autoregressive model.
-- (7) Data synthesis from an autoregressive model. This allows you to generate synthetic time or space series with prescribed statistical features (those of the employed AR/VAR model).
+- **(1): Estimation of the covariance function of data series**. 
+- **(2): Spectral estimation from data series**. Several methods based on correlogram and periodogram approaches are implemented. You will find specific functionalities that are typically absent in other software packages. For instance, you can define precise frequency values for spectrum evaluation, enabling enhanced spectral resolution in plots with frequency-log scales.
+- **(3) and (4): Estimation of an autoregressive model from either a covariance function or a power spectral density**. The estimation of an AR/VAR model from a covariance function includes the possibility of restricted VAR models, where only specific lags are considered in the model scheme. Restricted AR models are particulary useful for processes with a slow decay of their covariance function. The estimation of an AR/VAR model from the PSD is less common in the literature, but it becomes very handy when modelling processes that are described in the frequency domain.
+- **(5) and (6): Obtention of the theoretical covariance function and power spectral density of an autoregressive model**.
+- **(7) Data synthesis from an autoregressive model**. This allows you to generate synthetic time or space series with prescribed statistical features (those of the employed AR/VAR model).
 
 
 
@@ -52,11 +52,11 @@ To get a complete overview of the classes included in **mVARbox**, have a look a
 
 ### Functions `get_(class1)_(class2)`
 
-These are the functions that users will handle in most cases. A function named `get_(class1)_(class2)` indicates that the output is an object belonging to class2, and it is generated using an object of class1 as the input. For example, the function `get_gamma_data` is used to obtain the covariance function (output) from a dataset (input). This relationship is depicted as arrow (1) in the plot above.
+These are the functions that users will handle in most cases. A function named `get_(class1)_(class2)` indicates that the output is an object belonging to class1, and it is generated using an object of class2 as the input. For example, the function `get_gamma_data` is used to obtain the covariance function (the output is `gamma`) from a dataset (the input is `data`). This relationship is depicted as arrow (1) in the plot above.
 
-In certain cases, a function's name may include a third label, like `get_(class1)_(class2)_(method)`. This is associated with a specific method utilized. This label is used for operations that can be performed using multiple methods, see for example functions `get_S_data_Welch` and `get_S_data_BT` for spectral estimation through Welch and Blackman-Tukey estimator, respectively.
+In certain cases, a function's name may include a third label, like in `get_(class1)_(class2)_(method)`. This label is used for operations that can be performed using multiple methods, see for example functions `get_S_data_Welch` and `get_S_data_BT` for spectral estimation through Welch and Blackman-Tukey estimator, respectively.
 
-The documentation provided within each function provides a comprehensive description of the fields that need to be populated in the input objects, as well as the fields that are populated in the output objects. 
+The documentation provided within each function provides a comprehensive description of the fields that need to be populated in the input objects, as well as the fields that are populated in the output objects during the function execution. 
 
 
 
