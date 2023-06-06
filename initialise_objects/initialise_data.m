@@ -53,6 +53,8 @@ data.norm_parameters.mean	= [];	% mean value/vector of data retrieved upon norma
 
 data.norm_parameters.sigma	= [];	% standard deviation value/vector of data retrieved upon normalisation (see fun_normalise_data)
 
+data.norm_parameters.gaussian = [];	% cell with y_data and y_gaussian employed to transform data into gaussian
+
 
 
 %% Allocate inputs
