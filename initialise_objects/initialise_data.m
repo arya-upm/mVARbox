@@ -38,6 +38,11 @@ data.ind_var                = [];   % string ('t','s', ...)
 
 data.k						= [];   % number of variables
 
+data.coordinates			= [];   % Matrix (Nu)x(k) containing coordiantes related to each data series.
+									% Nu is the number of coordiantes. For example, if Nu = 2, then each data series is related
+									% to coordinates (u1,u2). The coordinates of data series "j" (between 1 and k) are located
+									% at column "j" of this matrix.
+
 data.x_parameters.delta_x   = [];   % sampling x 
 
 data.x_parameters.N         = [];   % integer, length of the data
