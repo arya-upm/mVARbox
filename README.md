@@ -62,7 +62,7 @@ The documentation provided within each function provides a comprehensive descrip
 
 ### Functions `fun_`
 
-These are auxiliary functions designed to carry out secondary operations. Typically, users do not need to interact with them directly.
+These are auxiliary functions designed to carry out secondary operations. Typically, users do not need to interact with them directly. The main exceptions are described in [Tutorial 0: Starting with mVARbox](https://github.com/arya-upm/mVARbox/tree/main/tutorials)
 
 
 
@@ -82,10 +82,9 @@ Tutorials are located in folder [tutorials/](https://github.com/arya-upm/mVARbox
 
 
 
-## First steps...
+## First steps and feedback...
 
 To start using **mVARbox**, we recommend you to go through tutorial **T0_starting_with_mVARbox**. 
-
 
 We hope you enjoy and find **mVARbox** useful. 
 
