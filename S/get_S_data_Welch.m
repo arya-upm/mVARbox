@@ -204,15 +204,18 @@ y_values_data_1 = data.y_values(:,k1);
 % get overlapping segments
 [y_values_data_seg_1] = buffer(y_values_data_1,N_data_seg,N_overlap,'nodelay');
 
-% check buffer
+% check buffer, because more segments could have been obtained due to conservative 
+% estimation of N_data_seg, and an extra segment completed with zeros that should
+% be removed
 col = size(y_values_data_seg_1,2);
-while col~=N_seg
-    warning('Number of segments updated from %d to %d for feasibility',N_seg,N_seg-1)
-    N_seg = N_seg-1;
-    [N_data_seg, N_overlap] = fun_N_data_seg_N_overlap_Welch(N_data, N_seg, overlap);
-    [y_values_data_seg_1] = buffer(y_values_data_1,N_data_seg,N_overlap,'nodelay'); 
-    col = size(y_values_data_seg_1,2);
+if col > N_seg
+    y_values_data_seg_1 = y_values_data_seg_1(:,1:end-1);
 end
+col = size(y_values_data_seg_1,2);
+if col > N_seg
+    warning('Number of segments updated from %d to %d for feasability',N_seg,col)
+end
+
 
 
 %%%%% Overlapping segments of the second time series (if needed)
@@ -224,15 +227,18 @@ if k1~=k2
     % get overlapping segments
     [y_values_data_seg_2] = buffer(y_values_data_2,N_data_seg,N_overlap,'nodelay');
 
-    % check buffer
+    % check buffer, because more segments could have been obtained due to conservative 
+    % estimation of N_data_seg, and an extra segment completed with zeros that should
+    % be removed
     col = size(y_values_data_seg_2,2);
-    while col~=N_seg
-        warning('Number of segments for Welch estimation updated from %d to %d for feasibility',N_seg,N_seg-1)
-        N_seg = N_seg-1;
-        [N_data_seg, N_overlap] = fun_N_data_seg_N_overlap_Welch(N_data, N_seg, overlap);
-        [y_values_data_seg_1] = buffer(y_values_data_1,N_data_seg,N_overlap,'nodelay');    
-        col = size(y_values_data_seg_2,2);
+    if col > N_seg
+        y_values_data_seg_2 = y_values_data_seg_2(:,1:end-1);
     end
+%     col = size(y_values_data_seg_2,2);
+%     if col > N_seg
+%         no warning required, already done for first time serimes
+%         warning('Number of segments updated from %d to %d for feasability',N_seg,col)
+%     end
 
 end
 
