@@ -4,7 +4,7 @@
 
 - estimate auto/cross spectra from time series using different estimation methods (Welch, Blackman-Tukey, Daniell, etc.),
 - obtain optimal Autoregressive Models that reproduce a predefined target covariance/spectral structure,
-- generate uni/multivariate synthetic time series,
+- generate uni/multivariate synthetic time series [(watch an example video).](http://arya.dave.upm.es/media/mVARbox_synthetic_wind_field.mp4)
 - ...
 
 
