@@ -1,4 +1,6 @@
-![Size](https://img.shields.io/github/repo-size/arya-upm/mVARbox)
+![repo_size](https://img.shields.io/github/repo-size/arya-upm/mVARbox?color=green&style=plastic)
+![code_size](https://img.shields.io/github/languages/code-size/arya-upm/mVARbox?color=yellow&style=plastic)
+[![arya](https://img.shields.io/badge/total%20files-%7B3%7D-blue)](http://arya.dave.upm.es/05_software.html)
 
 
 
