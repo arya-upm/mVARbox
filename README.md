@@ -1,5 +1,5 @@
 ![Size](https://img.shields.io/github/repo-size/arya-upm/mVARbox)
-![ARYA](http://arya.dave.upm.es/05_software.html)
+
 
 
 # Introduction
