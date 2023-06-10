@@ -1,6 +1,6 @@
-![repo_size](https://img.shields.io/github/repo-size/arya-upm/mVARbox?color=green&style=plastic)
-![code_size](https://img.shields.io/github/languages/code-size/arya-upm/mVARbox?color=yellow&style=plastic)
-[![arya](https://img.shields.io/badge/arya-blue)](http://arya.dave.upm.es/05_software.html)
+!(https://img.shields.io/github/repo-size/arya-upm/mVARbox?color=green&style=plastic)
+![label_code_size](https://img.shields.io/github/languages/code-size/arya-upm/mVARbox?color=yellow&style=plastic)
+[![arya](https://img.shields.io/badge/website-arya-blue?style=plastic)](http://arya.dave.upm.es/05_software.html)
 
 
 
