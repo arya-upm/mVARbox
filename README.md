@@ -1,4 +1,8 @@
-# mVARbox
+![Size](https://img.shields.io/github/repo-size/arya-upm/mVARbox)
+![ARYA](http://arya.dave.upm.es/05_software.html)
+
+
+# Introduction
 
 **mVARbox** is a Matlab toolbox for uni/multivariate data series analysis in both time and frequency domains, with special focus on multivariate autoregressive (VAR) models. By using **mVARbox**, you will be able to, among others:
 
@@ -8,7 +12,7 @@
 - ...
 
 
-**mVARbox** is a software tool developed by professors and students of the Rotary Wing and Wind Turbines unit ([ARYA](http://arya.dave.upm.es/)) within the Department of Aircraft and Space Vehicles at the Universidad Politécnica de Madrid.
+**mVARbox** is a software tool developed by professors and students of the Rotary Wing and Wind Turbines unit ([ARYA](http://arya.dave.upm.es/05_software.html)) within the Department of Aircraft and Space Vehicles at the Universidad Politécnica de Madrid.
 
 **mVARbox** is specifically designed for educational and research purposes, It is released as free software under GNU General Public License (GPL) version 3. This license grants users the freedom to redistribute and modify the software according to the terms and conditions outlined in the GPL v3. It ensures that the software remains open-source and promotes the principles of Open Science.
 
@@ -16,7 +20,7 @@ To get a fresh copy of **mVARbox**, clone the git repository located [here](http
 
 
 
-## mVARbox in a nutshell
+# mVARbox in a nutshell
 
 **mVARbox** works with mathematical objects, and enables intuitive links between them. The main classes included are:
 
@@ -44,13 +48,13 @@ In the figure, each row corresponds to the process of converting an object from 
 
 
 
-### Functions `initialise_(class)`
+## Functions `initialise_(class)`
 
 To get a complete overview of the classes included in **mVARbox**, have a look at folder [initialise_objects/](https://github.com/arya-upm/mVARbox/tree/main/initialise_objects). This folder contains the functions employed to initialise objects of a particular class. Additionally, within each corresponding initialisation function, you will find a comprehensive description of the fields associated with each class. An object can be initialised either empty or with only a subset of the available fields.
 
 
 
-### Functions `get_(class1)_(class2)`
+## Functions `get_(class1)_(class2)`
 
 These are the functions that users will handle in most cases. A function named `get_(class1)_(class2)` indicates that the output is an object belonging to class1, and it is generated using an object of class2 as the input. For example, the function `get_gamma_data` is used to obtain the covariance function (the output is `gamma`) from a dataset (the input is `data`). This relationship is depicted as arrow (1) in the plot above.
 
@@ -60,13 +64,13 @@ The documentation provided within each function provides a comprehensive descrip
 
 
 
-### Functions `fun_`
+## Functions `fun_`
 
 These are auxiliary functions designed to carry out secondary operations. Typically, users do not need to interact with them directly. The main exceptions are described in Tutorial **T0_starting_with_mVARbox** (see below).
 
 
 
-### Function `fun_default_value`
+## Function `fun_default_value`
 
 This is a special function located in folder [funs/](https://github.com/cristobal-GC/mVARbox/tree/main/funs). 
 It contains default values for a number of parameters and fields.
@@ -74,7 +78,7 @@ When optional input parameters are omitted, they are automatically assigned the 
 
 
 
-### Tutorials
+## Tutorials
 
 **mVARbox** includes an extensive set of well-documented and illustrative tutorials. These tutorials are arranged based on the functionalities described in the figure above. For example, if you are interested in spectral estimation from data, arrow (2), you are recommended to have a look at tutorials labeled with **T2_**.
 
@@ -82,7 +86,7 @@ Tutorials are located in folder [tutorials/](https://github.com/arya-upm/mVARbox
 
 
 
-## First steps and feedback...
+# First steps and feedback...
 
 To start using **mVARbox**, we recommend you to go through tutorial **T0_starting_with_mVARbox**. 
 
@@ -93,7 +97,7 @@ Please write to *cristobaljose.gallego AT upm DOT es* to report bugs and provide
 
 
 
-## List of authors and maintainers
+# List of authors and maintainers
 
 - Cristóbal J. Gallego Castillo [(orcid)](https://orcid.org/0000-0002-8249-5179)
 - Álvaro Cuerva Tejero [(orcid)](https://orcid.org/0000-0002-1690-1634)
@@ -107,7 +111,7 @@ Please write to *cristobaljose.gallego AT upm DOT es* to report bugs and provide
 
 
 
-## Related publications
+# Related publications
 
 Gallego-Castillo, C.; Cuerva-Tejero, A.; Elagamy, M.; Lopez-Garcia, O. & Avila-Sanchez, S. A tutorial on reproducing a predefined autocovariance function through AR models: Application to stationary homogeneous isotropic turbulence. Stochastic Environmental Research and Risk Assessment, 2021, 36, 2711-2736. DOI: [10.1007/s00477-021-02156-0](https://link.springer.com/article/10.1007/s00477-021-02156-0)
 
