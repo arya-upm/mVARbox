@@ -100,7 +100,7 @@ Cs1 = inv(f_max);
 
 % Warning
 epsilon = fun_default_value('epsilon', 0);
-if abs(x_vector(end) - f_max) > epsilon 
+if x_vector(end) - f_max > epsilon 
     warning('The selected domain for S(f) is higher than f_max')
 end
 
