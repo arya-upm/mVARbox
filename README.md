@@ -99,7 +99,9 @@ Please write to *cristobaljose.gallego AT upm DOT es* to report bugs and provide
 
 
 
-# List of authors and maintainers
+# Further details
+
+## List of authors and maintainers
 
 - Cristóbal J. Gallego Castillo [(orcid)](https://orcid.org/0000-0002-8249-5179)
 - Álvaro Cuerva Tejero [(orcid)](https://orcid.org/0000-0002-1690-1634)
@@ -113,7 +115,7 @@ Please write to *cristobaljose.gallego AT upm DOT es* to report bugs and provide
 
 
 
-# Related publications
+## Related publications
 
 Gallego-Castillo, C.; Cuerva-Tejero, A.; Elagamy, M.; Lopez-Garcia, O. & Avila-Sanchez, S. A tutorial on reproducing a predefined autocovariance function through AR models: Application to stationary homogeneous isotropic turbulence. Stochastic Environmental Research and Risk Assessment, 2021, 36, 2711-2736. DOI: [10.1007/s00477-021-02156-0](https://link.springer.com/article/10.1007/s00477-021-02156-0)
 
