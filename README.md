@@ -16,7 +16,7 @@
 
 **mVARbox** is a software tool developed by professors and students of the Rotary Wing and Wind Turbines unit ([ARYA](http://arya.dave.upm.es/05_software.html)) within the Department of Aircraft and Space Vehicles at the Universidad Politécnica de Madrid.
 
-**mVARbox** is specifically designed for educational and research purposes, It is released as free software under GNU General Public License (GPL) version 3. This license grants users the freedom to redistribute and modify the software according to the terms and conditions outlined in the GPL v3. It ensures that the software remains open-source and promotes the principles of Open Science.
+**mVARbox** is specifically designed for educational and research purposes. It is released under MIT license.
 
 To get a fresh copy of **mVARbox**, clone the git repository located [here](https://github.com/arya-upm/mVARbox). You can also [download](https://github.com/arya-upm/mVARbox/archive/refs/heads/main.zip) it directly.
 
