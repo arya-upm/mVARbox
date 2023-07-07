@@ -30,6 +30,9 @@ function [data] = fun_normalise_data(data, norm_method)
 %                               'center'   : normalised data are mean 0
 %                               'zscore'   : normalised data are mean 0, std 1
 %                               'gaussian' : new data have gaussian(0,1) distribution
+%								'center-gaussian': combines both, the result is the same
+%												   as in 'gaussian', but the means are
+%												   stored in 'mean' field.		
 % 
 % 
 %% Outputs:
@@ -135,7 +138,51 @@ switch norm_method
 
         mean_y_values   = [];    
         sigma_y_values  = [];
-        
+
+
+
+    case 'center-gaussian'
+
+		[y_values_pre_normalised, C, ~ ] = normalize(y_values,1,'center');
+
+		k = size(y_values_pre_normalised,2);
+        gaussian_y_cell = cell(1,k);
+        y_values_normalised = nan(size(y_values));
+
+
+        for ii = 1:k
+    
+            y = y_values_pre_normalised(:,ii);
+    
+            % get CDF of the data 
+            [f_data,y_data] = ecdf(y);
+            % replace 1st element of y_data for an unlikely minimum value
+            y_data(1) = min(y_data)-range(y_data);     
+            % replace last element of y_data for an unlikely maximum value
+            y_data(end) = max(y_data)+range(y_data);
+    
+            % get CDF of gaussian        
+            y_gaussian = norminv(f_data);
+            % replace 1st element of y_gaussian for an unlikely minimum value
+            y_gaussian(1) = -10;
+            % replace last element of y_gaussian for an unlikely maximum value
+            y_gaussian(end) = 10;
+    
+            % get transformed data
+            y_values_normalised(:,ii) = interp1(y_data,y_gaussian,y);
+    
+            % store y_data and y_gaussian for data denormalisation
+            gaussian_y_cell{ii}.y_data     = y_data;
+            gaussian_y_cell{ii}.y_gaussian = y_gaussian;
+    
+            clear y_data y_gaussian
+    
+        end
+    
+        mean_y_values   = C;
+        sigma_y_values  = [];
+
+       
 
 
 end
