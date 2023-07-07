@@ -11,7 +11,8 @@ function [data] = fun_denormalise_data(data)
 %   - If only "mean" is populated, the normalisation method was "center".
 %   - If only "mean" and "std" are populated, the normalisation method was "zscore".
 %   - If only "gaussian" is populated, the normalisation method was "gaussian".
-% 
+%   - If only "mean" and "gaussian" is populated, the normalisation method was "center-gaussian".
+
 % In addition, "norm_parameters" fields are set to [] to indicate that the resulting data 
 % are not any more normalised.
 % 
@@ -83,6 +84,26 @@ elseif isempty(mean_y_values) && isempty(sigma_y_values) && ~isempty(gaussian_y_
         y_values_denormalised(:,ii) = interp1(y_gaussian,y_data,y);
 
     end
+
+
+%%%%% center-gaussian    
+elseif ~isempty(mean_y_values) && isempty(sigma_y_values) && ~isempty(gaussian_y_cell)
+
+    k = size(y_values,2);
+    y_values_denormalised = nan(size(y_values));
+
+    for ii = 1:k
+
+        y = y_values(:,ii);
+
+        y_data      = gaussian_y_cell{ii}.y_data;
+        y_gaussian  = gaussian_y_cell{ii}.y_gaussian;
+
+        y_values_denormalised(:,ii) = interp1(y_gaussian,y_data,y);
+
+    end
+
+    y_values_denormalised = y_values_denormalised + mean_y_values;
 
 
 
