@@ -14,7 +14,7 @@ function [CPSDM] = get_CPSDM_data_BT(data, CPSDM, gamma_fun, window)
 %           data:       An object (structure) class 'data'
 %                       The following fields need to be defined:
 %                           .ind_var
-%                           .x_parameters.delta_t
+%                           .x_parameters.delta_x
 %                           .y_values
 %
 %           CPSDM:      An object (structure) class 'CPSDM'
