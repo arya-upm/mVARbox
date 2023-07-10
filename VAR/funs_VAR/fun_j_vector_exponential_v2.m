@@ -43,7 +43,9 @@ j_vector = round(j_vector);
 
 
 
-%% remove repeated values
+%% remove repeated values 
+% by selecting the maximum between the exponential law and the linear law (to avoid 
+% repeated terms like [1 1 1 2 2 3...]
 j_vector = max([j_vector;x_vector]);
 
 

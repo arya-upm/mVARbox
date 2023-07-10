@@ -1,4 +1,4 @@
-function [j_vector] = fun_j_vector_exponential(b, N, M)
+function [j_vector] = fun_j_vector_exponential_v1(b, N, M)
 
 
 %% Description of the function
@@ -10,12 +10,12 @@ function [j_vector] = fun_j_vector_exponential(b, N, M)
 % j_vector defines the lags (regression terms) of the model.
 % 
 % If the exponential law surpases a prescribed limit (M), the exceeding lags are replaced
-% by the smallest possible lags. For example:
+% by the highest possible lags. For example:
 %   b = 2
 %   N = 6
 % leads to j_vector = [1 2 4 8 16 32]. If the maximum lag is set to M = 10, the two last
-% lags (16 and 32) are replaced by the smallest possible lags, 3 and 5. Thus, the obtained
-% j_vector = [1 2 3 4 5 8 16 32];
+% lags (16 and 32) are replaced by the highest possible lags, 10 and 9. Thus, the obtained
+% j_vector = [1 2 3 4 5 8 9 10];
 % 
 % 
 %% Inputs:
