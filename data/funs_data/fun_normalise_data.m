@@ -45,7 +45,7 @@ function [data] = fun_normalise_data(data, norm_method)
 %                                                     value of the k data series.
 %                                                     Populated with method "center" and
 %                                                     "zscore".
-%                       .norm_parameters.sigma2     < Contains (1)x(k) vector with std
+%                       .norm_parameters.sigma     < Contains (1)x(k) vector with std
 %                                                     value of the k data series.
 %                                                     Populated with method "zscore".
 %                       .norm_parameters.gaussian   < Contains (1)x(k) cell. Each cell
@@ -91,9 +91,9 @@ switch norm_method
         gaussian_y_cell = [];
 
 
-    case 'var'
+    case 'zscore'
     
-        [y_values_normalised, C, S ] = normalize(y_values,1,'mean');
+        [y_values_normalised, C, S ] = normalize(y_values,1,'zscore');
     
         mean_y_values   = C;    
         sigma_y_values  = S;
