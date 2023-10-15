@@ -3,7 +3,8 @@ function [S] = get_S_gamma(gamma_fun, S)
 
 %% Description of the function
 % 
-% This function provides the one-sided PSD of a gamma_fun, just by applying the DTFT.
+% This function provides the one-sided PSD of a gamma_fun, just by applying the DTFT 
+% and changing from 2-sided to 1-sided.
 % 
 %
 %% Inputs:
