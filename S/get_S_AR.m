@@ -61,7 +61,7 @@ if any(strcmp({'f','ftilde'},S.ind_var))
 
 else
 
-    stop('Functionality still not available for S.ind_var = %s',S.ind_var)
+    error('Functionality still not available for S.ind_var = %s',S.ind_var)
 
 end
     
@@ -88,10 +88,11 @@ switch ind_var
 
         S = fun_S_AR_f_1S(AR, S);
 
+
     case 'ftilde'
-    
         
         S = fun_S_AR_ftilde_1S(AR, S);
+
 
     otherwise
         stop('Operation still not supported for S.ind_var requested')
