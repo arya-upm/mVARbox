@@ -1,0 +1,13 @@
+cff-version: 1.0.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Cristobal"
+  given-names: "Gallego-Castillo"
+  orcid: "https://orcid.org/0000-0000-0000-0000"
+- family-names: "Bot"
+  given-names: "Hew"
+  orcid: "https://orcid.org/0000-0000-0000-0000"
+title: "mVARbox"
+version: 1.0.0
+date-released: 2024-02-20
+url: "https://github.com/arya-upm/mVARbox/"
