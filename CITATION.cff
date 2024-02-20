@@ -3,10 +3,13 @@ message: "If you use this software, please cite it as below."
 authors:
 - family-names: "Cristobal"
   given-names: "Gallego-Castillo"
-  orcid: "https://orcid.org/0000-0000-0000-0000"
-- family-names: "Bot"
-  given-names: "Hew"
-  orcid: "https://orcid.org/0000-0000-0000-0000"
+  orcid: "https://orcid.org/0000-0002-8249-5179"
+- family-names: "Alvaro"
+  given-names: "Cuerva-Tejero"
+  orcid: "https://orcid.org/0000-0002-1690-1634"
+- family-names: "Oscar"
+  given-names: "Lopez-Garcia"
+  orcid: "https://orcid.org/0000-0002-0209-2469"
 title: "mVARbox"
 version: 1.0.0
 date-released: 2024-02-20
