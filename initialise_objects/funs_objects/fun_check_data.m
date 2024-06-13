@@ -19,7 +19,7 @@ if ~isempty(data.y_values)
 	data.k 				= size(data.y_values,2);	
 end
 
-if ~isempty(data.y_values) && ~isempty(data.x_parameters.delta_x)
+if isempty(data.x_values) && ~isempty(data.x_parameters.delta_x) && ~isempty(data.x_parameters.N)
     % Complete x_values
     data.x_values       = data.x_parameters.delta_x*transpose(1:data.x_parameters.N);
 end
