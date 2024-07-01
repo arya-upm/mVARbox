@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>mVARbox in a nutshell &mdash; mVARbox  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tutorials" href="tutorials.html" />
+    <link rel="prev" title="mVARbox" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            mVARbox
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">mVARbox in a nutshell</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#functions-initialise-class">Functions <code class="docutils literal notranslate"><span class="pre">initialise_(class)</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#functions-get-class1-class2">Functions <code class="docutils literal notranslate"><span class="pre">get_(class1)_(class2)</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#functions-fun">Functions <code class="docutils literal notranslate"><span class="pre">fun_</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#function-fun-default-value">Function <code class="docutils literal notranslate"><span class="pre">fun_default_value</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">mVARbox</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">mVARbox in a nutshell</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/nutshell.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="mvarbox-in-a-nutshell">
+<h1>mVARbox in a nutshell<a class="headerlink" href="#mvarbox-in-a-nutshell" title="Link to this heading">¶</a></h1>
+<p><strong>mVARbox</strong> works with mathematical objects, and enables intuitive links between them. The main classes included are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">data</span></code>, to handle uni/multivariate data series (time series and space series).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">AR</span></code>, to handle autoregressive models.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">VAR</span></code>, to handle multivariate autoregressive models.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gamma</span></code>, to handle auto/cross covariance functions.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CMF</span></code>, to handle covariance matrix functions.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">S</span></code> to handle auto/cross power spectral densities (PSDs).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CPSDM</span></code>, to handle coss power spectral density matrices.</p></li>
+</ul>
+<p>Note that <cite>VAR</cite>, <cite>CMF</cite> and <cite>CPSDM</cite> are the multivariate version of <code class="docutils literal notranslate"><span class="pre">AR</span></code>, <code class="docutils literal notranslate"><span class="pre">gamma</span></code> and <code class="docutils literal notranslate"><span class="pre">S</span></code>, respectively.</p>
+<p>The following figure shows the links between classes that are implemented in <strong>mVARbox</strong>.</p>
+<img alt="_images/mVARbox_scheme.jpg" src="_images/mVARbox_scheme.jpg" />
+<p>In the figure, each row corresponds to the process of converting an object from one specific class to another distinct class. Different rows involve different mathematical problems or procedures. Below is a short description of each of them:</p>
+<ul class="simple">
+<li><p><strong>(1): Estimation of the covariance function of data series</strong>.</p></li>
+<li><p><strong>(2): Spectral estimation from data series</strong>. Several methods based on correlogram and periodogram approaches are implemented. You will find specific functionalities that are typically absent in other software packages. For instance, you can define precise frequency values for spectrum evaluation, enabling enhanced spectral resolution in plots with frequency-log scales.</p></li>
+<li><p><strong>(3) and (4): Estimation of an autoregressive model from either a covariance function or a power spectral density</strong>. The estimation of an AR/VAR model from a covariance function includes the possibility of restricted VAR models, where only specific lags are considered in the model scheme. Restricted AR models are particulary useful for processes with a slow decay of their covariance function. The estimation of an AR/VAR model from the PSD is less common in the literature, but it becomes very handy when modelling processes that are described in the frequency domain.</p></li>
+<li><p><strong>(5) and (6): Obtention of the theoretical covariance function and power spectral density of an autoregressive model</strong>.</p></li>
+<li><p><strong>(7): Data synthesis from an autoregressive model</strong>. This allows you to generate synthetic time or space series with prescribed statistical features (those of the employed AR/VAR model).</p></li>
+<li><p><strong>(8):</strong> Applications of the <strong>Wiener-Khinchin theorem</strong>.</p></li>
+</ul>
+<section id="functions-initialise-class">
+<h2>Functions <code class="docutils literal notranslate"><span class="pre">initialise_(class)</span></code><a class="headerlink" href="#functions-initialise-class" title="Link to this heading">¶</a></h2>
+<p>To get a complete overview of the classes included in <strong>mVARbox</strong>, have a look at folder [initialise_objects/](<a class="reference external" href="https://github.com/arya-upm/mVARbox/tree/main/initialise_objects">https://github.com/arya-upm/mVARbox/tree/main/initialise_objects</a>). This folder contains the functions employed to initialise objects of a particular class. Additionally, within each corresponding initialisation function, you will find a comprehensive description of the fields associated with each class. An object can be initialised either empty or with only a subset of the available fields.</p>
+</section>
+<section id="functions-get-class1-class2">
+<h2>Functions <code class="docutils literal notranslate"><span class="pre">get_(class1)_(class2)</span></code><a class="headerlink" href="#functions-get-class1-class2" title="Link to this heading">¶</a></h2>
+<p>These are the functions that users will handle in most cases. A function named <code class="docutils literal notranslate"><span class="pre">get_(class1)_(class2)</span></code> indicates that the output is an object belonging to class1, and it is generated using an object of class2 as the input. For example, the function <cite>get_gamma_data</cite> is used to obtain the covariance function (the output is <cite>gamma</cite>) from a dataset (the input is <cite>data</cite>). This relationship is depicted as arrow (1) in the plot above.</p>
+<p>In certain cases, a function’s name may include a third label, like in <code class="docutils literal notranslate"><span class="pre">get_(class1)_(class2)_(method)</span></code>. This label is used for operations that can be performed using multiple methods, see for example functions <cite>get_S_data_Welch</cite> and <cite>get_S_data_BT</cite> for spectral estimation through Welch and Blackman-Tukey estimator, respectively.</p>
+<p>The documentation provided within each function provides a comprehensive description of the fields that need to be populated in the input objects, as well as the fields that are populated in the output objects during the function execution.</p>
+</section>
+<section id="functions-fun">
+<h2>Functions <code class="docutils literal notranslate"><span class="pre">fun_</span></code><a class="headerlink" href="#functions-fun" title="Link to this heading">¶</a></h2>
+<p>These are auxiliary functions designed to carry out secondary operations. Typically, users do not need to interact with them directly. The main exceptions are described in Tutorial <strong>T0_starting_with_mVARbox</strong> (see below).</p>
+</section>
+<section id="function-fun-default-value">
+<h2>Function <code class="docutils literal notranslate"><span class="pre">fun_default_value</span></code><a class="headerlink" href="#function-fun-default-value" title="Link to this heading">¶</a></h2>
+<p>This is a special function located in folder <a class="reference external" href="https://github.com/cristobal-GC/mVARbox/tree/main/funs">funs/</a>.
+It contains default values for a number of parameters and fields.
+When optional input parameters are omitted, they are automatically assigned the corresponding default values from this function. Users have the flexibility to modify these default values by editing the function</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="mVARbox" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tutorials.html" class="btn btn-neutral float-right" title="Tutorials" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
