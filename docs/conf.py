@@ -23,10 +23,10 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-import sphinx_rtd_theme
+##### import sphinx_rtd_theme
 
 html_theme = 'sphinx_rtd_theme'   # NO EXISTE - El tema utilizado por Read the Docs, que es muy popular por su diseño limpio y fácil de navegar - SE INSTALA CON `> pip install sphinx_rtd_theme`
-html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+##### html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 # html_theme = 'classic'   # El tema clásico de Sphinx, utilizado en versiones anteriores
 # html_theme = 'alabaster'   # Un tema limpio y minimalista que es el tema predeterminado en Sphinx

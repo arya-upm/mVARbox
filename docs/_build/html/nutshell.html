@@ -13,6 +13,8 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
         <script src="_static/documentation_options.js?v=5929fcd5"></script>
         <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -79,7 +81,7 @@
            <div itemprop="articleBody">
              
   <section id="mvarbox-in-a-nutshell">
-<h1>mVARbox in a nutshell<a class="headerlink" href="#mvarbox-in-a-nutshell" title="Link to this heading">¶</a></h1>
+<h1>mVARbox in a nutshell<a class="headerlink" href="#mvarbox-in-a-nutshell" title="Link to this heading"></a></h1>
 <p><strong>mVARbox</strong> works with mathematical objects, and enables intuitive links between them. The main classes included are:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">data</span></code>, to handle uni/multivariate data series (time series and space series).</p></li>
@@ -103,21 +105,21 @@
 <li><p><strong>(8):</strong> Applications of the <strong>Wiener-Khinchin theorem</strong>.</p></li>
 </ul>
 <section id="functions-initialise-class">
-<h2>Functions <code class="docutils literal notranslate"><span class="pre">initialise_(class)</span></code><a class="headerlink" href="#functions-initialise-class" title="Link to this heading">¶</a></h2>
+<h2>Functions <code class="docutils literal notranslate"><span class="pre">initialise_(class)</span></code><a class="headerlink" href="#functions-initialise-class" title="Link to this heading"></a></h2>
 <p>To get a complete overview of the classes included in <strong>mVARbox</strong>, have a look at folder [initialise_objects/](<a class="reference external" href="https://github.com/arya-upm/mVARbox/tree/main/initialise_objects">https://github.com/arya-upm/mVARbox/tree/main/initialise_objects</a>). This folder contains the functions employed to initialise objects of a particular class. Additionally, within each corresponding initialisation function, you will find a comprehensive description of the fields associated with each class. An object can be initialised either empty or with only a subset of the available fields.</p>
 </section>
 <section id="functions-get-class1-class2">
-<h2>Functions <code class="docutils literal notranslate"><span class="pre">get_(class1)_(class2)</span></code><a class="headerlink" href="#functions-get-class1-class2" title="Link to this heading">¶</a></h2>
+<h2>Functions <code class="docutils literal notranslate"><span class="pre">get_(class1)_(class2)</span></code><a class="headerlink" href="#functions-get-class1-class2" title="Link to this heading"></a></h2>
 <p>These are the functions that users will handle in most cases. A function named <code class="docutils literal notranslate"><span class="pre">get_(class1)_(class2)</span></code> indicates that the output is an object belonging to class1, and it is generated using an object of class2 as the input. For example, the function <cite>get_gamma_data</cite> is used to obtain the covariance function (the output is <cite>gamma</cite>) from a dataset (the input is <cite>data</cite>). This relationship is depicted as arrow (1) in the plot above.</p>
 <p>In certain cases, a function’s name may include a third label, like in <code class="docutils literal notranslate"><span class="pre">get_(class1)_(class2)_(method)</span></code>. This label is used for operations that can be performed using multiple methods, see for example functions <cite>get_S_data_Welch</cite> and <cite>get_S_data_BT</cite> for spectral estimation through Welch and Blackman-Tukey estimator, respectively.</p>
 <p>The documentation provided within each function provides a comprehensive description of the fields that need to be populated in the input objects, as well as the fields that are populated in the output objects during the function execution.</p>
 </section>
 <section id="functions-fun">
-<h2>Functions <code class="docutils literal notranslate"><span class="pre">fun_</span></code><a class="headerlink" href="#functions-fun" title="Link to this heading">¶</a></h2>
+<h2>Functions <code class="docutils literal notranslate"><span class="pre">fun_</span></code><a class="headerlink" href="#functions-fun" title="Link to this heading"></a></h2>
 <p>These are auxiliary functions designed to carry out secondary operations. Typically, users do not need to interact with them directly. The main exceptions are described in Tutorial <strong>T0_starting_with_mVARbox</strong> (see below).</p>
 </section>
 <section id="function-fun-default-value">
-<h2>Function <code class="docutils literal notranslate"><span class="pre">fun_default_value</span></code><a class="headerlink" href="#function-fun-default-value" title="Link to this heading">¶</a></h2>
+<h2>Function <code class="docutils literal notranslate"><span class="pre">fun_default_value</span></code><a class="headerlink" href="#function-fun-default-value" title="Link to this heading"></a></h2>
 <p>This is a special function located in folder <a class="reference external" href="https://github.com/cristobal-GC/mVARbox/tree/main/funs">funs/</a>.
 It contains default values for a number of parameters and fields.
 When optional input parameters are omitted, they are automatically assigned the corresponding default values from this function. Users have the flexibility to modify these default values by editing the function</p>
