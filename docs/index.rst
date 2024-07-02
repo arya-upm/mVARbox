@@ -3,16 +3,14 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-  SPDX-License-Identifier: CC-BY-4.0
+..  SPDX-License-Identifier: CC-BY-4.0
 
 
-##########################################################################################
-mVARbox
-##########################################################################################
 
+#############################################################################################
+mVARbox: A tool for time series modelling, spectral estimation and synthetic data generation
+#############################################################################################
 
-A tool for time series modelling, spectral estimation and synthetic data generation
-==========================================================================================
 
 
 **mVARbox** is a Matlab toolbox for uni/multivariate data series analysis in both time and frequency domains, with special focus on multivariate autoregressive (VAR) models. By using **mVARbox**, you will be able to, among others:
@@ -32,22 +30,38 @@ To get a fresh copy of **mVARbox**, clone the git repository located `here <http
 
 
 
+
+
 .. :hidden: es para que no salga al final de la página, solo aparece en el lateral izquierdo
 
-.. toctree::
-   :hidden:   
+
+
+
+
+
+.. toctree::  
    :maxdepth: 2
-   :caption: Contents:
+   :caption: How to use mVARbox
 
-   nutshell
+   basic_notions
+   functions
    tutorials
-   
 
 
 
-Indices and tables
-==================
+.. toctree::  
+   :maxdepth: 2
+   :caption: Further details
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   authors
+   citation
+   related_publications
+
+
+
+.. Indices and tables
+   ==================
+
+   * :ref:`genindex`
+   * :ref:`modindex`
+   * :ref:`search`

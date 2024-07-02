@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>mVARbox &mdash; mVARbox  documentation</title>
+  <title>mVARbox: A tool for time series modelling, spectral estimation and synthetic data generation &mdash; mVARbox  documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
 
@@ -21,7 +21,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="mVARbox in a nutshell" href="nutshell.html" /> 
+    <link rel="next" title="Basic notions" href="basic_notions.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -43,10 +43,17 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">How to use mVARbox</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="nutshell.html">mVARbox in a nutshell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_notions.html">Basic notions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions.html">Functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Further details</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="citation.html">Citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="related_publications.html">Related publications</a></li>
 </ul>
 
         </div>
@@ -63,7 +70,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">mVARbox</li>
+      <li class="breadcrumb-item active">mVARbox: A tool for time series modelling, spectral estimation and synthetic data generation</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -73,10 +80,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="mvarbox">
-<h1>mVARbox<a class="headerlink" href="#mvarbox" title="Link to this heading"></a></h1>
-<section id="a-tool-for-time-series-modelling-spectral-estimation-and-synthetic-data-generation">
-<h2>A tool for time series modelling, spectral estimation and synthetic data generation<a class="headerlink" href="#a-tool-for-time-series-modelling-spectral-estimation-and-synthetic-data-generation" title="Link to this heading"></a></h2>
+  <section id="mvarbox-a-tool-for-time-series-modelling-spectral-estimation-and-synthetic-data-generation">
+<h1>mVARbox: A tool for time series modelling, spectral estimation and synthetic data generation<a class="headerlink" href="#mvarbox-a-tool-for-time-series-modelling-spectral-estimation-and-synthetic-data-generation" title="Link to this heading"></a></h1>
 <p><strong>mVARbox</strong> is a Matlab toolbox for uni/multivariate data series analysis in both time and frequency domains, with special focus on multivariate autoregressive (VAR) models. By using <strong>mVARbox</strong>, you will be able to, among others:</p>
 <ul class="simple">
 <li><p>estimate auto/cross spectra from time series using different estimation methods (Welch, Blackman-Tukey, Daniell, etc.),</p></li>
@@ -88,23 +93,38 @@
 <p><strong>mVARbox</strong> is specifically designed for educational and research purposes. It is released under MIT license.</p>
 <p>To get a fresh copy of <strong>mVARbox</strong>, clone the git repository located <a class="reference external" href="https://github.com/arya-upm/mVARbox">here</a>. You can also <a class="reference external" href="https://github.com/arya-upm/mVARbox/archive/refs/heads/main.zip">download</a> it directly.</p>
 <div class="toctree-wrapper compound">
-</div>
-</section>
-<section id="indices-and-tables">
-<h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading"></a></h2>
-<ul class="simple">
-<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
-<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+<p class="caption" role="heading"><span class="caption-text">How to use mVARbox</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="basic_notions.html">Basic notions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions.html">Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#functions-initialise-class">Functions <code class="docutils literal notranslate"><span class="pre">initialise_(class)</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#functions-get-class1-class2">Functions <code class="docutils literal notranslate"><span class="pre">get_(class1)_(class2)</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#functions-fun">Functions <code class="docutils literal notranslate"><span class="pre">fun_</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="functions.html#function-fun-default-value">Function <code class="docutils literal notranslate"><span class="pre">fun_default_value</span></code></a></li>
 </ul>
-</section>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Further details</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Authors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="authors.html#list-of-authors-and-maintainers">List of authors and maintainers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="authors.html#list-of-contributors">List of contributors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="citation.html">Citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="related_publications.html">Related publications</a></li>
+</ul>
+</div>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="nutshell.html" class="btn btn-neutral float-right" title="mVARbox in a nutshell" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="basic_notions.html" class="btn btn-neutral float-right" title="Basic notions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
