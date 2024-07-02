@@ -18,7 +18,7 @@ author = '2024, Cristóbal José Gallego Castillo (UPM), Álvaro Cuerva Tejero (
 
 import sphinx_rtd_theme
 
-html_theme = 'sphinx_rtd_theme'   # NO EXISTE - El tema utilizado por Read the Docs, que es muy popular por su diseño limpio y fácil de navegar - SE INSTALA LOCALMENTE CON `> pip install sphinx_rtd_theme`, para la web hay que incluirlo en requirements.txt
+html_theme = 'sphinx_rtd_theme'   # NO EXISTE - El tema utilizado por Read the Docs, que es muy popular por su diseño limpio y fácil de navegar - SE INSTALA LOCALMENTE CON `> pip install sphinx_rtd_theme`, para la web hay que incluirlo en requirements.txt, que se especifica en .readthedocs.yaml
 html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 # html_theme = 'classic'   # El tema clásico de Sphinx, utilizado en versiones anteriores
