@@ -13,20 +13,13 @@ author = '2024, Cristóbal José Gallego Castillo (UPM), Álvaro Cuerva Tejero (
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = []
-
-templates_path = ['_templates']
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 
 
-# -- Options for HTML output -------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
+import sphinx_rtd_theme
 
-##### import sphinx_rtd_theme
-
-html_theme = 'sphinx_rtd_theme'   # NO EXISTE - El tema utilizado por Read the Docs, que es muy popular por su diseño limpio y fácil de navegar - SE INSTALA CON `> pip install sphinx_rtd_theme`
-##### html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+html_theme = 'sphinx_rtd_theme'   # NO EXISTE - El tema utilizado por Read the Docs, que es muy popular por su diseño limpio y fácil de navegar - SE INSTALA LOCALMENTE CON `> pip install sphinx_rtd_theme`, para la web hay que incluirlo en requirements.txt
+html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 # html_theme = 'classic'   # El tema clásico de Sphinx, utilizado en versiones anteriores
 # html_theme = 'alabaster'   # Un tema limpio y minimalista que es el tema predeterminado en Sphinx
@@ -35,6 +28,26 @@ html_theme = 'sphinx_rtd_theme'   # NO EXISTE - El tema utilizado por Read the D
 # html_theme = 'agogo'   # Otros temas que vienen con Sphinx y que pueden ser utilizados según las preferencias.
 # html_theme = "sphinx_book_theme"   # NO EXISTE - Usado en pypsa-eur
 
+
+
+
+
+#extensions = []
+extensions = [
+    'sphinx.ext.autodoc',
+    'sphinx.ext.napoleon',
+    'sphinx_rtd_theme',
+]
+
+templates_path = ['_templates']
+# exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = []
+html_static_path = ['_static']
+
+
+
+# -- Options for HTML output -------------------------------------------------
+# https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 
 ########## Esto es para intentar poner el botón de light/dark
