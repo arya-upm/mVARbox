@@ -1,0 +1,26 @@
+:root {
+    --color-background-light: #ffffff;
+    --color-background-dark: #282c34;
+    --color-text-light: #000000;
+    --color-text-dark: #ffffff;
+}
+
+body.light-mode {
+    background-color: var(--color-background-light);
+    color: var(--color-text-light);
+}
+
+body.dark-mode {
+    background-color: var(--color-background-dark);
+    color: var(--color-text-dark);
+}
+
+/* Opcional: Estilos adicionales para enlaces y otros elementos */
+body.light-mode a {
+    color: #1a0dab;
+}
+
+body.dark-mode a {
+    color: #8ab4f8;
+}
+
